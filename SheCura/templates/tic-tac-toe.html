@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
+    <style>
+        /* 🔥 Stunning Moving Background */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            background:url("{{ url_for('static', filename='images/ti.jpg') }}")no-repeat center center fixed;
+            background-size: cover;            
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        @keyframes moveBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .mode-selection {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 1.2em;
+            color: rgb(247, 243, 243);
+            background: #6f6962;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 5px 25px rgba(170, 172, 173, 0.5);
+        }
+
+        .btn:hover {
+            background: #ff4500;
+            transform: scale(1.1);
+        }
+
+        /* Highlight the selected button */
+        .btn.selected {
+            background: #ff4500;
+            transform: scale(1.1);
+        }
+
+        /* 🎮 Beautiful Game Board */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 120px);
+            grid-template-rows: repeat(3, 120px);
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .cell {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            font-weight: bold;
+            background: white;
+            color: #333;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+
+        .cell:hover {
+            background: #d5dbdb;
+            transform: scale(1.1);
+        }
+
+        .cell.x { color: #e74c3c; text-shadow: 2px 2px 10px #ff5733; }
+        .cell.o { color: #2980b9; text-shadow: 2px 2px 10px #3498db; }
+
+        .winner {
+            font-size: 1.5em;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 10px rgba(255, 255, 0, 0.8);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+
+    <!-- Mode Selection -->
+    <div class="mode-selection">
+        <button class="btn" id="playerBtn" onclick="setMode('player')">2-Player Mode</button>
+        <button class="btn" id="computerBtn" onclick="setMode('computer')">1-Player (vs AI)</button>
+    </div>
+
+    <!-- Tic-Tac-Toe Board -->
+    <div class="board" id="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+    </div>
+
+    <p class="winner" id="winnerMessage"></p>
+    <div>
+    <button class="btn" onclick="resetGame()">Restart Game</button>
+    <button class="btn" onclick="window.location.href='{{ url_for('home') }}'">Go to Home</button>
+    </div>
+
+    <script>
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let gameActive = false;
+        let gameMode = "";
+        const cells = document.querySelectorAll(".cell");
+        const winnerMessage = document.getElementById("winnerMessage");
+
+        function setMode(mode) {
+            gameMode = mode;
+            resetGame();
+            gameActive = true;
+
+            // Reset selected state for buttons
+            document.getElementById("playerBtn").classList.remove("selected");
+            document.getElementById("computerBtn").classList.remove("selected");
+
+            // Add selected state to the clicked button
+            if (mode === 'player') {
+                document.getElementById("playerBtn").classList.add("selected");
+            } else {
+                document.getElementById("computerBtn").classList.add("selected");
+            }
+        }
+
+        function checkWinner() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+                [0, 4, 8], [2, 4, 6]  
+            ];
+
+            for (let pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    gameActive = false;
+                    winnerMessage.textContent = `${board[a]} Wins! 🎉`;
+                    confettiEffect();  // 🎊 Party Poppers!
+                    return;
+                }
+            }
+
+            if (!board.includes("")) {
+                gameActive = false;
+                winnerMessage.textContent = "It's a Draw! 😐";
+            }
+        }
+
+        function handleClick(event) {
+            if (!gameActive || !gameMode) return;
+            const index = event.target.dataset.index;
+            if (board[index]) return;
+            
+            board[index] = currentPlayer;
+            event.target.textContent = currentPlayer;
+            event.target.classList.add(currentPlayer.toLowerCase());
+
+            checkWinner();
+            if (gameActive && gameMode === "computer" && currentPlayer === "X") {
+                currentPlayer = "O";
+                setTimeout(computerMove, 500);
+            } else {
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+            }
+        }
+
+        function computerMove() {
+            let availableMoves = board.map((cell, index) => cell === "" ? index : null).filter(index => index !== null);
+            if (availableMoves.length > 0) {
+                let randomIndex = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+                board[randomIndex] = "O";
+                cells[randomIndex].textContent = "O";
+                cells[randomIndex].classList.add("o");
+                checkWinner();
+                currentPlayer = "X";
+            }
+        }
+
+        function resetGame() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            gameActive = true;
+            winnerMessage.textContent = "";
+            cells.forEach(cell => {
+                cell.textContent = "";
+                cell.classList.remove("x", "o");
+            });
+            currentPlayer = "X";
+        }
+
+        function confettiEffect() {
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+        }
+
+        cells.forEach(cell => cell.addEventListener("click", handleClick));
+    </script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraPlay - Mini Games</title>
+    <style>
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #4f4f51, #5d4958);
+            padding: 15px 30px;
+            box-shadow: 0 4px 10px rgba(17, 16, 16, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+            margin-right: auto; /* Pushes it to the left */
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            margin: 0;
+            padding: 0 35px;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.1em;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover {
+            color: #f8d7ff;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            margin-left: auto; /* Moves the menu button to the right */
+            margin-right: 15px;
+        }
+
+        body {
+            padding-top: 0.5px;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #58585eac, #55504f);
+            margin: 0;
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #3e3e43, #3a2c37);
+            color: white;
+            padding: 25px;
+            margin: 80px 0 0 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 10px rgba(11, 11, 11, 0.2);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .game-box {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 50px;
+            border-radius: 50px;
+            box-shadow: 0 30px 15px rgba(0, 0, 0.3, 0.3);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            color: white; /* Ensure text is readable */
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+        .game-title, .game-box p {
+            -webkit-text-stroke: 1px rgb(93, 88, 88); /* ✅ Grey outline around text */
+            color: white; /* ✅ Ensures text remains visible */
+            text-shadow: 2px 2px 5px rgba(70, 24, 24, 0.7); /* ✅ Additional shadow for readability */
+            font-weight: bold;
+        }
+        
+        /* Assign different images to each game-box */
+        .container a:nth-child(1) .game-box {
+            background-image: url("{{ url_for('static', filename='images/pic1.jpg') }}");
+        }
+        
+        .container a:nth-child(2) .game-box {
+            background-image: url("{{ url_for('static', filename='images/image2.jpg') }}");
+        }
+        
+        .container a:nth-child(3) .game-box {
+            background-image: url("{{ url_for('static', filename='images/image3.jpg') }}");
+        }
+        
+        .container a:nth-child(4) .game-box {
+            background-image: url("{{ url_for('static', filename='images/image4.jpg') }}");
+        }
+        
+        
+        .game-box:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            background-blend-mode: overlay;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        
+
+        .game-box:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: #b2e8f6;
+        }
+
+        .game-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #f7f2f0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between; /* Ensures logo stays left, menu toggle moves right */
+                align-items: center;
+                padding: 15px 20px;
+            }
+
+            .logo {
+                order: -1; /* Ensures SheCura stays on the left */
+                margin-right: auto; /* Pushes it to the far left */
+            }
+
+            .menu-toggle {
+                order: 1; /* Moves the hamburger menu to the right */
+                margin-left: auto; /* Pushes it to the far right */
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                display: none;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">SheCura</div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links">
+            <li><a href="{{url_for('home')}}">Home</a></li>
+            <li><a href="{{url_for('EmpowerFit')}}">EmpowerFit</a></li>
+            <li><a href="{{url_for('AuraPlay')}}">AuraPlay</a></li>
+            <li><a href="{{url_for('ZenMode')}}">ZenMode</a></li>
+            <li><a href="{{url_for('NourishWell')}}">NourishWell</a></li>
+            <li><a href="{{url_for('MyHealth')}}">My Health Insights</a></li>
+        </ul>
+    </nav>
+
+    <h1>AuraPlay - Mini Games</h1>
+    <div class="container">
+        <a href="{{url_for('tic_tac_toe')}}">
+            <div class="game-box">
+                <div class="game-title">Tic-Tac-Toe</div>
+                <p>Click to Play</p>
+            </div>
+        </a>
+        <a href="{{url_for('Word_Scramble')}}">
+            <div class="game-box">
+                <div class="game-title">Word Scramble</div>
+                <p>Click to Play</p>
+            </div>
+        </a>
+        <a href="{{url_for('catch_falling')}}">
+            <div class="game-box">
+                <div class="game-title">Catch the Falling Object</div>
+                <p>Click to Play</p>
+            </div>
+        </a>
+        <a href="{{url_for('typing_speed_test')}}">
+            <div class="game-box">
+                <div class="game-title">Typing Speed Test</div>
+                <p>Click to Play</p>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

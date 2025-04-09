@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyHealth Insights - SheCura</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Importing New Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Open+Sans:wght@300;400;600&display=swap');
+        
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif; /* Updated body font */
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Dark gradient background */
+            background-size: 400% 400%; /* For moving effect */
+            animation: gradientAnimation 15s ease infinite; /* Animation for moving background */
+            color: #ecf0f1; /* Light text color for better contrast */
+            line-height: 1.6;
+            font-size: 16px; /* Base font size */
+        }
+        
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        h1 {
+            margin-top: 60px; /* Space to avoid navbar overlap */
+            font-size: 2.5rem;
+            font-family: 'Montserrat', sans-serif; /* Updated heading font */
+            font-weight: 600;
+            height: 40px;
+            color: #ecf0f1; /* Light color for headings */
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: rgba(44, 62, 80, 0.9); /* Darker navbar background with transparency */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 70px;
+        }
+        
+        .navbar a {
+            text-decoration: none;
+            color: #ecf0f1; /* Light text color for links */
+            font-size: 1rem;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar a:hover {
+            background-color: #34495e; /* Darker shade on hover */
+            color: white;
+            border-radius: 4px;
+        }
+        
+        .navbar .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .navbar-toggle {
+            display: none; /* Hidden by default */
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        .navbar-toggle-icon {
+            background-color: #ecf0f1;
+            height: 3px;
+            width: 25px;
+            margin: 5px auto;
+            transition: all 0.3s ease;
+        }
+        
+
+        /* Header Styles */
+        header {
+            background-color: rgba(44, 62, 80, 0.9); /* Darker header background with transparency */
+            color: #ecf0f1; /* Light text color */
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            height: 150px;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 40px 20px 20px; /* Space for content visibility */
+            max-width: 1200px;
+            margin: auto;
+        }
+        
+        section {
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-family: 'Montserrat', sans-serif; /* Updated subheading font */
+            font-size: 2rem; /* Size for subheadings */
+            margin-bottom: 15px;
+            color: #ecf0f1; /* Light color for subheadings */
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            height: 2px;
+            background-color: #ecf0f1; /* Light color for underline */
+            width: 40px;
+            margin-top: 5px;
+        }
+        
+        p {
+            font-size: 1rem; /* Text size for paragraphs */
+            margin: 8px 0;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #2c3e50; /* Darker table background */
+        }
+        
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #444; /* Darker border color */
+            font-size: 0.9rem; /* Font size for table content */
+            color: #ecf0f1; /* Light text color for table */
+        }
+        
+        table th {
+            background-color: #34495e; /* Darker shade for table headers */
+            color: white;
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #3b4b5c; /* Slightly lighter for even rows */
+        }
+        
+        table tr:hover {
+            background-color: #34495e; /* Highlight color on row hover */
+            color: white; /* Change text color on hover */
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+        
+        /* Button Styles */
+        button {
+            font-size: 1rem; /* Font size for buttons */
+            padding: 10px 25px;
+            background-color: #34495e; /* Darker shade for buttons */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #2c3e50; /* Darker shade on hover */
+            transform: scale(1.05);
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+        
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 15px;
+            }
+        
+            .navbar-menu a {
+                padding: 10px 20px;
+                width: 100%;
+                text-align: left;
+            }
+        
+            .navbar-toggle {
+                display: block;
+            }
+        
+            .navbar.open .navbar-menu {
+                display: flex;
+            }
+        
+            .navbar.open .navbar-toggle-icon {
+                transform: rotate(90deg); /* Change icon when menu is open */
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        
+            h2 {
+                font-size: 1.4rem;
+            }
+        
+            table {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+main {
+    animation: fadeIn 1s ease-out;
+}
+
+    </style>
+
+    <script>
+        function downloadUserData() {
+            fetch('/download_myhealth_data')
+                .then(response => response.blob())
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = "MyHealth_Insights.txt";
+                    link.click();
+                })
+                .catch(error => console.error('Download error:', error));
+        }
+
+        // Toggle menu on mobile view
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navbar = document.querySelector('.navbar');
+            
+            menuToggle.addEventListener('click', function() {
+                navbar.classList.toggle('active');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <a class="navbar-brand" href="#">SheCura</a>
+        <div class="navbar-menu">
+            <a href="{{url_for('home')}}">Home</a>
+            <a href="{{url_for('EmpowerFit')}}">EmpowerFit</a>
+            <a href="{{url_for('AuraPlay')}}">AuraPlay</a>
+            <a href="{{url_for('ZenMode')}}">ZenMode</a>
+            <a href="{{url_for('NourishWell')}}">NourishWell</a>
+            <a href="{{url_for('MyHealth')}}">MyHealth Insights</a>
+        </div>
+        <div class="navbar-toggle" onclick="toggleNavbar()">
+            <span class="navbar-toggle-icon"></span>
+        </div>
+    </div>
+    
+
+=======
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>MyHealth Insights</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>🔹 Profile Information</h2>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </section>
+
+        <h2>Menstrual Cycle Data</h2>
+        <form method="POST">
+            <label for="last_menstruation">Last Menstruation Date:</label>
+            <input type="date" name="last_menstruation" value="{{ last_menstruation }}" required>
+            <button type="submit">Update</button>
+        </form>
+
+        {% if last_menstruation %}
+            <p>Last Menstruation Date: {{ last_menstruation }}</p>
+            <p>Next Due Date: {{ next_due_date }}</p>
+        {% else %}
+            <p>No menstruation data available.</p>
+        {% endif %}
+
+        <hr>
+
+        <h2>Workout Logs</h2>
+        {% if workout_logs %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Workout Type</th>
+                        <th>Duration (minutes)</th>
+                        <th>Date</th>
+                        <th>Daily Goal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in workout_logs %}
+                        <tr>
+                            <td>{{ log.workout_type }}</td>
+                            <td>{{ log.duration }}</td>
+                            <td>{{ log.date }}</td>
+                            <td>{{ log.daily_goal }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No workout data available.</p>
+        {% endif %}
+
+        <hr>
+
+        <section>
+            <h2>🩸 Menstrual Cycle Data</h2>
+            {% if cycle_data %}
+                <p><strong>Last Menstruation:</strong> {{ cycle_data.last_menstruation }}</p>
+                <p><strong>Next Due Date:</strong> {{ next_due_date }}</p>
+            {% else %}
+                <p>No data available.</p>
+            {% endif %}
+        </section>
+
+        <section>
+            <h2>🏋️ Workout History</h2>
+            {% if workout_logs %}
+                <ul>
+                    {% for log in workout_logs %}
+                        <li>{{ log.date }} - {{ log.workout_type }} ({{ log.duration }} mins)</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No workout logs found.</p>
+            {% endif %}
+        </section>
+
+
+
+        <button onclick="downloadUserData()">📥 Download MyHealth Data</button>
+    </main>
+</body>
+</html>

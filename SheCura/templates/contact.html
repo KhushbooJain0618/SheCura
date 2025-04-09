@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Cards</title>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile Cards</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                background-color: #fff5f7; /* Light pink background */
+                text-align: center;
+                color: #d26d77; /* Soft pink text */
+            }
+            
+            .navbar {
+                background-color: #f8c1c8; /* Light pastel pink */
+                color: white;
+                padding: 15px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 1.2em;
+            }
+            
+            .navbar .logo {
+                font-weight: bold;
+            }
+            
+            .navbar a {
+                color: white;
+                text-decoration: none;
+                padding: 8px 15px;
+                border-radius: 5px;
+                transition: background 0.3s ease;
+            }
+            
+            .navbar a:hover {
+                background: #ffffff;
+                color: #d26d77;
+            }
+            
+            .heading {
+                margin-top: 20px;
+                font-size: 2em;
+                font-weight: bold;
+                color: #d26d77; /* Soft pink */
+            }
+            
+            .profile-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 30px;
+                padding: 40px;
+            }
+            
+            .profile-container {
+                background-color: #f8c1c8; /* Light pastel pink */
+                border: 2px solid #f8c1c8;
+                border-radius: 10px;
+                padding: 20px;
+                width: 320px;
+                text-align: center;
+                color: white;
+                transition: transform 0.3s ease-in-out;
+            }
+            
+            .profile-container:hover {
+                transform: scale(1.05);
+            }
+            
+            .profile-image {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-bottom: 15px;
+                border: 2px solid white;
+            }
+            
+            .profile-info h2 {
+                margin: 0 0 5px 0;
+                font-size: 1.5em;
+            }
+            
+            .profile-info p {
+                margin: 5px 0;
+            }
+            
+            .additional-containers {
+                margin-top: 15px;
+            }
+            
+            .additional-container {
+                background-color: #ffffff;
+                border-radius: 5px;
+                padding: 10px;
+                margin-bottom: 10px;
+                text-align: left;
+                font-size: 0.9em;
+                color: #d26d77; /* Soft pink */
+            }
+            
+            .link {
+                color: #d26d77; /* Soft pink */
+                text-decoration: none;
+                font-weight: bold;
+            }
+            
+            .link:hover {
+                text-decoration: underline;
+            }
+            
+            .contact-button {
+                display: block;
+                background-color: #ffffff;
+                color: #d26d77;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                text-decoration: none;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+            
+            .contact-button:hover {
+                background-color: #f9d5da; /* Very light pink */
+            }
+            
+        </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">SheCura</div>
+        <a href="{{ url_for('home') }}">Home</a>
+    </div>
+
+    <!-- Heading -->
+    <div class="heading">Get In Touch</div>
+
+    <!-- Profile Cards -->
+    <div class="profile-wrapper">
+        <div class="profile-container">
+            <img src="{{ url_for('static', filename='images/khushboo.jpg') }}" alt="Khushboo Jain" class="profile-image">
+            <div class="profile-info">
+                <h2>Khushboo Jain</h2>
+            </div>
+
+            <div class="additional-containers">
+                <div class="additional-container">
+                    <p>Email: <a href="mailto:khushboo2006june@gmail.com" class="link">khushboo2006june@gmail.com</a></p>
+                </div>
+                <div class="additional-container">
+                    <p>Phone: <a href="tel:+917015625651" class="link">+91 7015625651</a></p>
+                </div>
+                <div class="additional-container">
+                    <p>State: <a href="https://www.google.com/maps/place/Haryana" target="_blank" class="link">Haryana</a></p>
+                </div>
+                <div class="additional-container">
+                    <p>Country: <a href="https://www.google.com/maps/place/India" target="_blank" class="link">India</a></p>
+                </div>
+            </div>
+
+            <a href="https://www.linkedin.com/in/khushboo-jain-7003a3301" target="_blank" class="contact-button">Contact</a>
+        </div>
+
+        <div class="profile-container">
+            <img src="{{ url_for('static', filename='images/aditi.png') }}" alt="Aditi Aggarwal" class="profile-image">
+            <div class="profile-info">
+                <h2>Aditi Aggarwal</h2>
+            </div>
+
+            <div class="additional-containers">
+                <div class="additional-container">
+                    <p>Email: <a href="mailto:aditi222005@gmail.com" class="link">aditi222005@gmail.com</a></p>
+                </div>
+                <div class="additional-container">
+                    <p>Phone: <a href="tel:+919817698964" class="link">+91 9817698964 </a></p>
+                </div>
+                <div class="additional-container">
+                    <p>State: <a href="https://www.google.com/maps/place/Haryana" target="_blank" class="link">Haryana</a></p>
+                </div>
+                <div class="additional-container">
+                    <p>Country: <a href="https://www.google.com/maps/place/India" target="_blank" class="link">India</a></p>
+                </div>
+            </div>
+
+            <a href="https://www.linkedin.com/in/aditi-aggarwal-4939752ba" target="_blank" class="contact-button">Contact</a>
+        </div>
+
+        <div class="profile-container">
+            <img src="{{ url_for('static', filename='images/ishleen.png') }}" alt="Ishleen Kaur" class="profile-image">
+            <div class="profile-info">
+                <h2>Ishleen Kaur</h2>
+            </div>
+
+            <div class="additional-containers">
+                <div class="additional-container">
+                    <p>Email: <a href="mailto:ishleenk722@gmail.com" class="link">ishleenk722@gmail.com</a></p>
+                </div>
+                <div class="additional-container">
+                    <p>Phone: <a href="tel:+917206430223" class="link">+91 7206430223</a></p>
+                </div>
+                <div class="additional-container">
+                    <p>State: <a href="https://www.google.com/maps/place/Haryana" target="_blank" class="link">Haryana</a></p>
+                </div>
+                <div class="additional-container">
+                    <p>Country: <a href="https://www.google.com/maps/place/India" target="_blank" class="link">India</a></p>
+                </div>
+            </div>
+
+            <a href="https://www.linkedin.com/in/ishleen-kaur-92b452316" target="_blank" class="contact-button">Contact</a>
+        </div>
+    </div>
+
+</body>
+</html>

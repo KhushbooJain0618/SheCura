@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f3e9dc, #d3c6b3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            width: 350px;
+            text-align: center;
+            color: #4a4a4a;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #3d3d3d;
+        }
+
+        input, textarea {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.5);
+            color: #3d3d3d;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(74, 74, 74, 0.7);
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .star {
+            font-size: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #b1a18f;
+        }
+
+        .star:hover, .star.selected {
+            color: #d4af37;
+            transform: scale(1.2);
+        }
+
+        button {
+            background: #a58f72;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #8c7358;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #5c5143;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Submit Your Feedback</h2>
+        <form action="/submit_feedback" method="post">
+            <input type="text" name="name" placeholder="Your Name" required><br>
+            <input type="email" name="email" placeholder="Your Email" required><br>
+
+            <div class="stars">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <input type="hidden" name="rating" id="ratingValue" required>
+
+            <textarea name="feedback" rows="4" placeholder="Write your feedback here..." required></textarea><br>
+            <button type="submit">Submit Feedback</button>
+        </form>
+        <a href="/admin">View All Feedback</a>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const ratingValue = document.getElementById('ratingValue');
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                ratingValue.value = index + 1;
+
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.add('selected');
+                    } else {
+                        s.classList.remove('selected');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

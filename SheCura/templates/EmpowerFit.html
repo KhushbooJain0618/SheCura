@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmpowerFit - SheCura</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- External CSS for SheCura theme -->
+    <style>
+        /* Global Styles */
+        body {
+            background: linear-gradient(to right, #253A43, #4B6671); /* Slightly lighter teal gradient */
+            font-family: 'Poppins', sans-serif;
+            color: #e8e8e8;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: #E1A100 !important; /* Gold */
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+        }
+
+        .navbar-nav {
+            text-align: center;
+        }
+
+        .navbar-nav .nav-link {
+            color: black !important;
+            font-weight: 500;
+            margin: 0 12px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #E1A100 !important;
+            text-shadow: 0px 0px 8px rgba(225, 161, 0, 0.7);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: url('https://source.unsplash.com/1600x900/?fitness,workout') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #F7C947, #E1A100);
+            color: black;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            box-shadow: 0px 5px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Workout Cards - Ensure Same Size */
+        .workout-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            margin-bottom: 35px;
+            height: 100%; /* Ensures all cards are of equal height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ensuring Same Image Size */
+        .workout-card img {
+            width: 100%; /* Full width */
+            height: 200px; /* Set a fixed height */
+            object-fit: cover; /* Ensures no distortion */
+        }
+
+        /* Make card body expand evenly */
+        .workout-card .card-body {
+            flex-grow: 1; /* Fills the remaining space in the card */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Ensures button stays at bottom */
+        }
+
+
+        .workout-card:hover {
+            transform: scale(1.04);
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 15px;
+                font-size: 14px;
+            }
+
+            .premium-badge {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+
+            .navbar-nav {
+                text-align: center;
+            }
+            
+            .workout-card img {
+                height: 180px;
+                object-fit: cover;
+            }
+        }
+
+        /* Workout Tracker */
+        .tracker-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease-in-out;
+            margin-top: 50px;
+        }
+
+        .progress {
+            height: 22px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, #F5B700, #FF8800);
+            font-weight: bold;
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">SheCura</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="{{url_for('home')}}">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{url_for('EmpowerFit')}}">EmpowerFit</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('AuraPlay')}}">AuraPlay</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('ZenMode')}}">ZenMode</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('NourishWell')}}">NourishWell</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('MyHealth')}}">MyHealth Insights</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="premium-badge">🌟 Premium Page</div>
+        <h1>Welcome to EmpowerFit</h1>
+        <p>Exclusive fitness & workout plans tailored for women.</p>
+    </div>
+
+   <!-- Workout Sections -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- Cardiovascular Exercise -->
+        <div class="col-md-4">
+            <div class="card workout-card">
+                <img src="{{ url_for('static', filename='images/cardio.jpg') }}" class="card-img-top" alt="Cardiovascular Exercise">
+                <div class="card-body">
+                    <h5 class="card-title">Cardiovascular Exercise</h5>
+                    <p class="card-text">Boost your endurance and improve heart health with heart-pumping cardiovascular workouts.</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#cardioModal">Start Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strength Training Exercises -->
+        <div class="col-md-4">
+            <div class="card workout-card">
+                <img src="{{ url_for('static', filename='images/strength.jpg') }}" class="card-img-top" alt="Strength Training Exercises">
+                <div class="card-body">
+                    <h5 class="card-title">Strength Training Exercises</h5>
+                    <p class="card-text">Develop muscle strength and endurance with resistance-based exercises and bodyweight movements.</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#strengthModal">Start Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yoga and Mindfulness Practice -->
+        <div class="col-md-4">
+            <div class="card workout-card">
+                <img src="{{ url_for('static', filename='images/yoga.jpg') }}" class="card-img-top" alt="Yoga and Mindfulness Practice">
+                <div class="card-body">
+                    <h5 class="card-title">Yoga and Mindfulness Practice</h5>
+                    <p class="card-text">Relax, stretch, and improve flexibility while cultivating mindfulness through guided yoga sessions.</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#yogaModal">Start Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- High-Intensity Interval Training (HIIT) -->
+        <div class="col-md-4">
+            <div class="card workout-card">
+                <img src="{{ url_for('static', filename='images/hiit.jpg') }}" class="card-img-top" alt="High-Intensity Interval Training">
+                <div class="card-body">
+                    <h5 class="card-title">High-Intensity Interval Training</h5>
+                    <p class="card-text">Perform high-energy exercises with short recovery periods to burn fat and build endurance.</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#hiitModal">Start Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pilates Core Workout -->
+        <div class="col-md-4">
+            <div class="card workout-card">
+                <img src="{{ url_for('static', filename='images/pilates.jpg') }}" class="card-img-top" alt="Pilates Core Workout">
+                <div class="card-body">
+                    <h5 class="card-title">Pilates Core Workout</h5>
+                    <p class="card-text">Enhance core strength, balance, and flexibility through controlled movements in Pilates.</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#pilatesModal">Start Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Full Body Stretching Routine -->
+        <div class="col-md-4">
+            <div class="card workout-card">
+                <img src="{{ url_for('static', filename='images/stretch.jpg') }}" class="card-img-top" alt="Full Body Stretching Routine">
+                <div class="card-body">
+                    <h5 class="card-title">Full Body Stretching Routine</h5>
+                    <p class="card-text">Enhance flexibility, reduce muscle tightness, and prevent injuries with a full-body stretching routine.</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#stretchModal">Start Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Workout Modals -->
+<div class="modal fade" id="cardioModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cardio Blast Workout</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/GauW8uJtvFs" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="strengthModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Strength Training Workout</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/QbffDgGfn4Q" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="yogaModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yoga & Mindfulness</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/n_-qTW4py0M" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="hiitModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">HIIT Workout</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/X1tMY20iKrY" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pilatesModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pilates Core Workout</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/DXsYbCuouo4" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="stretchModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Full Body Stretch</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/y87vSUoIMGU?si=7XF-5hQ9vRXjlO4h" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Workout Tracker -->
+    <div class="container mt-5 tracker-container">
+        <h3 class="text-center">Workout Tracker</h3>
+
+        <!-- Daily Goal Input -->
+        <div class="form-group">
+            <label>Set Your Daily Workout Goal (mins)</label>
+            <input type="number" id="dailyGoal" class="form-control" placeholder="Enter daily goal" required>
+        </div>
+
+        <form id="workoutForm">
+            <div class="form-group">
+                <label>Workout Type</label>
+                <input type="text" class="form-control" id="workoutType" required>
+            </div>
+            <div class="form-group">
+                <label>Duration (mins)</label>
+                <input type="number" class="form-control" id="workoutDuration" required>
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" class="form-control" id="workoutDate" required>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Log Workout</button>
+        </form>
+
+        <h4 class="mt-4">Workout Summary</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Duration</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="workoutTableBody">
+                {% for log in workout_logs %}
+                <tr id="log-{{ log.id }}">
+                    <td>{{ log.workout_type }}</td>
+                    <td>{{ log.duration }} mins</td>
+                    <td>{{ log.date }}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="deleteWorkout({{ log.id }})">Delete</button>
+                    </td>
+                </tr>
+    {% endfor %}
+            </tbody>
+        </table>
+
+        <h4>Progress Towards Daily Goal</h4>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar" style="width: 0%;">0%</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-5">
+        <p>&copy; 2025 SheCura | Empowering Women’s Health</p>
+    </footer>
+
+    <script>
+
+    document.getElementById("workoutForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+    
+        let type = document.getElementById("workoutType").value;
+        let duration = parseInt(document.getElementById("workoutDuration").value);
+        let date = document.getElementById("workoutDate").value;
+        let dailyGoal = parseInt(document.getElementById("dailyGoal").value);
+    
+        if (!type || isNaN(duration) || duration <= 0 || !date || isNaN(dailyGoal) || dailyGoal <= 0) {
+            alert("Please enter valid workout details.");
+            return;
+        }
+    
+        let workoutData = {
+            workoutType: type,
+            duration: duration,
+            date: date,
+            dailyGoal: dailyGoal
+        };
+    
+        console.log("Submitting workout:", workoutData); // Debugging
+    
+        // Send data to Flask backend
+        fetch('/add_workout', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(workoutData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            fetchWorkoutLogs(); // Refresh logs after adding
+            document.getElementById("workoutForm").reset();
+        })
+        .catch(error => console.error("Error:", error));
+    });
+    
+    // Function to fetch and display workout logs
+    function fetchWorkoutLogs() {
+        fetch('/get_workout_logs')
+            .then(response => response.json())
+            .then(data => {
+                let tableBody = document.getElementById("workoutTableBody");
+                tableBody.innerHTML = ""; // Clear previous logs
+    
+                let totalDuration = 0;
+                let goal = 0;
+    
+                data.forEach(log => {
+                    let row = document.createElement("tr");
+    
+                    row.innerHTML = `
+                        <td>${log.type}</td>
+                        <td>${log.duration} mins</td>
+                        <td>${log.date}</td>
+                        <td><button class="btn btn-danger btn-sm delete-btn" data-id="${log.id}">Delete</button></td>
+                    `;
+    
+                    tableBody.appendChild(row);
+                    totalDuration += log.duration;
+                    goal = log.goal;
+                });
+    
+                updateProgress(totalDuration, goal);
+    
+                // Attach event listeners to delete buttons after table update
+                document.querySelectorAll(".delete-btn").forEach(button => {
+                    button.addEventListener("click", function () {
+                        let logId = this.getAttribute("data-id");
+                        deleteWorkout(logId);
+                    });
+                });
+    
+            })
+            .catch(error => console.error("Error fetching logs:", error));
+    }
+    
+    // Function to update progress bar
+    function updateProgress(duration, goal) {
+        let progressBar = document.getElementById("progressBar");
+    
+        if (goal > 0) {
+            let newProgress = Math.min((duration / goal) * 100, 100);
+            progressBar.style.width = newProgress + "%";
+            progressBar.textContent = Math.round(newProgress) + "%";
+    
+            if (newProgress >= 100) {
+                progressBar.classList.add("bg-success");
+                alert("🎉 Congratulations! You've met your daily workout goal!");
+            } else {
+                progressBar.classList.remove("bg-success");
+            }
+        } else {
+            progressBar.style.width = "0%";
+            progressBar.textContent = "0%";
+        }
+    }
+    
+    // Function to delete a workout log
+    function deleteWorkout(logId) {
+        fetch(`/delete_workout/${logId}`, { method: "DELETE" })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchWorkoutLogs(); // Refresh logs after deletion
+            })
+            .catch(error => console.error("Error deleting log:", error));
+    }
+    
+    // Load workout logs on page load
+    document.addEventListener("DOMContentLoaded", fetchWorkoutLogs);
+</script>
+    
+
+    <!-- jQuery and Bootstrap Bundle (Bootstrap 4) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

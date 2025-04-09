@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SheCura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Animated Background */
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            animation: gradientShift 6s infinite alternate ease-in-out;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+            100% { background: linear-gradient(135deg, #2a5298, #1e3c72); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particles span {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: floatParticles 6s infinite ease-in-out alternate;
+        }
+
+        @keyframes floatParticles {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-50px); }
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar a:hover {
+            color: #c0e2ff;
+        }
+
+        /* Glassmorphic Login Container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            animation: fadeIn 1.2s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            color: #ffffff;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: 0.3s;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+        }
+
+        .submit-btn {
+            background-color: #00c9ff;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #0099cc;
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(0, 201, 255, 0.6);
+        }
+
+        .register-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: white;
+        }
+
+        .register-link a {
+            color: #00c9ff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .register-link a:hover {
+            color: #0099cc;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 25px;
+                width: 90%;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            input {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .submit-btn {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+
+        .flash-message {
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .flash-message.success {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .flash-message.danger {
+            background-color: #f44336;
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Floating Particles -->
+    <div class="particles">
+        <span style="top: 10%; left: 10%; animation-duration: 4s;"></span>
+        <span style="top: 30%; left: 50%; animation-duration: 5s;"></span>
+        <span style="top: 70%; left: 20%; animation-duration: 6s;"></span>
+        <span style="top: 40%; left: 80%; animation-duration: 4s;"></span>
+        <span style="top: 90%; left: 60%; animation-duration: 5s;"></span>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#">SheCura</a>
+        <a href="{{ url_for('home') }}">Home</a>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <h2>Login</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <label for="email">{{ form.email.label }}</label>
+            {{ form.email(placeholder="Enter your email") }}
+
+            <label for="password">{{ form.password.label }}</label>
+            {{ form.password(placeholder="Enter your password") }}
+
+            <button type="submit" class="submit-btn">{{ form.submit.label.text }}</button>
+
+            <div class="register-link">
+                Don't have an account? <a href="{{ url_for('register') }}">Register</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Automatically fade out flash messages after 3 seconds
+        setTimeout(function() {
+            let flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(function(msg) {
+                msg.style.transition = "opacity 0.5s ease-out";
+                msg.style.opacity = "0";
+                setTimeout(() => msg.remove(), 500);
+            });
+        }, 300);
+    </script>
+
+</body>
+</html>

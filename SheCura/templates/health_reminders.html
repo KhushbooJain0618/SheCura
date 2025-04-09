@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Reminder</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://img.freepik.com/free-photo/glasses-stethoscope-near-notebook_23-2147796464.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000; /* Black text color */
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: white; /* White text for title */
+        }
+
+        /* Navbar Style */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #000; /* Black navbar */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            margin-right: 30px;
+        }
+
+        .navbar a:hover {
+            color: #bbb; /* Light grey hover effect */
+        }
+
+        /* Form Styles */
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            margin: 100px auto 20px auto;
+            width: 80%;
+            max-width: 600px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .form-container h2 {
+            color: white; /* White for heading */
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            font-size: 1.1em;
+            color: white; /* White label text */
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc; /* Light grey border */
+            border-radius: 5px;
+            font-size: 1.1em;
+            color: black;
+            background-color: white;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container input:focus,
+        .form-container select:focus {
+            border-color: #aaa; /* Darker grey focus border */
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-container button {
+            background-color: #000; /* Black button */
+            color: white;
+            font-size: 1.2em;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            align-self: center;
+        }
+
+        .form-container button:hover {
+            background-color: #333; /* Dark grey hover effect */
+        }
+
+        /* Card Styles */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* White card with transparency */
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 45%;
+            max-width: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.9); /* Lighter card hover effect */
+        }
+
+        .card h2 {
+            color: #000;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        .card button {
+            background-color: black;
+            color: white;
+            font-size: 1em;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .card button:hover {
+            background-color: black;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 10px;
+                height: auto;
+            }
+
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .card {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">SheCura</a>
+        <a href="{{ url_for('home') }}">Home</a>
+    </div>
+
+    <!-- Form for User Input -->
+    <div class="form-container">
+        <h2>Enter Your Reminder Details</h2>
+        <form id="reminderForm">
+            <label for="userName">Name:</label>
+            <input type="text" id="userName" name="userName" required>
+
+            <label for="reminderType">Reminder Type:</label>
+            <select id="reminderType" name="reminderType" required>
+                <option value="Select type">Select type</option>
+                <option value="Drink Water">Drink Water</option>
+                <option value="Exercise">Exercise</option>
+                <option value="Take Medication">Take Medication</option>
+                <option value="Stretching">Stretching</option>
+                <option value="Eat a Healthy Snack">Eat a Healthy Snack</option>
+                <option value="Walk for 10 Minutes">Walk for 10 Minutes</option>
+                <option value="Relax and Breathe">Relax and Breathe</option>
+                <option value="Take a Break">Take a Break</option>
+            </select>
+
+            <label for="reminderTime">Reminder Time:</label>
+            <input type="time" id="reminderTime" name="reminderTime" required>
+
+            <label for="nextReminder">Next Reminder (optional):</label>
+            <input type="time" id="nextReminder" name="nextReminder">
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Container for Cards -->
+    <div class="card-container" id="userCards"></div>
+
+    <script>
+        let editingCard = null;  // To track which card is being edited
+
+document.getElementById("reminderForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const userName = document.getElementById("userName").value;
+    const reminderType = document.getElementById("reminderType").value;
+    const reminderTime = document.getElementById("reminderTime").value;
+    const nextReminder = document.getElementById("nextReminder").value || "N/A"; // Default to "N/A"
+
+    if (editingCard) {
+        editingCard.querySelector("h2").textContent = userName;
+        editingCard.querySelector(".reminder-type").textContent = `Reminder Type: ${reminderType}`;
+        editingCard.querySelector(".reminder-time").textContent = `Reminder Time: ${reminderTime}`;
+        editingCard.querySelector(".next-reminder").textContent = `Next Reminder: ${nextReminder}`;
+
+        editingCard = null; // Reset editing card
+    } else {
+        // Create a new card
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+            <h2>${userName}</h2>
+            <p class="reminder-type"><strong>Reminder Type:</strong> ${reminderType}</p>
+            <p class="reminder-time"><strong>Reminder Time:</strong> ${reminderTime}</p>
+            <p class="next-reminder"><strong>Next Reminder:</strong> ${nextReminder}</p>
+            <button onclick="editCard(this)">Edit</button>
+            <button onclick="deleteCard(this)">Delete</button>
+        `;
+
+        document.getElementById("userCards").appendChild(card);
+    }
+
+    document.getElementById("reminderForm").reset();
+});
+
+function editCard(button) {
+    const card = button.parentElement;
+    editingCard = card;
+
+    document.getElementById("userName").value = card.querySelector("h2").textContent;
+    document.getElementById("reminderType").value = card.querySelector(".reminder-type").textContent.replace("Reminder Type: ", "");
+    document.getElementById("reminderTime").value = card.querySelector(".reminder-time").textContent.replace("Reminder Time: ", "");
+    document.getElementById("nextReminder").value = card.querySelector(".next-reminder").textContent.replace("Next Reminder: ", "");
+
+    document.querySelector("button[type='submit']").textContent = "Update Reminder";
+}
+
+function deleteCard(button) {
+    button.parentElement.remove();
+}
+
+    </script>
+
+</body>
+</html>

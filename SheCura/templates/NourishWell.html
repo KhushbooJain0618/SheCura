@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NourishWell - Personalized Meal Plans</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/nourishwell.css') }}">
+    <script src="{{ url_for('static', filename='scripts/nourishwell.js') }}" defer></script>
+    <style>
+        /* Global Styles */
+        body {
+    font-family: 'Poppins', sans-serif;
+    background: url('https://thumbs.dreamstime.com/b/different-spices-herbs-stone-table-top-view-ingredients-cooking-food-background-different-spices-herbs-black-120232209.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+
+/* Header Styling */
+header {
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 1.2rem;
+}
+
+/* Form Container */
+.meal-form {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 60%;
+    margin: 30px auto;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+}
+
+.meal-form:hover {
+    transform: scale(1.02);
+}
+
+/* Form Elements */
+.meal-form select, .meal-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 6px;
+    border: 2px solid cadetblue;
+    outline: none;
+    font-size: 1rem;
+}
+
+button {
+    background: linear-gradient(to right, cadetblue, rgb(134, 173, 244));
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background: linear-gradient(to right, cadetblue, rgb(134, 173, 244));
+    transform: scale(1.05);
+}
+
+/* Meal Plan Section */
+.meal-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+/* Meal Cards */
+.meal {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 220px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+    font-size: 1rem;
+}
+
+.meal:hover {
+    transform: scale(1.05);
+}
+
+.meal h3 {
+    color: cadetblue;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.meal p {
+    color: #333;
+    font-size: 1rem;
+}
+
+/* Shopping List - New Design */
+#shoppingList {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 50%;
+    margin: 30px auto;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+#shoppingList h2 {
+    text-align: center;
+    color: cadetblue;
+}
+
+.shopping-list-container {
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.shopping-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.shopping-list-container::-webkit-scrollbar-thumb {
+    background: cadetblue;
+    border-radius: 10px;
+}
+
+.shopping-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: aliceblue;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.shopping-item:hover {
+    background: aliceblue;
+}
+
+.shopping-item input {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.shopping-item label {
+    flex-grow: 1;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.shopping-item.checked {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.hidden { display: none; }
+.checked { text-decoration: line-through; color: gray; }
+
+/* Health Tip Section */
+#healthTip {
+    background: linear-gradient(to right, cadetblue, rgb(134, 173, 244));
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    margin: 40px auto;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#healthTip h2 {
+    font-size: 1.5rem;
+}
+
+#dailyTip {
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .meal-form, #shoppingList, #healthTip {
+        width: 90%;
+    }
+
+    .meal-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .meal {
+        width: 80%;
+    }
+}
+
+/* Navbar Styling */
+        .navbar {
+            background-color: cadetblue; /* Light Pink Background */
+            padding: 15px 0; /* Remove left/right padding */
+            width: 100%;
+        }
+
+        /* Container to control spacing */
+        .container {
+            display: flex;
+            justify-content: space-between; /* Ensures logo is left & links are right */
+            align-items: center;
+            max-width: 1400px;
+            margin: auto;
+            width: 100%;
+            padding: 0 20px; /* Adds small padding on left & right */
+        }
+
+        /* SheCura Logo (Fully Left) */
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            margin: 0; /* Removes any extra spacing */
+            padding: 0; /* Ensures no inner padding */
+            display: flex;
+            align-items: center;
+        }
+        /* Nav Links */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            gap: 40px; /* Increased spacing */
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">SheCura</a>
+            <ul class="nav-links">
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('EmpowerFit')}}">EmpowerFit</a></li>
+                <li><a href="{{url_for('AuraPlay')}}">AuraPlay</a></li>
+                <li><a href="{{url_for('ZenMode')}}">ZenMode</a></li>
+                <li><a href="{{url_for('NourishWell')}}">NourishWell</a></li>
+                <li><a href="{{url_for('MyHealth')}}">MyHealth Insights</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <h1>🍎 NourishWell: Personalized Meal Plans</h1>
+        <p>Get AI-powered meal plans tailored to your health needs.</p>
+    </header>
+
+    <section class="meal-form">
+        <h2>Customize Your Meal Plan</h2>
+        <form id="mealPlanForm">
+            <label for="goal">Health Goal:</label>
+            <select id="goal" required>
+                <option value="weight_loss">Weight Loss</option>
+                <option value="muscle_gain">Muscle Gain</option>
+                <option value="balanced">Balanced Nutrition</option>
+            </select>
+
+            <label for="diet">Dietary Preference:</label>
+            <select id="diet" required>
+                <option value="none">No Preference</option>
+                <option value="vegan">Vegan</option>
+                <option value="keto">Keto</option>
+                <option value="gluten_free">Gluten-Free</option>
+            </select>
+
+            <label for="vegNonVeg">Veg or Non-Veg:</label>
+            <select id="vegNonVeg" required>
+                <option value="veg">Vegetarian</option>
+                <option value="non_veg">Non-Vegetarian</option>
+            </select>
+
+            <label for="allergies">Allergies (Optional):</label>
+            <input type="text" id="allergies" placeholder="e.g. Nuts, Dairy">
+
+            <button type="submit">Generate Meal Plan</button>
+        </form>
+    </section>
+
+    <!-- Meal Plan Section -->
+<section id="mealPlan" class="hidden">
+    <h2 style = "color:white;">Your Personalized Meal Plan</h2>
+    <div class="meal-container">
+        <div class="meal" id="breakfast"><h3>🍳 Breakfast</h3><p>Loading...</p></div>
+        <div class="meal" id="lunch"><h3>🥗 Lunch</h3><p>Loading...</p></div>
+        <div class="meal" id="dinner"><h3>🍲 Dinner</h3><p>Loading...</p></div>
+        <div class="meal" id="snacks"><h3>🍓 Snacks</h3><p>Loading...</p></div>
+    </div>
+    <button id="saveMealPlan">💾 Save Meal Plan</button>
+</section>
+
+<!-- Shopping List Section -->
+<section id="shoppingList" class="hidden">
+    <h2>🛒 Your Shopping List</h2>
+    <ul id="ingredientsList"></ul>
+    <button id="saveShoppingList">💾 Save Shopping List</button>
+</section>
+
+<!-- View Saved Plan Button -->
+<button id="viewSavedPlan" class="hidden">📂 View Saved Plan</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("mealPlanForm");
+        const mealPlanSection = document.getElementById("mealPlan");
+        const shoppingListSection = document.getElementById("shoppingList");
+        const ingredientsList = document.getElementById("ingredientsList");
+        const saveMealPlanBtn = document.getElementById("saveMealPlan");
+        const saveShoppingListBtn = document.getElementById("saveShoppingList");
+        const viewSavedPlanBtn = document.getElementById("viewSavedPlan");
+
+        const mealData = {
+            weight_loss: {
+                vegan: { 
+                    veg: { 
+                        breakfast: ["Oatmeal with Berries - Cook oats with almond milk, top with fresh berries & chia seeds."], 
+                        lunch: ["Quinoa Salad - Mix cooked quinoa, cherry tomatoes, cucumbers & lemon dressing."], 
+                        dinner: ["Grilled Tofu - Marinate tofu in soy sauce, grill with bell peppers & zucchini."], 
+                        snacks: ["Almonds - Eat raw or blend into energy bites."] 
+                    } 
+                },
+                keto: {
+                    veg: { 
+                        breakfast: ["Avocado & Eggs - Scramble eggs, serve with sliced avocado & pepper."], 
+                        lunch: ["Paneer Salad - Toss paneer cubes with lettuce, olive oil & herbs."], 
+                        dinner: ["Stuffed Bell Peppers - Fill peppers with cheese & spinach, bake."], 
+                        snacks: ["Cheese Cubes - Snack on cheese cubes with walnuts."] 
+                    },
+                    non_veg: { 
+                        breakfast: ["Egg & Cheese Scramble - Scramble eggs with cheddar cheese & butter."], 
+                        lunch: ["Grilled Chicken Salad - Grilled chicken, leafy greens, & olive oil dressing."], 
+                        dinner: ["Lemon Chicken - Pan-fry chicken with lemon & garlic, serve with asparagus."], 
+                        snacks: ["Beef Jerky - Store-bought or homemade dried beef strips."] 
+                    }
+                },
+                gluten_free: {
+                    veg: { 
+                        breakfast: ["Chia Pudding - Soak chia seeds in coconut milk, top with fruits."], 
+                        lunch: ["Zucchini Noodles - Spiralized zucchini tossed with olive oil & cherry tomatoes."], 
+                        dinner: ["Stuffed Sweet Potatoes - Bake sweet potatoes, fill with beans & avocado."], 
+                        snacks: ["Rice Cakes with Peanut Butter - Spread peanut butter on rice cakes."] 
+                    },
+                    non_veg: { 
+                        breakfast: ["Egg & Avocado Toast (Gluten-Free) - Serve eggs & avocado on gluten-free toast."], 
+                        lunch: ["Grilled Fish with Veggies - Grill fish with lemon, serve with roasted veggies."], 
+                        dinner: ["Chicken & Quinoa Bowl - Cook quinoa, top with grilled chicken & bell peppers."], 
+                        snacks: ["Yogurt & Berries - Greek yogurt with fresh berries & honey."] 
+                    }
+                }
+            },
+            muscle_gain: {
+                vegan: { 
+                    veg: { 
+                        breakfast: ["Protein Smoothie - Blend banana, protein powder & almond butter."], 
+                        lunch: ["Chickpea & Avocado Wrap - Fill a whole wheat wrap with mashed chickpeas & avocado."], 
+                        dinner: ["Lentil Curry with Brown Rice - Cook lentils with spices, serve over brown rice."], 
+                        snacks: ["Peanut Butter Energy Balls - Blend oats, peanut butter & dates, roll into balls."] 
+                    } 
+                },
+                keto: {
+                    veg: { 
+                        breakfast: ["Paneer Scramble - Scramble paneer with spinach & garlic."], 
+                        lunch: ["Zucchini Noodles - Spiralized zucchini tossed with pesto."], 
+                        dinner: ["Spinach & Cheese Casserole - Bake spinach with cheese & cream."], 
+                        snacks: ["Mixed Nuts - Almonds, walnuts & cashews."] 
+                    },
+                    non_veg: { 
+                        breakfast: ["Bacon & Avocado Omelette - Omelette stuffed with crispy bacon & avocado."], 
+                        lunch: ["Grilled Salmon - Cook salmon with garlic butter sauce."], 
+                        dinner: ["Beef & Mushroom Stir Fry - Stir-fry beef strips with mushrooms & soy sauce."], 
+                        snacks: ["Greek Yogurt with Walnuts - Top Greek yogurt with walnuts & cinnamon."] 
+                    }
+                },
+                gluten_free: {
+                    veg: { 
+                        breakfast: ["Smoothie Bowl - Blend frozen banana, almond milk & top with nuts."], 
+                        lunch: ["Quinoa & Chickpea Bowl - Cook quinoa, mix with chickpeas & tahini dressing."], 
+                        dinner: ["Vegetable Stir Fry - Stir-fry bell peppers, carrots & tofu in sesame oil."], 
+                        snacks: ["Hummus & Carrot Sticks - Dip fresh carrot sticks in hummus."] 
+                    },
+                    non_veg: { 
+                        breakfast: ["Scrambled Eggs & Spinach - Scramble eggs with fresh spinach & cheese."], 
+                        lunch: ["Grilled Chicken & Avocado - Serve grilled chicken with avocado slices."], 
+                        dinner: ["Baked Salmon & Asparagus - Bake salmon with asparagus & garlic butter."], 
+                        snacks: ["Cottage Cheese with Nuts - Top cottage cheese with almonds & honey."] 
+                    }
+                }
+            },
+            balanced: {
+                vegan: { 
+                    veg: { 
+                        breakfast: ["Whole Wheat Toast - Spread peanut butter on whole wheat toast."], 
+                        lunch: ["Lentil & Spinach Soup - Cook lentils with spinach & spices."], 
+                        dinner: ["Grilled Vegetables - Grill veggies & serve with hummus."], 
+                        snacks: ["Apple with Almond Butter - Dip apple slices in almond butter."] 
+                    } 
+                },
+                keto: {
+                    veg: { 
+                        breakfast: ["Cheese & Nut Platter - A mix of cheese cubes & nuts."], 
+                        lunch: ["Mushroom Soup - Sauté mushrooms, blend with cream."], 
+                        dinner: ["Keto Pizza - Cauliflower-based pizza with cheese & tomato sauce."], 
+                        snacks: ["Boiled Eggs - Simple boiled eggs with salt & pepper."] 
+                    },
+                    non_veg: { 
+                        breakfast: ["Egg & Bacon Muffins - Bake eggs & bacon in muffin tins."], 
+                        lunch: ["Prawn & Avocado Salad - Toss prawns with avocado & lettuce."], 
+                        dinner: ["Lamb & Broccoli Stir Fry - Cook lamb with broccoli & soy sauce."], 
+                        snacks: ["Smoked Salmon - Roll smoked salmon with cream cheese."] 
+                    }
+                },
+                gluten_free: {
+                    veg: { 
+                        breakfast: ["Banana Pancakes - Blend banana & eggs, cook as pancakes."], 
+                        lunch: ["Roasted Veggie Bowl - Roast bell peppers, zucchini & mushrooms, serve with quinoa."], 
+                        dinner: ["Tofu & Broccoli Stir Fry - Stir-fry tofu & broccoli in ginger garlic sauce."], 
+                        snacks: ["Popcorn with Olive Oil - Air-popped popcorn drizzled with olive oil & salt."] 
+                    },
+                    non_veg: { 
+                        breakfast: ["Scrambled Eggs & Turkey - Scramble eggs, serve with turkey slices."], 
+                        lunch: ["Quinoa Chicken Bowl - Cook quinoa, mix with grilled chicken & avocado."], 
+                        dinner: ["Shrimp & Vegetable Skewers - Skewer shrimp with bell peppers & grill."], 
+                        snacks: ["Coconut Yogurt with Seeds - Coconut yogurt topped with flax & chia seeds."] 
+                    }
+                }
+            }
+        };
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let goal = document.getElementById("goal").value;
+            let diet = document.getElementById("diet").value;
+            let vegNonVeg = document.getElementById("vegNonVeg").value;
+            let selectedDiet = diet === "none" ? "vegan" : diet;
+            let mealPlan = mealData?.[goal]?.[selectedDiet]?.[vegNonVeg];
+
+            if (!mealPlan) {
+                alert("Meal plan not found! Please check your selections.");
+                return;
+            }
+
+            document.getElementById("breakfast").querySelector("p").innerText = mealPlan.breakfast.join(", ");
+            document.getElementById("lunch").querySelector("p").innerText = mealPlan.lunch.join(", ");
+            document.getElementById("dinner").querySelector("p").innerText = mealPlan.dinner.join(", ");
+            document.getElementById("snacks").querySelector("p").innerText = mealPlan.snacks.join(", ");
+
+            mealPlanSection.classList.remove("hidden");
+            shoppingListSection.classList.remove("hidden");
+
+            const ingredients = [...mealPlan.breakfast, ...mealPlan.lunch, ...mealPlan.dinner, ...mealPlan.snacks];
+            renderShoppingList(ingredients);
+        });
+
+        function renderShoppingList(items) {
+            ingredientsList.innerHTML = "";
+            items.forEach(item => {
+                const listItem = document.createElement("li");
+                listItem.innerHTML = `<input type="checkbox" onchange="toggleChecked(this)"><label>${item}</label>`;
+                ingredientsList.appendChild(listItem);
+            });
+        }
+
+        function toggleChecked(checkbox) {
+            checkbox.parentElement.classList.toggle("checked");
+        }
+
+        saveMealPlanBtn.addEventListener("click", function () {
+            const savedMealPlan = {
+                breakfast: document.getElementById("breakfast").querySelector("p").innerText,
+                lunch: document.getElementById("lunch").querySelector("p").innerText,
+                dinner: document.getElementById("dinner").querySelector("p").innerText,
+                snacks: document.getElementById("snacks").querySelector("p").innerText
+            };
+            localStorage.setItem("savedMealPlan", JSON.stringify(savedMealPlan));
+            viewSavedPlanBtn.classList.remove("hidden");
+            alert("Meal Plan Saved!");
+        });
+
+        saveShoppingListBtn.addEventListener("click", function () {
+            const shoppingItems = [];
+            document.querySelectorAll("#ingredientsList li").forEach(item => {
+                shoppingItems.push({
+                    text: item.querySelector("label").innerText,
+                    checked: item.querySelector("input").checked
+                });
+            });
+            localStorage.setItem("savedShoppingList", JSON.stringify(shoppingItems));
+            alert("Shopping List Saved!");
+        });
+
+        viewSavedPlanBtn.addEventListener("click", function () {
+            loadSavedData();
+            mealPlanSection.classList.remove("hidden");
+            shoppingListSection.classList.remove("hidden");
+        });
+
+        function loadSavedData() {
+            if (localStorage.getItem("savedMealPlan")) {
+                let savedPlan = JSON.parse(localStorage.getItem("savedMealPlan"));
+                document.getElementById("breakfast").querySelector("p").innerText = savedPlan.breakfast;
+                document.getElementById("lunch").querySelector("p").innerText = savedPlan.lunch;
+                document.getElementById("dinner").querySelector("p").innerText = savedPlan.dinner;
+                document.getElementById("snacks").querySelector("p").innerText = savedPlan.snacks;
+                viewSavedPlanBtn.classList.remove("hidden");
+            }
+            if (localStorage.getItem("savedShoppingList")) {
+                const savedList = JSON.parse(localStorage.getItem("savedShoppingList"));
+                renderShoppingList(savedList.map(item => item.text));
+                savedList.forEach((item, index) => {
+                    if (item.checked) document.querySelectorAll("#ingredientsList input")[index].checked = true;
+                });
+            }
+        }
+
+        loadSavedData();
+    });
+</script>
+
+</body>
+</html>

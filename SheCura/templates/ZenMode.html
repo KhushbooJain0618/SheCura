@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zen Mode - Meditation Sounds</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url("{{ url_for('static', filename='images/music2.jpg') }}") no-repeat center center fixed; /* Add your desired background image URL here */
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 940px;
+            margin: auto;
+            background: rgba(244, 244, 244, 0.8); /* Light gray with 50% transparency */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;        
+        }
+        h2 {
+            font-size: 48px;
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 20px;
+            color: #efecec; /* White text for better contrast */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 0, 255, 0.5); /* Soft shadow for depth */
+            background: linear-gradient(135deg, #ff7f50, #ff1493); /* Gradient background */
+            -webkit-background-clip: text; /* Ensures gradient is applied to text only */
+            background-clip: text; /* Standard property for compatibility */
+            color: transparent; /* Makes text transparent to show the gradient */
+            padding: 10px;
+            border-radius: 8px;
+            letter-spacing: 2px; /* Adds some space between letters */
+            text-transform: uppercase; /* Makes the title uppercase */
+            transition: transform 0.3s ease-in-out, color 0.5s ease-in-out; /* Smooth transition */
+        }
+        
+        h2:hover {
+            transform: scale(1.1); /* Slightly enlarges the title on hover */
+            color: #fff; /* Reverts to white color when hovered */
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .track-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+        }
+        .track {
+            background-color: #4CAF50; /* Solid color for each track container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .track:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .track span {
+            font-size: 18px;
+            font-weight: bold;
+            color: white; /* Text color for contrast */
+            z-index: 1;
+        }
+        .track button {
+            background: #ffffff;
+            border: none;
+            color: #4CAF50;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        .track button:hover {
+            background: #388e3c;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        .track::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("{{ url_for('static', filename='images/music_image.jpg') }}"); /* Optional music-related background image */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Zen Mode - Relax with Soothing Sounds</h2>
+        <input type="text" class="search-bar" id="search" placeholder="Search music...">
+        <div class="track-list" id="trackList">
+            <div class="track" data-name="think">
+                <span>Think</span>
+                <button onclick="toggleTrack('think')">▶ Play</button>
+            </div>
+            <div class="track" data-name="sonder">
+                <span>Sonder</span>
+                <button onclick="toggleTrack('sonder')">▶ Play</button>
+            </div>
+            <div class="track" data-name="rain">
+                <span>Rain</span>
+                <button onclick="toggleTrack('rain')">▶ Play</button>
+            </div>
+            <div class="track" data-name="piano">
+                <span>Piano</span>
+                <button onclick="toggleTrack('piano')">▶ Play</button>
+            </div>
+            <div class="track" data-name="ocean">
+                <span>Ocean</span>
+                <button onclick="toggleTrack('ocean')">▶ Play</button>
+            </div>
+            <div class="track" data-name="moonlight">
+                <span>Moonlight</span>
+                <button onclick="toggleTrack('moonlight')">▶ Play</button>
+            </div>
+            <div class="track" data-name="memories2">
+                <span>Memories2</span>
+                <button onclick="toggleTrack('memories2')">▶ Play</button>
+            </div>
+            <div class="track" data-name="memories">
+                <span>Memories</span>
+                <button onclick="toggleTrack('memories')">▶ Play</button>
+            </div>
+            <div class="track" data-name="magical">
+                <span>Magical</span>
+                <button onclick="toggleTrack('magical')">▶ Play</button>
+            </div>
+            <div class="track" data-name="calm">
+                <span>Calm</span>
+                <button onclick="toggleTrack('calm')">▶ Play</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements (Unique IDs for Each Track) -->
+    <audio id="think" src="{{ url_for('static', filename='think.mp3') }}" loop></audio>
+    <audio id="sonder" src="{{ url_for('static', filename='sounder.mp3') }}" loop></audio>
+    <audio id="rain" src="{{ url_for('static', filename='rain.mp3') }}" loop></audio>
+    <audio id="piano" src="{{ url_for('static', filename='piano.mp3') }}" loop></audio>
+    <audio id="ocean" src="{{ url_for('static', filename='ocean.mp3') }}" loop></audio>
+    <audio id="moonlight" src="{{ url_for('static', filename='moonlight.mp3') }}" loop></audio>
+    <audio id="memories2" src="{{ url_for('static', filename='memories2.mp3') }}"loop></audio>
+    <audio id="memories" src="{{ url_for('static', filename='memories.mp3') }}" loop></audio>
+    <audio id="magical" src="{{ url_for('static', filename='magical.mp3') }}" loop></audio>
+    <audio id="calm" src="{{ url_for('static', filename='calm.mp3') }}" loop></audio>
+
+   <script>
+        function toggleTrack(id) {
+            let audio = document.getElementById(id);
+            let button = document.querySelector('[data-name="' + id + '"] button');
+
+            // Stop all other audio tracks
+            document.querySelectorAll('audio').forEach(track => {
+                if (track.id !== id) {
+                    track.pause();
+                    let otherButton = document.querySelector('[data-name="' + track.id + '"] button');
+                    if (otherButton) {
+                        otherButton.textContent = '▶ Play';
+                    }
+                }
+            });
+
+            // Play or Pause the clicked track
+            if (audio.paused) {
+                audio.play();
+                button.textContent = '⏸ Stop';
+            } else {
+                audio.pause();
+                button.textContent = '▶ Play';
+            }
+        }
+
+        document.getElementById('search').addEventListener('input', function() {
+            let query = this.value.toLowerCase();
+            document.querySelectorAll('.track').forEach(track => {
+                let name = track.getAttribute('data-name').toLowerCase();
+                track.style.display = name.includes(query) ? 'flex' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

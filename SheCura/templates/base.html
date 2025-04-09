@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheCura - Women's Health Tech</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Load Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+   <!-- Navbar -->
+<div class="navbar">
+    <div class="nav-left">
+        <a href="{{ url_for('home') }}" class="logo">SheCura</a>
+    </div>
+    <div class="nav-center">
+        <a href="{{ url_for('premium') }}">Premium</a>
+        <a href="{{ url_for('team') }}">Team</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('profile') }}">Profile</a>
+            {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('admin') }}">Admin</a>
+            {% endif %}
+        {% endif %}             
+        
+    </div>
+    <div class="nav-right">
+        {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('register') }}">Sign Up</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+    </div>              
+</div>
+
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Empowering <span class="wave-text">Women’s Health</span> with AI</h1>
+            <p class="hero-subtitle">Unlock the power of **technology & care** with SheCura.</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('register') }}" class="btn btn-glow">Join Now</a>
+                <a href="{{ url_for('premium') }}" class="btn btn-outline">Explore Premium</a>
+            </div>
+        </div>
+        
+        <!-- ✨ Chatbot Floating Icon -->
+        <div class="chatbot-container" onclick="window.location.href='{{ url_for('premium') }}'">
+            <div class="chatbot-bubble">
+                <i class="fas fa-robot chatbot-icon"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2 class="features-title">Our Key Features</h2>
+        <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-box" onclick="redirectTo('{{ url_for('cycle_monitor') }}')">
+            <i class="fas fa-calendar-alt feature-icon"></i>
+            <h3>Menstrual Cycle Monitoring</h3>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-box" onclick="redirectTo('{{ url_for('health_reminders') }}')">
+            <i class="fas fa-tachometer-alt feature-icon"></i>
+            <h3>Health Reminders</h3>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-box" onclick="redirectTo('{{ url_for('symptom_checker') }}')">
+            <i class="fas fa-stethoscope feature-icon"></i>
+            <h3>Holistic Female Symptom Checker</h3>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-box" onclick="redirectTo('{{ url_for('her_health_answers') }}')">
+            <i class="fas fa-lightbulb feature-icon"></i>
+            <h3>HerHealth Answers</h3>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-box" onclick="redirectTo('{{ url_for('maternity_centers') }}')">
+            <i class="fas fa-baby feature-icon"></i>
+
+            <h3>Wellness Centers Around You</h3>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-box" onclick="redirectTo('{{ url_for('feedback') }}')">
+            <i class="fas fa-comment feature-icon"></i>
+            <h3>Feedback</h3>
+        </div>
+        </div>
+    </section>
+
+    <!-- What Users Say About Us -->
+<section class="testimonial-section">
+    <h2 class="testimonial-title">What Users Say About Us</h2>
+    <div class="carousel">
+        <div class="carousel-track">
+            <div class="testimonial">
+                <p>“SheCura has completely changed the way I track my cycle. It’s a lifesaver!”</p>
+                <h4>- Emily R.</h4>
+            </div>
+            <div class="testimonial">
+                <p>“I love the symptom checker! It helps me understand my body better.”</p>
+                <h4>- Priya S.</h4>
+            </div>
+            <div class="testimonial">
+                <p>“The maternity center locator was a game-changer during my pregnancy!”</p>
+                <h4>- Sarah W.</h4>
+            </div>
+            <div class="testimonial">
+                <p>“A must-have for every woman! The dashboard keeps all my health info organized.”</p>
+                <h4>- Olivia K.</h4>
+            </div>
+            <div class="testimonial">
+                <p>“The chatbot support is so friendly and helpful. 10/10 experience!”</p>
+                <h4>- Natalie L.</h4>
+            </div>
+            <div class="testimonial">
+                <p>“Finally, an app that actually cares about women’s health. Love it!”</p>
+                <h4>- Jessica M.</h4>
+            </div>
+            <div class="testimonial">
+                <p>“SheCura helps me take control of my health in ways I never imagined.”</p>
+                <h4>- Amelia D.</h4>
+            </div>
+            <div class="testimonial">
+                <p>“The HerHealth Answers section is my go-to for reliable information!”</p>
+                <h4>- Rachel P.</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 🚀 Did You Know? Section -->
+<section class="did-you-know">
+    <h2>Did You Know? 🤔</h2>
+    
+    <div class="fact-container">
+        <div class="fact-card">
+            <div class="fact-inner">
+                <div class="fact-front">
+                    <p id="health-fact">Loading health facts...</p>
+                </div>
+                <div class="fact-back">
+                    <p id="health-fact-back">Tap to see another fact!</p>
+                </div>
+            </div>
+        </div>
+        <button class="fact-btn" onclick="generateFact()">Show Another Fact</button>
+    </div>
+
+    <!-- ✨ Floating Animated Shapes -->
+    <div class="floating-shapes">
+        <div class="shape small"></div>
+        <div class="shape medium"></div>
+        <div class="shape large"></div>
+    </div>
+
+    <div class="extra-cta">
+        <p>Want to learn more about your health?</p>
+        <a href="{{ url_for('home') }}" class="btn-glow">Explore SheCura</a>
+    </div>
+</section>
+
+<!-- Why SheCura? Section -->
+<section class="why-shecura">
+    <div class="why-content">
+        <h2 class="why-title">Why <span>SheCura?</span></h2>
+        <p class="why-subtitle">India's First Fully Functional Women's HealthTech Platform</p>
+
+        <div class="why-grid">
+            <div class="why-box">
+                <i class="fas fa-brain"></i>
+                <h3>AI-Powered Insights</h3>
+                <p>Get smart health recommendations tailored to you.</p>
+            </div>
+            <div class="why-box">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Holistic Health Tracking</h3>
+                <p>Monitor your menstrual cycles, symptoms, and well-being.</p>
+            </div>
+            <div class="why-box">
+                <i class="fas fa-user-md"></i>
+                <h3>Expert-Backed Advice</h3>
+                <p>Access verified medical insights and health support.</p>
+            </div>
+        </div>
+
+        <div class="impact-counter">
+            <h3><span id="users-count">50,000+</span> Women Empowered</h3>
+            <p>Join our growing community and take control of your health.</p>
+        </div>
+
+        <div class="why-footer">
+            <p class="motto">"Your health. Your power. Your SheCura."</p>
+        </div>
+    </div>
+</section>
+
+<!-- 🇮🇳 Made in India Section -->
+<section class="made-in-india">
+    <div class="india-content">
+        <div class="india-icon">
+            <img src="{{ url_for('static', filename='images/ashoka-chakra.png') }}" alt="Ashoka Chakra">
+        </div>
+        <div class="india-text">
+            <h2>Made with ❤️ in India</h2>
+            <p>SheCura is proudly built for Indian women, by Indian innovators.</p>
+            <p>Bringing the power of AI and healthcare **to every woman in India.**</p>
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- Main Content -->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+<script>
+    const facts = [
+        "Women’s hearts beat faster than men’s on average. ❤️",
+        "The female brain changes up to 25% during pregnancy! 🤰",
+        "80% of autoimmune diseases occur in women. 🏥",
+        "Women have a stronger immune system than men. 🦠",
+        "Heart disease is the No.1 killer of women worldwide. 💔",
+        "Women’s skin is 25% thinner than men’s, making it more sensitive. 👩‍⚕️",
+        "Periods can sync when women spend a lot of time together. ⏳",
+        "Women’s pain tolerance increases during childbirth! 🍼"
+    ];
+
+    function generateFact() {
+        let newFact = facts[Math.floor(Math.random() * facts.length)];
+        document.getElementById("health-fact").innerText = newFact;
+        document.querySelector(".fact-inner").classList.toggle("flip");
+    }
+
+    // Auto switch facts every 5 seconds
+    setInterval(generateFact, 5000);
+
+    // Show a random fact on page load
+    window.onload = generateFact;
+</script>
+
+<!-- 🌟 Footer Section -->
+<footer class="footer">
+    <div class="footer-container">
+        <!-- About SheCura -->
+        <div class="footer-about">
+            <h3>About SheCura</h3>
+            <p>SheCura is India's first fully functional women's health tech platform, leveraging AI to provide personalized healthcare solutions.</p>
+            <p>Empowering women with advanced technology and expert healthcare insights.</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('premium') }}">Premium</a></li>
+                <li><a href="{{ url_for('team') }}">Our Team</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('profile') }}">My Profile</a></li>
+            </ul>
+        </div>
+
+        <!-- Our Services -->
+        <div class="footer-services">
+            <h3>Our Services</h3>
+            <ul>
+                <li><a href="{{ url_for('cycle_monitor') }}">Menstrual Cycle Monitoring</a></li>
+                <li><a href="{{ url_for('dashboard') }}">Personal Dashboard</a></li>
+                <li><a href="{{ url_for('symptom_checker') }}">Holistic Symptom Checker</a></li>
+                <li><a href="{{ url_for('her_health_answers') }}">HerHealth Answers</a></li>
+                <li><a href="{{ url_for('maternity_centers') }}">Maternity Centers</a></li>
+                <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+            </ul>
+        </div>
+
+        <!-- Social Media -->
+        <div class="footer-social">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <!-- Contact Details -->
+        <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>Email: <a href="mailto:khushboo2006june@gmail.com">support@shecura.com</a></p>
+            <p>Phone: +91 7015625651</p>
+            <p>Location: Rajpura, India</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 SheCura. All rights reserved. | Made with ❤️ in India</p>
+    </div>
+</footer>
+
+<script>
+    function redirectTo(url) {
+        console.log("Clicked! Redirecting to:", url);
+        if (url) {
+            window.location.href = url;
+        } else {
+            console.error("URL is undefined!");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let searchInput = document.querySelector(".search-bar");
+        
+        // Create a dropdown suggestions box
+        let suggestionsBox = document.createElement("div");
+        suggestionsBox.classList.add("suggestions-box");
+        searchInput.parentNode.appendChild(suggestionsBox);
+    
+        searchInput.addEventListener("input", function () {
+            let query = searchInput.value.trim().toLowerCase();
+    
+            if (query.length === 0) {
+                suggestionsBox.style.display = "none";
+                return;
+            }
+    
+            fetch(`/api/search_suggestions?query=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsBox.innerHTML = "";
+                    if (data.length > 0) {
+                        suggestionsBox.style.display = "block";
+                        data.forEach(item => {
+                            let div = document.createElement("div");
+                            div.classList.add("suggestion-item");
+                            div.textContent = item;
+                            div.onclick = function () {
+                                window.location.href = `/${item.toLowerCase()}`; // Navigate to route
+                            };
+                            suggestionsBox.appendChild(div);
+                        });
+                    } else {
+                        suggestionsBox.style.display = "none";
+                    }
+                })
+                .catch(error => console.error("Error fetching search suggestions:", error));
+        });
+    
+        // Hide suggestions when clicking outside
+        document.addEventListener("click", function (e) {
+            if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                suggestionsBox.style.display = "none";
+            }
+        });
+    });
+    
+    
+</script>
+
+</body>
+</html>

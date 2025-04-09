@@ -1,0 +1,931 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&family=Pacifico&display=swap');
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f7ebec;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left .logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1d1e2c;
+    text-decoration: none;
+    font-family: 'Pacifico', cursive;
+}
+
+.nav-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-center a {
+    color: #1d1e2c;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.search-icon {
+    font-size: 15px;  /* Adjust size as needed */
+    text-align: center;
+}
+
+.nav-center a:hover {
+    color: #ffcad4;
+    transform: scale(1.1);
+}
+
+.nav-center form {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.search-bar:focus {
+    border-color: #8B0000;
+}
+
+.nav-right a {
+    color: #1d1e2c;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    transition: 0.3s;
+    margin-left: 10px;
+}
+
+.nav-right a:hover {
+    color: #ffcad4;
+    transform: scale(1.1);
+}
+
+.btn-outline-dark{
+    background: transparent;
+    color: #1d1e2c;
+}
+
+.suggestions-box {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 14px;
+    color: #333;
+}
+
+.suggestion-item:hover {
+    background: #f3f3f3;
+}
+
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .nav-center {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .nav-center a {
+        padding: 8px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-right {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .nav-right a {
+        padding: 8px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .search-bar {
+        width: 100%;
+        margin-right: 0;
+        margin-top: 10px;
+    }
+
+    .nav-left .logo {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1200px) {
+    .navbar {
+        padding: 15px 40px;
+    }
+
+    .nav-left .logo {
+        font-size: 28px;
+    }
+
+    .nav-center a {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+
+    .search-bar {
+        font-size: 16px;
+        padding: 8px 15px;
+    }
+}
+
+
+/* 🎉 Hero Section */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(to right, #fda2af, #ffcad4);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Text Styling */
+.hero-title {
+    font-size: 48px;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+}
+
+.wave-text {
+    font-family: 'Pacifico', cursive;
+    display: inline-block;
+    animation: wave 2s infinite;
+}
+
+/* Animated Text Effect */
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    margin-top: 10px;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* 🎯 Call-to-Action Buttons */
+.cta-buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-glow {
+    background: #f4acb7;
+    color: white;
+    box-shadow: 0px 0px 10px #ffcad4;
+}
+
+.btn-glow:hover {
+    box-shadow: 0px 0px 20px #f4acb7;
+    transform: scale(1.1);
+}
+
+.btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: #f4acb7;
+}
+
+/* 🔥 Floating Chatbot */
+.chatbot-container {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* 🛠️ Chatbot Bubble */
+.chatbot-bubble {
+    width: 80px;
+    height: 80px;
+    background-color: #f4acb7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px #ffe5d9;
+    transition: transform 0.3s;
+}
+
+/* 🤖 Chatbot Icon */
+.chatbot-icon {
+    font-size: 40px;
+    color: white;
+}
+
+/* ✨ Hover Effect */
+.chatbot-bubble:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgb(221, 129, 160);
+}
+
+/* 🔄 Pulsating Animation */
+@keyframes bubblePulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+.chatbot-bubble {
+    animation: bubblePulse 1.5s infinite alternate ease-in-out;
+}
+
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 32px;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+    }
+
+    .btn {
+        font-size: 16px;
+    }
+
+    .chatbot-bubble {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+}
+
+/* 🌸 Features Section */
+.features-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: #ffe6eb;
+}
+
+.features-title {
+    font-size: 36px;
+    font-family: 'Pacifico', cursive;
+    color: #f4acb7;
+    margin-bottom: 20px;
+}
+
+/* 🌟 Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 🔥 Feature Box */
+.feature-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 20px rgba(255, 64, 129, 0.4);
+}
+
+/* 🌟 Feature Icons */
+.feature-icon {
+    font-size: 40px;
+    color: #f4acb7;
+    margin-bottom: 15px;
+    transition: transform 0.3s;
+}
+
+.feature-box:hover .feature-icon {
+    transform: scale(1.2);
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .features-title {
+        font-size: 28px;
+    }
+}
+
+/* 🌟 Testimonials Section */
+.testimonial-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff0f5;
+    overflow: hidden;
+}
+
+.testimonial-title {
+    font-size: 36px;
+    font-family: 'Pacifico', cursive;
+    color: #f4acb7;
+    margin-bottom: 30px;
+}
+
+/* 🎠 Carousel */
+.carousel {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    animation: slide 20s linear infinite;
+}
+
+.testimonial {
+    min-width: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.testimonial:hover {
+    transform: scale(1.05);
+}
+
+.testimonial p {
+    font-size: 18px;
+    font-style: italic;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.testimonial h4 {
+    font-size: 16px;
+    color: #f4acb7;
+    font-weight: bold;
+}
+
+/* 🎬 Carousel Animation */
+@keyframes slide {
+    0% { transform: translateX(0); }
+    12.5% { transform: translateX(-100%); }
+    25% { transform: translateX(-200%); }
+    37.5% { transform: translateX(-300%); }
+    50% { transform: translateX(-400%); }
+    62.5% { transform: translateX(-500%); }
+    75% { transform: translateX(-600%); }
+    87.5% { transform: translateX(-700%); }
+    100% { transform: translateX(0); }
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+    .testimonial-title {
+        font-size: 28px;
+    }
+
+    .testimonial p {
+        font-size: 16px;
+    }
+}
+
+
+/* 🌟 Did You Know? Section */
+.did-you-know {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #ffcad4, #f4acb7);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 🃏 Flip Card Effect */
+.fact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fact-card {
+    width: 400px;
+    height: 220px;
+    margin: 20px auto;
+    perspective: 1200px;
+}
+
+.fact-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+}
+
+/* Flip Animation */
+.fact-inner.flip {
+    transform: rotateY(180deg);
+}
+
+.fact-front, .fact-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Front Side */
+.fact-front {
+    background: white;
+    color: #f4acb7;
+}
+
+/* Back Side */
+.fact-back {
+    background: #f4acb7;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+/* 🎯 Fact Button */
+.fact-btn {
+    padding: 14px 28px;
+    background: white;
+    color: #f4acb7;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.6);
+}
+
+.fact-btn:hover {
+    background: #fff;
+    color: #9d8189;
+    transform: scale(1.1);
+}
+
+/* 💫 Floating Shapes */
+.floating-shapes .shape {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: float 6s infinite alternate ease-in-out;
+}
+
+/* Small Floating Circle */
+.shape.small {
+    width: 60px;
+    height: 60px;
+    top: 10%;
+    left: 15%;
+    animation-duration: 4s;
+}
+
+/* Medium Floating Circle */
+.shape.medium {
+    width: 100px;
+    height: 100px;
+    top: 40%;
+    right: 20%;
+    animation-duration: 6s;
+}
+
+/* Large Floating Circle */
+.shape.large {
+    width: 150px;
+    height: 150px;
+    bottom: 10%;
+    left: 30%;
+    animation-duration: 8s;
+}
+
+/* Animation for Floating Shapes */
+@keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    100% { transform: translateY(20px) scale(1.1); }
+}
+
+/* ✨ Extra Call-to-Action */
+.extra-cta {
+    margin-top: 40px;
+}
+
+.extra-cta p {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+/* Glowing Button */
+.btn-glow {
+    padding: 14px 28px;
+    background: #fff;
+    color: #f4acb7;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+}
+
+.btn-glow:hover {
+    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    .fact-card {
+        width: 300px;
+        height: 180px;
+    }
+
+    .fact-front, .fact-back {
+        font-size: 18px;
+    }
+
+    .fact-btn {
+        font-size: 16px;
+    }
+}
+
+
+/* Why SheCura? Section */
+.why-shecura {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #fde2e4, #f9b4c7);
+    color: #333;
+    border-radius: 15px;
+    margin: 50px auto;
+    width: 80%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1.5s ease-in-out;
+}
+
+/* Title Styling */
+.why-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #f4acb7;
+}
+
+.why-title span {
+    color: #f085bb;
+}
+
+/* Subtitle */
+.why-subtitle {
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* Grid Layout */
+.why-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.why-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.why-box i {
+    font-size: 30px;
+    color: #f4acb7;
+    margin-bottom: 10px;
+}
+
+.why-box h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.why-box p {
+    font-size: 14px;
+    color: #666;
+}
+
+.why-box:hover {
+    transform: translateY(-10px);
+}
+
+/* Impact Counter */
+.impact-counter {
+    font-size: 22px;
+    font-weight: bold;
+    color: #444;
+    margin-top: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.impact-counter span {
+    font-size: 30px;
+    color: #f4acb7;
+}
+
+/* Motto */
+.why-footer {
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 18px;
+    color: #555;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .why-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* 🇮🇳 Made in India Section */
+.made-in-india {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #ffdab9, #ffffff, #99f099);
+    color: #333;
+    border-radius: 15px;
+    margin: 50px auto;
+    width: 75%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInUp 1.5s ease-in-out;
+}
+
+/* Indian Flag Colors */
+.made-in-india h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ff4500;
+}
+
+.made-in-india p {
+    font-size: 18px;
+    color: #444;
+    margin-top: 10px;
+}
+
+/* Ashoka Chakra Icon */
+.india-icon {
+    margin-bottom: 20px;
+}
+
+.india-icon img {
+    width: 80px;
+    animation: rotateChakra 10s linear infinite;
+}
+
+/* Ashoka Chakra Rotation */
+@keyframes rotateChakra {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .made-in-india {
+        width: 90%;
+    }
+
+    .made-in-india h2 {
+        font-size: 26px;
+    }
+
+    .made-in-india p {
+        font-size: 16px;
+    }
+}
+
+/* 🌟 Footer Styles */
+.footer {
+    background: #111;
+    color: white;
+    padding: 60px 30px;
+    text-align: left;
+    border-radius: 15px 15px 0 0;
+    margin-top: 80px;
+}
+
+/* Footer Grid */
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Footer Titles */
+.footer h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #ffcad4;
+}
+
+/* Footer Paragraphs */
+.footer p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+/* Footer Links */
+.footer-links ul,
+.footer-services ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li,
+.footer-services ul li {
+    margin-bottom: 10px;
+}
+
+.footer-links ul li a,
+.footer-services ul li a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s ease-in-out;
+}
+
+.footer-links ul li a:hover,
+.footer-services ul li a:hover {
+    color: #ffcad4;
+    text-decoration: underline;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    font-size: 22px;
+    color: #ffcad4;
+    transition: transform 0.3s;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+}
+
+/* Contact Section */
+.footer-contact p {
+    font-size: 14px;
+}
+
+.footer-contact a {
+    color: #ffcad4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-contact a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+    color: #bbb;
+}
+
+/* 📱 Responsive Footer */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+}

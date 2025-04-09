@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SheCura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #34495e, #2c3e50, #1f2833, #3b4a56);
+            background-size: 400% 400%;
+            color: #ffffff;
+            text-align: center;
+            padding-top: 80px;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .navbar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .home-link {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.2rem;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .home-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        h1, h2 {
+            margin: 20px 0;
+        }
+
+        h2 {
+            margin-top: 80px;
+        }
+
+        table {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: 0.3s;
+            color: white;
+            display: inline-block;
+        }
+
+        .edit-btn { background: #f1c40f; }
+        .edit-btn:hover { background: #d4ac0d; transform: scale(1.05); }
+
+        .delete-btn { background: #e74c3c; }
+        .delete-btn:hover { background: #c0392b; transform: scale(1.05); }
+
+        .back-button {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 12px 25px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 20px; }
+            table { width: 95%; font-size: 0.9rem; }
+            .btn { padding: 8px 12px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">SheCura</div>
+        <a href="/" class="home-link">Home</a>
+    </div>
+
+    <h1>Admin Dashboard</h1>
+    <h2>Manage Users</h2>
+    <table>
+        <tr>
+            <th>Profile</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td><img src="{{ url_for('static', filename='uploads/' + user.profile_pic) if user.profile_pic else url_for('static', filename='profile_pics/default.png') }}" class="profile-img"></td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+                <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn edit-btn">Edit</a>
+                <form action="{{ url_for('delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn delete-btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>All Submitted Feedback</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Rating</th>
+            <th>Feedback</th>
+            <th>Action</th>
+        </tr>
+        {% for feedback in feedback_list %}
+        <tr>
+            <td>{{ feedback.name }}</td>
+            <td>{{ feedback.email }}</td>
+            <td>{{ feedback.rating }}</td>
+            <td>{{ feedback.feedback }}</td>
+            <td>
+                <form action="{{ url_for('delete_feedback', feedback_id=feedback.id) }}" method="POST">
+                    <button type="submit" class="btn delete-btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/" class="back-button">Go Back to Home</a>
+</body>
+</html>

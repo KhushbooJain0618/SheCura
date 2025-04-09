@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Falling Fruits</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
+    <style>
+        /* 🌟 Sparkling Background */
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-image: url("{{ url_for('static', filename='images/fall.jpg') }}"); /* Add the image as background */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: backgroundAnimation 10s infinite alternate ease-in-out;
+            position: relative; /* So we can position sparkles */
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 🌟 Sparkles Effect */
+        .sparkle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: white;
+            opacity: 0;
+            pointer-events: none;
+            animation: sparkleAnimation 1s infinite;
+        }
+
+        @keyframes sparkleAnimation {
+            0% {
+                transform: scale(0);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Other existing styles */
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: white;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-container {
+            position: relative;
+            width: 100vw;
+            height: 80vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .basket {
+            font-size: 6em;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .falling-object {
+            font-size: 3em;
+            position: absolute;
+            top: 0;
+            text-align: center;
+        }
+
+        .score-container {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background: rgb(125, 10, 10);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.5em;
+            color: yellow;
+            text-shadow: 2px 2px 10px rgba(255, 255, 0, 0.8);
+        }
+
+        .level-selection {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .level-btn, .restart-btn {
+            padding: 12px 25px;
+            font-size: 1.2em;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background-color: #f0ede9;
+            color: rgb(10, 10, 10);
+            transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .level-btn:hover, .restart-btn:hover {
+            transform: scale(1.1);
+            background-color: #e68900;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .level-btn:active, .restart-btn:active {
+            transform: scale(0.9);
+            background-color: #d97706;
+        }
+
+        .blur {
+            filter: blur(5px);
+            pointer-events: none;
+        }
+
+        .restart-btn {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            background-color: rgb(109, 91, 91);
+        }
+
+        /* End Game Container */
+        .end-game-container {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-size: 1.5em;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em; /* Smaller font for smaller screens */
+            }
+
+            .game-container {
+                height: 70vh; /* Reduce the height on small screens */
+            }
+
+            .basket {
+                font-size: 4em; /* Smaller basket size */
+            }
+
+            .falling-object {
+                font-size: 2.5em; /* Smaller falling objects */
+            }
+
+            .score-container {
+                font-size: 1.2em; /* Adjust score font size */
+                padding: 8px 15px;
+            }
+
+            .level-btn, .restart-btn {
+                font-size: 1em; /* Smaller button text */
+                padding: 10px 20px;
+            }
+
+            .end-game-container {
+                font-size: 1.2em; /* Adjust game over text size */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em; /* Even smaller font for very small screens */
+            }
+
+            .game-container {
+                height: 60vh; /* Further reduce height on very small screens */
+            }
+
+            .basket {
+                font-size: 3em; /* Smaller basket for smaller screens */
+            }
+
+            .falling-object {
+                font-size: 2em; /* Smaller falling objects */
+            }
+
+            .score-container {
+                font-size: 1em; /* Even smaller score font */
+                padding: 6px 10px;
+            }
+
+            .level-btn, .restart-btn {
+                font-size: 0.9em; /* Smaller button size */
+                padding: 8px 18px;
+            }
+
+            .end-game-container {
+                font-size: 1em; /* Smaller end game text */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Catch the Falling Fruits 🍎🍌🍇</h1>
+
+    <button class="restart-btn" onclick="restartGame()">🔄 Restart</button>
+
+    <div class="level-selection" id="levelSelection">
+        <button class="level-btn" onclick="startGame('easy')">Easy 🍏</button>
+        <button class="level-btn" onclick="startGame('medium')">Medium 🍊</button>
+        <button class="level-btn" onclick="startGame('hard')">Hard 🔥</button>
+    </div>
+
+    <div class="score-container">Score: <span id="score">0</span></div>
+    <div class="game-container" id="gameContainer">
+        <div class="basket" id="basket">🧺</div>
+    </div>
+
+    <!-- End Game Container -->
+    <div class="end-game-container" id="endGameContainer">
+        <h2>Game Over</h2>
+        <p>Score: <span id="finalScore">0</span></p>
+        <p>Congratulations!</p>
+        <p id="timeRemaining"></p>
+    </div>
+
+    <script>
+        const basket = document.getElementById("basket");
+        const gameContainer = document.getElementById("gameContainer");
+        const scoreDisplay = document.getElementById("score");
+        const levelSelection = document.getElementById("levelSelection");
+        const buttons = document.querySelectorAll(".level-btn");
+        const endGameContainer = document.getElementById("endGameContainer");
+        const finalScore = document.getElementById("finalScore");
+        const timeRemainingDisplay = document.getElementById("timeRemaining");
+        let score = 0;
+        let basketPosition = gameContainer.clientWidth / 2 - 50;
+        let fallSpeed = 50;
+        let gameInterval;
+        let timerInterval;
+        let timeLeft = 40; // Default 40 seconds
+
+        const fruits = ["🍎", "🍌", "🍊", "🍇"];
+
+        // Sparkle effect generator
+        function createSparkle() {
+            const sparkle = document.createElement("div");
+            sparkle.classList.add("sparkle");
+            sparkle.style.width = Math.random() * 5 + 5 + "px";
+            sparkle.style.height = sparkle.style.width; // keep it round
+            sparkle.style.left = Math.random() * window.innerWidth + "px";
+            sparkle.style.top = Math.random() * window.innerHeight + "px";
+            sparkle.style.animationDuration = Math.random() * 2 + 2 + "s"; // Random animation time
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 2000); // Remove after animation
+        }
+
+        // Generate sparkles at intervals
+        setInterval(createSparkle, 100);
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft" && basketPosition > 0) {
+                basketPosition -= 50;
+            } else if (e.key === "ArrowRight" && basketPosition < gameContainer.clientWidth - 100) {
+                basketPosition += 50;
+            }
+            basket.style.left = basketPosition + "px";
+        });
+
+        function startGame(level) {
+            clearInterval(gameInterval);
+            clearInterval(timerInterval);
+            score = 0;
+            scoreDisplay.textContent = score;
+            timeLeft = prompt("Enter time limit in seconds", 40) || 40;
+
+            if (level === "easy") {
+                fallSpeed = 80;
+            } else if (level === "medium") {
+                fallSpeed = 50;
+            } else if (level === "hard") {
+                fallSpeed = 30;
+            }
+
+            gameInterval = setInterval(createFallingObject, 1000);
+            timerInterval = setInterval(updateTimer, 1000);
+            levelSelection.style.display = "none";
+        }
+
+        function createFallingObject() {
+            let object = document.createElement("div");
+            object.classList.add("falling-object");
+            object.style.left = Math.random() * (gameContainer.clientWidth - 50) + "px";
+            object.style.position = "absolute";
+            object.style.top = "0px";
+            object.textContent = fruits[Math.floor(Math.random() * fruits.length)];
+
+            gameContainer.appendChild(object);
+
+            let fallInterval = setInterval(() => {
+                let objectTop = parseInt(window.getComputedStyle(object).getPropertyValue("top"));
+
+                if (objectTop >= gameContainer.clientHeight - 160 && isCaught(object)) {
+                    score++;
+                    scoreDisplay.textContent = score;
+                    object.remove();
+                    clearInterval(fallInterval);
+                    if (score % 5 === 0) confettiEffect();
+                } else if (objectTop >= gameContainer.clientHeight) {
+                    object.remove();
+                    clearInterval(fallInterval);
+                } else {
+                    object.style.top = objectTop + 5 + "px";
+                }
+            }, fallSpeed);
+        }
+
+        function isCaught(object) {
+            let basketRect = basket.getBoundingClientRect();
+            let objectRect = object.getBoundingClientRect();
+            return (
+                objectRect.bottom >= basketRect.top && 
+                objectRect.left > basketRect.left &&
+                objectRect.right < basketRect.right
+            );
+        }
+
+        function confettiEffect() {
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+        }
+
+        function updateTimer() {
+            if (timeLeft > 0) {
+                timeLeft--;
+                timeRemainingDisplay.textContent = `Time Left: ${timeLeft}s`;
+            } else {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            clearInterval(gameInterval);
+            clearInterval(timerInterval);
+            finalScore.textContent = score;
+            endGameContainer.style.display = "block";
+        }
+
+        function restartGame() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

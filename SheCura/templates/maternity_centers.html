@@ -1,0 +1,4963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SheCura Maternity Centers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset default margin and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f1f5f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navbar Styling */
+    nav {
+      background-color: #00796b;
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color 0.3s ease;
+    }
+
+    nav:hover {
+      background-color: rgb(39, 172, 161);
+    }
+
+    nav a {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffefff;
+    }
+
+    .brand {
+      font-size: 24px;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Hero Section */
+    header {
+      background: linear-gradient(45deg,rgb(75, 215, 199), rgb(162, 237, 228));
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+      border-radius: 0 0 50% 50%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      margin-bottom: 40px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 20px;
+      font-weight: 300;
+      color: #fce4ec;
+    }
+
+    /* Search Section */
+    .search-container {
+      position: relative;
+      text-align: center;
+      margin-top: 30px;
+      padding: 10px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      width: 280px;
+      margin-right: 10px;
+      border: 2px solid #00796b;
+      border-radius: 25px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #b2dfdb;
+    }
+
+    button {
+      padding: 12px 25px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #b2dfdb;
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 280px;
+      border: 2px solid #00796b;
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-height: 200px;
+      overflow-y: auto;
+      transition: max-height 0.3s ease;
+      margin-top: 30px;
+    }
+
+    .suggestions div {
+      padding: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .suggestions div:hover {
+      background-color: #00796b;
+      color: white;
+    }
+
+    /* Maternity Centers Styling */
+    .maternity-list {
+      margin-top: 70px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+      gap: 10px; /* Adjust space between items */
+      padding: 0 50px;
+      justify-items: center;
+    }
+    
+    .maternity-center {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 410px; /* Fixed width for consistent size */
+      text-align: center; /* Center the text within each box */
+    }
+    
+    .maternity-center:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .maternity-center h3 {
+      font-size: 20px;
+      color: #00796b;
+      margin-bottom: 10px;
+    }
+    
+    .maternity-center .rating {
+      color: #ffba00;
+      font-weight: bold;
+    }
+    
+    .maternity-center .speciality {
+      font-style: italic;
+      color: #555;
+      margin-top: 10px;
+    }
+    
+    .maternity-center .address {
+      margin-top: 15px;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    /* Ensure responsiveness for smaller screens */
+    @media (max-width: 1024px) {
+      .maternity-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row on smaller screens */
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .maternity-list {
+        grid-template-columns: 1fr; /* 1 item per row on very small screens */
+      }
+    }
+    
+    .maternity-center .phone,
+    .maternity-center .hours {
+    margin-top: 10px;
+    font-size: 14px;
+    }
+
+    .maternity-center .phone a {
+    color: #00796b;
+    text-decoration: none;
+    font-weight: bold;
+    }
+
+    .maternity-center .phone a:hover{
+    color: #004d40;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+<nav>
+    <div class="brand">
+      <a href="{{ url_for('home') }}">SheCura</a> <!-- Flask route for the brand -->
+    </div>
+    <a href="{{ url_for('home') }}">Home</a> <!-- Flask route for the Home link -->
+  </nav>
+  
+  <!-- Hero Section -->
+  <header>
+
+    <h1>Find the Best Wellness and Care Centers Near You</h1>
+    <p>Your trusted source for quality maternity care across India</p>
+  </header>
+
+  <!-- Search Section -->
+  <div class="search-container">
+    <input type="text" id="stateInput" placeholder="Search by state..." onkeyup="showSuggestions()">
+    <button onclick="searchMaternityCenters()">Search</button>
+    <div id="suggestions" class="suggestions"></div> <!-- Suggestions will appear here -->
+  </div>
+
+  <!-- Maternity Centers List -->
+  <div class="maternity-list" id="maternityList"></div>
+
+  <script>
+    // Sample Data for Maternity Centers in Indian States
+    const maternityCenters = {
+        "Andhra Pradesh": [
+          {
+            name: "Hyderabad Women's Hospital",
+            rating: "4.9",
+            speciality: "General Maternity Care",
+            address: "Hyderabad, AP",
+            phone: "+91 8001234567",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Visakhapatnam Maternity Care",
+            rating: "4.8",
+            speciality: "High-Risk Pregnancy",
+            address: "Visakhapatnam, AP",
+            phone: "+91 8007654321",
+            hours: "Mon-Sun: 8:00 AM - 8:00 PM"
+          },
+          {
+            name: "Vijayawada Women's Health Clinic",
+            rating: "4.7",
+            speciality: "Fertility Treatment",
+            address: "Vijayawada, AP",
+            phone: "+91 8012345678",
+            hours: "Mon-Sat: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Kakinada Maternity Center",
+            rating: "4.7",
+            speciality: "Normal Birth",
+            address: "Kakinada, AP",
+            phone: "+91 8034567890",
+            hours: "Mon-Fri: 8:30 AM - 6:00 PM"
+          },
+          {
+            name: "Guntur Birth Center",
+            rating: "4.6",
+            speciality: "Newborn Care",
+            address: "Guntur, AP",
+            phone: "+91 8045678901",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Tirupati Women's Clinic",
+            rating: "4.5",
+            speciality: "Postpartum Care",
+            address: "Tirupati, AP",
+            phone: "+91 8056789012",
+            hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+          },
+          {
+            name: "Nellore Maternity Care",
+            rating: "4.5",
+            speciality: "Pre-Natal Care",
+            address: "Nellore, AP",
+            phone: "+91 8067890123",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Anantapur Women's Hospital",
+            rating: "4.4",
+            speciality: "General Maternity Care",
+            address: "Anantapur, AP",
+            phone: "+91 8078901234",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+          },
+          {
+            name: "Rajahmundry Maternity Clinic",
+            rating: "4.4",
+            speciality: "Normal Birth",
+            address: "Rajahmundry, AP",
+            phone: "+91 8089012345",
+            hours: "Mon-Sun: 8:00 AM - 8:00 PM"
+          },
+          {
+            name: "Chittoor Women's Health Center",
+            rating: "4.3",
+            speciality: "Fertility Treatment",
+            address: "Chittoor, AP",
+            phone: "+91 8090123456",
+            hours: "Mon-Fri: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Srikakulam Maternity Center",
+            rating: "4.3",
+            speciality: "High-Risk Pregnancy",
+            address: "Srikakulam, AP",
+            phone: "+91 8101234567",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+          },
+          {
+            name: "Vizianagaram Birth Clinic",
+            rating: "4.2",
+            speciality: "Postpartum Care",
+            address: "Vizianagaram, AP",
+            phone: "+91 8112345678",
+            hours: "Mon-Sun: 8:30 AM - 6:00 PM"
+          },
+          {
+            name: "Kadapa Women's Care",
+            rating: "4.2",
+            speciality: "Pre-Natal Care",
+            address: "Kadapa, AP",
+            phone: "+91 8123456789",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Eluru Maternity Hospital",
+            rating: "4.1",
+            speciality: "Normal Birth",
+            address: "Eluru, AP",
+            phone: "+91 8134567890",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Peddapuram Women's Health Center",
+            rating: "4.1",
+            speciality: "Newborn Care",
+            address: "Peddapuram, AP",
+            phone: "+91 8145678901",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Ongole Maternity Clinic",
+            rating: "4.0",
+            speciality: "Fertility Treatment",
+            address: "Ongole, AP",
+            phone: "+91 8156789012",
+            hours: "Mon-Sat: 8:30 AM - 5:30 PM"
+          },
+          {
+            name: "Kurnool Birth Center",
+            rating: "4.0",
+            speciality: "High-Risk Pregnancy",
+            address: "Kurnool, AP",
+            phone: "+91 8167890123",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Proddatur Women's Clinic",
+            rating: "3.9",
+            speciality: "Postpartum Care",
+            address: "Proddatur, AP",
+            phone: "+91 8178901234",
+            hours: "Mon-Sat: 8:00 AM - 4:00 PM"
+          },
+          {
+            name: "Tadepalligudem Maternity Hospital",
+            rating: "3.8",
+            speciality: "Pre-Natal Care",
+            address: "Tadepalligudem, AP",
+            phone: "+91 8189012345",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Bapatla Women's Health Clinic",
+            rating: "3.8",
+            speciality: "Fertility Treatment",
+            address: "Bapatla, AP",
+            phone: "+91 8190123456",
+            hours: "Mon-Sun: 9:00 AM - 5:00 PM"
+          },
+          {
+            name: "Machilipatnam Maternity Center",
+            rating: "3.7",
+            speciality: "Postpartum Care",
+            address: "Machilipatnam, AP",
+            phone: "+91 8201234567",
+            hours: "Mon-Sat: 8:00 AM - 6:00 PM"
+          }
+        ],
+                "Arunachal Pradesh": [
+                {
+                name: "Itanagar Women's Hospital",
+                rating: "4.8",
+                speciality: "General Maternity Care",
+                address: "Itanagar, AP",
+                phone: "+91 7001234567",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+                },
+                {
+                name: "Tawang Maternity Center",
+                rating: "4.7",
+                speciality: "High-Risk Pregnancy",
+                address: "Tawang, AP",
+                phone: "+91 7007654321",
+                hours: "Mon-Sun: 8:00 AM - 8:00 PM"
+                },
+                {
+                name: "Dibrugarh Women's Health Center",
+                rating: "4.7",
+                speciality: "Normal Birth",
+                address: "Dibrugarh, AP",
+                phone: "+91 7012345678",
+                hours: "Mon-Sat: 8:00 AM - 7:00 PM"
+                },
+                {
+                name: "Bomdila Maternity Hospital",
+                rating: "4.6",
+                speciality: "Newborn Care",
+                address: "Bomdila, AP",
+                phone: "+91 7023456789",
+                hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+                },
+                {
+                name: "Naharlagun Maternity Care",
+                rating: "4.5",
+                speciality: "Postpartum Care",
+                address: "Naharlagun, AP",
+                phone: "+91 7034567890",
+                hours: "Mon-Sun: 8:30 AM - 5:00 PM"
+                },
+                {
+                name: "Ziro Women's Clinic",
+                rating: "4.5",
+                speciality: "Pre-Natal Care",
+                address: "Ziro, AP",
+                phone: "+91 7045678901",
+                hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+                },
+                {
+                name: "Seppa Maternity Center",
+                rating: "4.4",
+                speciality: "Fertility Treatment",
+                address: "Seppa, AP",
+                phone: "+91 7056789012",
+                hours: "Mon-Sun: 8:00 AM - 8:00 PM"
+                },
+                {
+                name: "Tezu Women's Health Center",
+                rating: "4.4",
+                speciality: "Normal Birth",
+                address: "Tezu, AP",
+                phone: "+91 7067890123",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+                },
+                {
+                name: "Aalo Maternity Hospital",
+                rating: "4.3",
+                speciality: "High-Risk Pregnancy",
+                address: "Aalo, AP",
+                phone: "+91 7078901234",
+                hours: "Mon-Fri: 9:00 AM - 5:30 PM"
+                },
+                {
+                name: "Changlang Women's Clinic",
+                rating: "4.3",
+                speciality: "Newborn Care",
+                address: "Changlang, AP",
+                phone: "+91 7089012345",
+                hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+                },
+                {
+                name: "Tirap Maternity Care",
+                rating: "4.2",
+                speciality: "Postpartum Care",
+                address: "Tirap, AP",
+                phone: "+91 7090123456",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+                },
+                {
+                name: "Pasighat Women's Health Clinic",
+                rating: "4.2",
+                speciality: "Pre-Natal Care",
+                address: "Pasighat, AP",
+                phone: "+91 7101234567",
+                hours: "Mon-Sun: 8:30 AM - 6:00 PM"
+                },
+                {
+                name: "Roing Maternity Center",
+                rating: "4.1",
+                speciality: "Fertility Treatment",
+                address: "Roing, AP",
+                phone: "+91 7112345678",
+                hours: "Mon-Sat: 9:00 AM - 7:00 PM"
+                },
+                {
+                name: "Tawang Women's Hospital",
+                rating: "4.1",
+                speciality: "Normal Birth",
+                address: "Tawang, AP",
+                phone: "+91 7123456789",
+                hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+                },
+                {
+                name: "Dirang Maternity Clinic",
+                rating: "4.0",
+                speciality: "Newborn Care",
+                address: "Dirang, AP",
+                phone: "+91 7134567890",
+                hours: "Mon-Sun: 9:00 AM - 5:00 PM"
+                },
+                {
+                name: "Kengkong Women's Health Center",
+                rating: "4.0",
+                speciality: "Pre-Natal Care",
+                address: "Kengkong, AP",
+                phone: "+91 7145678901",
+                hours: "Mon-Fri: 8:00 AM - 6:00 PM"
+                },
+                {
+                name: "Lohit Women's Clinic",
+                rating: "3.9",
+                speciality: "Postpartum Care",
+                address: "Lohit, AP",
+                phone: "+91 7156789012",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+                },
+                {
+                name: "Siyum Maternity Center",
+                rating: "3.9",
+                speciality: "Fertility Treatment",
+                address: "Siyum, AP",
+                phone: "+91 7167890123",
+                hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+                },
+                {
+                name: "Aru Women's Health Center",
+                rating: "3.8",
+                speciality: "High-Risk Pregnancy",
+                address: "Aru, AP",
+                phone: "+91 7178901234",
+                hours: "Mon-Sat: 9:00 AM - 7:00 PM"
+                },
+                {
+                name: "Daporijo Maternity Hospital",
+                rating: "3.8",
+                speciality: "Normal Birth",
+                address: "Daporijo, AP",
+                phone: "+91 7189012345",
+                hours: "Mon-Fri: 8:00 AM - 5:30 PM"
+                }
+            ],
+            "Assam": [
+            {
+                name: "Guwahati Women's Hospital",
+                rating: "4.9",
+                speciality: "General Maternity Care",
+                address: "Guwahati, AS",
+                phone: "+91 7001234567",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Dibrugarh Women's Health Center",
+                rating: "4.8",
+                speciality: "Fertility Treatment",
+                address: "Dibrugarh, AS",
+                phone: "+91 7012345678",
+                hours: "Mon-Sun: 8:00 AM - 8:00 PM"
+            },
+            {
+                name: "Jorhat Maternity Center",
+                rating: "4.7",
+                speciality: "High-Risk Pregnancy",
+                address: "Jorhat, AS",
+                phone: "+91 7023456789",
+                hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Silchar Maternity Clinic",
+                rating: "4.6",
+                speciality: "Postpartum Care",
+                address: "Silchar, AS",
+                phone: "+91 7034567890",
+                hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+                name: "Tinsukia Women's Health Clinic",
+                rating: "4.5",
+                speciality: "Normal Birth",
+                address: "Tinsukia, AS",
+                phone: "+91 7045678901",
+                hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+            },
+            {
+                name: "Tezpur Women's Hospital",
+                rating: "4.5",
+                speciality: "Pre-Natal Care",
+                address: "Tezpur, AS",
+                phone: "+91 7056789012",
+                hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+            },
+            {
+                name: "Nagaon Maternity Center",
+                rating: "4.4",
+                speciality: "Fertility Treatment",
+                address: "Nagaon, AS",
+                phone: "+91 7067890123",
+                hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+            },
+            {
+                name: "Bongaigaon Women's Clinic",
+                rating: "4.4",
+                speciality: "Newborn Care",
+                address: "Bongaigaon, AS",
+                phone: "+91 7078901234",
+                hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+            },
+            {
+                name: "Barpeta Women's Health Center",
+                rating: "4.3",
+                speciality: "Postpartum Care",
+                address: "Barpeta, AS",
+                phone: "+91 7089012345",
+                hours: "Mon-Sat: 9:00 AM - 7:00 PM"
+            },
+            {
+                name: "Karimganj Maternity Care",
+                rating: "4.3",
+                speciality: "High-Risk Pregnancy",
+                address: "Karimganj, AS",
+                phone: "+91 7090123456",
+                hours: "Mon-Sun: 8:30 AM - 5:30 PM"
+            },
+            {
+                name: "Hailakandi Women's Health Clinic",
+                rating: "4.2",
+                speciality: "Fertility Treatment",
+                address: "Hailakandi, AS",
+                phone: "+91 7101234567",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Dhubri Maternity Clinic",
+                rating: "4.2",
+                speciality: "Normal Birth",
+                address: "Dhubri, AS",
+                phone: "+91 7112345678",
+                hours: "Mon-Sun: 9:00 AM - 5:30 PM"
+            },
+            {
+                name: "Golaghat Women's Center",
+                rating: "4.1",
+                speciality: "Newborn Care",
+                address: "Golaghat, AS",
+                phone: "+91 7123456789",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Sonitpur Maternity Care",
+                rating: "4.1",
+                speciality: "Pre-Natal Care",
+                address: "Sonitpur, AS",
+                phone: "+91 7134567890",
+                hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Kokrajhar Maternity Center",
+                rating: "4.0",
+                speciality: "High-Risk Pregnancy",
+                address: "Kokrajhar, AS",
+                phone: "+91 7145678901",
+                hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Sivasagar Women's Clinic",
+                rating: "4.0",
+                speciality: "Postpartum Care",
+                address: "Sivasagar, AS",
+                phone: "+91 7156789012",
+                hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+            },
+            {
+                name: "Jorhat Women's Health Clinic",
+                rating: "3.9",
+                speciality: "Fertility Treatment",
+                address: "Jorhat, AS",
+                phone: "+91 7167890123",
+                hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Mankachar Maternity Hospital",
+                rating: "3.9",
+                speciality: "Normal Birth",
+                address: "Mankachar, AS",
+                phone: "+91 7178901234",
+                hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            }
+            ],
+                "Bihar": [
+            {
+            name: "Patna Women's Hospital",
+            rating: "4.8",
+            speciality: "General Maternity Care",
+            address: "Patna, BI",
+            phone: "+91 7001234567",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Muzaffarpur Women's Health Center",
+            rating: "4.7",
+            speciality: "High-Risk Pregnancy",
+            address: "Muzaffarpur, BI",
+            phone: "+91 7012345678",
+            hours: "Mon-Sun: 8:00 AM - 8:00 PM"
+            },
+            {
+            name: "Gaya Maternity Clinic",
+            rating: "4.7",
+            speciality: "Fertility Treatment",
+            address: "Gaya, BI",
+            phone: "+91 7023456789",
+            hours: "Mon-Fri: 9:00 AM - 5:00 PM"
+            },
+            {
+            name: "Bhagalpur Maternity Center",
+            rating: "4.6",
+            speciality: "Normal Birth",
+            address: "Bhagalpur, BI",
+            phone: "+91 7034567890",
+            hours: "Mon-Sat: 8:30 AM - 6:00 PM"
+            },
+            {
+            name: "Munger Women's Health Clinic",
+            rating: "4.6",
+            speciality: "Newborn Care",
+            address: "Munger, BI",
+            phone: "+91 7045678901",
+            hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+            },
+            {
+            name: "Patna Women's Health Clinic",
+            rating: "4.5",
+            speciality: "Postpartum Care",
+            address: "Patna, BI",
+            phone: "+91 7056789012",
+            hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+            },
+            {
+            name: "Bihar Sharif Maternity Center",
+            rating: "4.5",
+            speciality: "Pre-Natal Care",
+            address: "Bihar Sharif, BI",
+            phone: "+91 7067890123",
+            hours: "Mon-Sun: 8:30 AM - 6:00 PM"
+            },
+            {
+            name: "Darbhanga Women's Hospital",
+            rating: "4.4",
+            speciality: "High-Risk Pregnancy",
+            address: "Darbhanga, BI",
+            phone: "+91 7078901234",
+            hours: "Mon-Fri: 9:00 AM - 5:30 PM"
+            },
+            {
+            name: "Sasaram Women's Health Center",
+            rating: "4.4",
+            speciality: "Normal Birth",
+            address: "Sasaram, BI",
+            phone: "+91 7089012345",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Nalanda Maternity Center",
+            rating: "4.3",
+            speciality: "Newborn Care",
+            address: "Nalanda, BI",
+            phone: "+91 7090123456",
+            hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+            },
+            {
+            name: "Buxar Women's Hospital",
+            rating: "4.3",
+            speciality: "Postpartum Care",
+            address: "Buxar, BI",
+            phone: "+91 7101234567",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Purnia Maternity Clinic",
+            rating: "4.2",
+            speciality: "Pre-Natal Care",
+            address: "Purnia, BI",
+            phone: "+91 7112345678",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Begusarai Women's Clinic",
+            rating: "4.2",
+            speciality: "Fertility Treatment",
+            address: "Begusarai, BI",
+            phone: "+91 7123456789",
+            hours: "Mon-Fri: 9:00 AM - 5:00 PM"
+            },
+            {
+            name: "Khagaria Maternity Center",
+            rating: "4.1",
+            speciality: "High-Risk Pregnancy",
+            address: "Khagaria, BI",
+            phone: "+91 7134567890",
+            hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+            },
+            {
+            name: "Katihar Women's Health Center",
+            rating: "4.1",
+            speciality: "Normal Birth",
+            address: "Katihar, BI",
+            phone: "+91 7145678901",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Arrah Women's Clinic",
+            rating: "4.0",
+            speciality: "Newborn Care",
+            address: "Arrah, BI",
+            phone: "+91 7156789012",
+            hours: "Mon-Sun: 9:00 AM - 5:30 PM"
+            },
+            {
+            name: "Jamui Maternity Center",
+            rating: "4.0",
+            speciality: "Postpartum Care",
+            address: "Jamui, BI",
+            phone: "+91 7167890123",
+            hours: "Mon-Sat: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Samastipur Women's Clinic",
+            rating: "4.0",
+            speciality: "Fertility Treatment",
+            address: "Samastipur, BI",
+            phone: "+91 7178901234",
+            hours: "Mon-Sun: 9:00 AM - 5:00 PM"
+            },
+            {
+            name: "Madhubani Women's Hospital",
+            rating: "3.9",
+            speciality: "High-Risk Pregnancy",
+            address: "Madhubani, BI",
+            phone: "+91 7189012345",
+            hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+            },
+            {
+            name: "Korba Women's Health Clinic",
+            rating: "3.8",
+            speciality: "Postpartum Care",
+            address: "Korba, CG",
+            phone: "+91 7189012345",
+            hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+            },
+            {
+            name: "Raigarh Women's Health Clinic",
+            rating: "3.7",
+            speciality: "Normal Birth",
+            address: "Raigarh, CG",
+            phone: "+91 7190123456",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            }
+        ],
+                "Chhattisgarh": [
+            {
+            name: "Raipur Women's Hospital",
+            rating: "4.9",
+            speciality: "General Maternity Care",
+            address: "Raipur, CG",
+            phone: "+91 7001234567",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Bilaspur Women's Health Center",
+            rating: "4.8",
+            speciality: "Fertility Treatment",
+            address: "Bilaspur, CG",
+            phone: "+91 7012345678",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Korba Maternity Clinic",
+            rating: "4.7",
+            speciality: "High-Risk Pregnancy",
+            address: "Korba, CG",
+            phone: "+91 7023456789",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Durg Maternity Center",
+            rating: "4.6",
+            speciality: "Normal Birth",
+            address: "Durg, CG",
+            phone: "+91 7034567890",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Raigarh Women's Health Clinic",
+            rating: "4.6",
+            speciality: "Newborn Care",
+            address: "Raigarh, CG",
+            phone: "+91 7045678901",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Jagdalpur Women's Clinic",
+            rating: "4.5",
+            speciality: "Postpartum Care",
+            address: "Jagdalpur, CG",
+            phone: "+91 7056789012",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+            },
+            {
+            name: "Bilaspur Women's Health Center",
+            rating: "4.5",
+            speciality: "Pre-Natal Care",
+            address: "Bilaspur, CG",
+            phone: "+91 7067890123",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Ambikapur Women's Hospital",
+            rating: "4.4",
+            speciality: "High-Risk Pregnancy",
+            address: "Ambikapur, CG",
+            phone: "+91 7078901234",
+            hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+            },
+            {
+            name: "Raipur Women's Health Center",
+            rating: "4.4",
+            speciality: "Normal Birth",
+            address: "Raipur, CG",
+            phone: "+91 7089012345",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Korba Women's Hospital",
+            rating: "4.3",
+            speciality: "Newborn Care",
+            address: "Korba, CG",
+            phone: "+91 7090123456",
+            hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+            },
+            {
+            name: "Durg Women's Clinic",
+            rating: "4.3",
+            speciality: "Pre-Natal Care",
+            address: "Durg, CG",
+            phone: "+91 7101234567",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Raigarh Women's Clinic",
+            rating: "4.2",
+            speciality: "Postpartum Care",
+            address: "Raigarh, CG",
+            phone: "+91 7112345678",
+            hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+            },
+            {
+            name: "Bilaspur Maternity Center",
+            rating: "4.2",
+            speciality: "Fertility Treatment",
+            address: "Bilaspur, CG",
+            phone: "+91 7123456789",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Jagdalpur Women's Clinic",
+            rating: "4.1",
+            speciality: "High-Risk Pregnancy",
+            address: "Jagdalpur, CG",
+            phone: "+91 7134567890",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Ambikapur Women's Health Center",
+            rating: "4.1",
+            speciality: "Normal Birth",
+            address: "Ambikapur, CG",
+            phone: "+91 7145678901",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Raipur Maternity Health Clinic",
+            rating: "4.0",
+            speciality: "Newborn Care",
+            address: "Raipur, CG",
+            phone: "+91 7156789012",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Bilaspur Women's Clinic",
+            rating: "4.0",
+            speciality: "Postpartum Care",
+            address: "Bilaspur, CG",
+            phone: "+91 7167890123",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Raigarh Maternity Center",
+            rating: "3.9",
+            speciality: "Fertility Treatment",
+            address: "Raigarh, CG",
+            phone: "+91 7178901234",
+            hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+            },
+            {
+            name: "Korba Women's Health Clinic",
+            rating: "3.8",
+            speciality: "Postpartum Care",
+            address: "Korba, CG",
+            phone: "+91 7189012345",
+            hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+            },
+            {
+            name: "Raigarh Women's Health Clinic",
+            rating: "3.7",
+            speciality: "Normal Birth",
+            address: "Raigarh, CG",
+            phone: "+91 7190123456",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Durg Maternity Health Clinic",
+            rating: "3.7",
+            speciality: "Fertility Treatment",
+            address: "Durg, CG",
+            phone: "+91 7201234567",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            }
+        ],
+                "Goa": [
+            {
+            name: "Panaji Women's Hospital",
+            rating: "4.9",
+            speciality: "General Maternity Care",
+            address: "Panaji, Goa",
+            phone: "+91 7021234567",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Mapusa Maternity Center",
+            rating: "4.8",
+            speciality: "Fertility Treatment",
+            address: "Mapusa, Goa",
+            phone: "+91 7032345678",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Vasco Women's Clinic",
+            rating: "4.7",
+            speciality: "High-Risk Pregnancy",
+            address: "Vasco, Goa",
+            phone: "+91 7043456789",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Margao Women's Health Center",
+            rating: "4.6",
+            speciality: "Normal Birth",
+            address: "Margao, Goa",
+            phone: "+91 7054567890",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Panjim Maternity Center",
+            rating: "4.6",
+            speciality: "Newborn Care",
+            address: "Panjim, Goa",
+            phone: "+91 7065678901",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Bicholim Women's Clinic",
+            rating: "4.5",
+            speciality: "Postpartum Care",
+            address: "Bicholim, Goa",
+            phone: "+91 7076789012",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+            },
+            {
+            name: "Calangute Women's Health Center",
+            rating: "4.5",
+            speciality: "Pre-Natal Care",
+            address: "Calangute, Goa",
+            phone: "+91 7087890123",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Dona Paula Maternity Clinic",
+            rating: "4.4",
+            speciality: "High-Risk Pregnancy",
+            address: "Dona Paula, Goa",
+            phone: "+91 7098901234",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Aldona Women's Health Center",
+            rating: "4.4",
+            speciality: "Normal Birth",
+            address: "Aldona, Goa",
+            phone: "+91 7109012345",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Canacona Women's Clinic",
+            rating: "4.3",
+            speciality: "Newborn Care",
+            address: "Canacona, Goa",
+            phone: "+91 7110123456",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Ponda Maternity Center",
+            rating: "4.3",
+            speciality: "Pre-Natal Care",
+            address: "Ponda, Goa",
+            phone: "+91 7121234567",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Assagao Women's Hospital",
+            rating: "4.2",
+            speciality: "Postpartum Care",
+            address: "Assagao, Goa",
+            phone: "+91 7132345678",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Siolim Maternity Health Clinic",
+            rating: "4.2",
+            speciality: "Fertility Treatment",
+            address: "Siolim, Goa",
+            phone: "+91 7143456789",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Betul Women's Clinic",
+            rating: "4.1",
+            speciality: "High-Risk Pregnancy",
+            address: "Betul, Goa",
+            phone: "+91 7154567890",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Colva Women's Health Center",
+            rating: "4.1",
+            speciality: "Normal Birth",
+            address: "Colva, Goa",
+            phone: "+91 7165678901",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Verna Maternity Center",
+            rating: "4.0",
+            speciality: "Newborn Care",
+            address: "Verna, Goa",
+            phone: "+91 7176789012",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Cortalim Women's Hospital",
+            rating: "4.0",
+            speciality: "Pre-Natal Care",
+            address: "Cortalim, Goa",
+            phone: "+91 7187890123",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Cavelossim Women's Clinic",
+            rating: "3.9",
+            speciality: "Postpartum Care",
+            address: "Cavelossim, Goa",
+            phone: "+91 7198901234",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Verem Women's Health Center",
+            rating: "3.9",
+            speciality: "Fertility Treatment",
+            address: "Verem, Goa",
+            phone: "+91 7209012345",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Benaulim Maternity Center",
+            rating: "3.8",
+            speciality: "High-Risk Pregnancy",
+            address: "Benaulim, Goa",
+            phone: "+91 7210123456",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+            }
+        ],
+                "Gujarat": [
+            {
+            name: "Ahmedabad Women's Hospital",
+            rating: "4.9",
+            speciality: "General Maternity Care",
+            address: "Ahmedabad, Gujarat",
+            phone: "+91 7001234567",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Surat Women's Health Center",
+            rating: "4.8",
+            speciality: "Fertility Treatment",
+            address: "Surat, Gujarat",
+            phone: "+91 7012345678",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Vadodara Maternity Clinic",
+            rating: "4.7",
+            speciality: "High-Risk Pregnancy",
+            address: "Vadodara, Gujarat",
+            phone: "+91 7023456789",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Rajkot Women's Center",
+            rating: "4.6",
+            speciality: "Normal Birth",
+            address: "Rajkot, Gujarat",
+            phone: "+91 7034567890",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Bhavnagar Women's Health Clinic",
+            rating: "4.6",
+            speciality: "Newborn Care",
+            address: "Bhavnagar, Gujarat",
+            phone: "+91 7045678901",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Gandhinagar Women's Clinic",
+            rating: "4.5",
+            speciality: "Postpartum Care",
+            address: "Gandhinagar, Gujarat",
+            phone: "+91 7056789012",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+            },
+            {
+            name: "Surat Women's Health Center",
+            rating: "4.5",
+            speciality: "Pre-Natal Care",
+            address: "Surat, Gujarat",
+            phone: "+91 7067890123",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Vadodara Women's Hospital",
+            rating: "4.4",
+            speciality: "High-Risk Pregnancy",
+            address: "Vadodara, Gujarat",
+            phone: "+91 7078901234",
+            hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+            },
+            {
+            name: "Rajkot Women's Health Center",
+            rating: "4.4",
+            speciality: "Normal Birth",
+            address: "Rajkot, Gujarat",
+            phone: "+91 7089012345",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Gandhinagar Women's Hospital",
+            rating: "4.3",
+            speciality: "Newborn Care",
+            address: "Gandhinagar, Gujarat",
+            phone: "+91 7090123456",
+            hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+            },
+            {
+            name: "Bhavnagar Women's Clinic",
+            rating: "4.3",
+            speciality: "Pre-Natal Care",
+            address: "Bhavnagar, Gujarat",
+            phone: "+91 7101234567",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Surat Maternity Center",
+            rating: "4.2",
+            speciality: "Postpartum Care",
+            address: "Surat, Gujarat",
+            phone: "+91 7112345678",
+            hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+            },
+            {
+            name: "Vadodara Women's Clinic",
+            rating: "4.2",
+            speciality: "Fertility Treatment",
+            address: "Vadodara, Gujarat",
+            phone: "+91 7123456789",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Rajkot Maternity Clinic",
+            rating: "4.1",
+            speciality: "High-Risk Pregnancy",
+            address: "Rajkot, Gujarat",
+            phone: "+91 7134567890",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Gandhinagar Women's Health Center",
+            rating: "4.1",
+            speciality: "Normal Birth",
+            address: "Gandhinagar, Gujarat",
+            phone: "+91 7145678901",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Surat Maternity Health Clinic",
+            rating: "4.0",
+            speciality: "Newborn Care",
+            address: "Surat, Gujarat",
+            phone: "+91 7156789012",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Vadodara Women's Clinic",
+            rating: "4.0",
+            speciality: "Postpartum Care",
+            address: "Vadodara, Gujarat",
+            phone: "+91 7167890123",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Rajkot Women's Health Clinic",
+            rating: "3.9",
+            speciality: "Fertility Treatment",
+            address: "Rajkot, Gujarat",
+            phone: "+91 7178901234",
+            hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+            },
+            {
+            name: "Gandhinagar Women's Clinic",
+            rating: "3.8",
+            speciality: "Postpartum Care",
+            address: "Gandhinagar, Gujarat",
+            phone: "+91 7189012345",
+            hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+            },
+            {
+            name: "Bhavnagar Women's Health Clinic",
+            rating: "3.7",
+            speciality: "Normal Birth",
+            address: "Bhavnagar, Gujarat",
+            phone: "+91 7190123456",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Surat Women's Health Center",
+            rating: "3.7",
+            speciality: "Fertility Treatment",
+            address: "Surat, Gujarat",
+            phone: "+91 7201234567",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            }
+        ],
+        "Haryana": [ 
+        {
+            name: "Gurugram Women's Hospital",
+            rating: "4.9",
+            speciality: "General Maternity Care",
+            address: "Gurugram, Haryana",
+            phone: "+91 7512345678",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Faridabad Women's Clinic",
+            rating: "4.8",
+            speciality: "High-Risk Pregnancy",
+            address: "Faridabad, Haryana",
+            phone: "+91 7523456789",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Ambala Women's Health Center",
+            rating: "4.7",
+            speciality: "Normal Birth",
+            address: "Ambala, Haryana",
+            phone: "+91 7534567890",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Hisar Maternity Center",
+            rating: "4.6",
+            speciality: "Postpartum Care",
+            address: "Hisar, Haryana",
+            phone: "+91 7545678901",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Karnal Women's Health Clinic",
+            rating: "4.6",
+            speciality: "Pre-Natal Care",
+            address: "Karnal, Haryana",
+            phone: "+91 7556789012",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Rohtak Women's Hospital",
+            rating: "4.5",
+            speciality: "Fertility Treatment",
+            address: "Rohtak, Haryana",
+            phone: "+91 7567890123",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+          },
+          {
+            name: "Sonipat Maternity Center",
+            rating: "4.5",
+            speciality: "Newborn Care",
+            address: "Sonipat, Haryana",
+            phone: "+91 7578901234",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Panipat Women's Clinic",
+            rating: "4.4",
+            speciality: "General Maternity Care",
+            address: "Panipat, Haryana",
+            phone: "+91 7589012345",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Ambala Maternity Center",
+            rating: "4.4",
+            speciality: "Normal Birth",
+            address: "Ambala, Haryana",
+            phone: "+91 7590123456",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Jhajjar Women's Hospital",
+            rating: "4.3",
+            speciality: "High-Risk Pregnancy",
+            address: "Jhajjar, Haryana",
+            phone: "+91 7601234567",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Narnaul Women's Health Center",
+            rating: "4.3",
+            speciality: "Postpartum Care",
+            address: "Narnaul, Haryana",
+            phone: "+91 7612345678",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Bhiwani Women's Clinic",
+            rating: "4.2",
+            speciality: "Pre-Natal Care",
+            address: "Bhiwani, Haryana",
+            phone: "+91 7623456789",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Fatehabad Women's Health Center",
+            rating: "4.2",
+            speciality: "Fertility Treatment",
+            address: "Fatehabad, Haryana",
+            phone: "+91 7634567890",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+          },
+          {
+            name: "Palwal Women's Clinic",
+            rating: "4.1",
+            speciality: "Normal Birth",
+            address: "Palwal, Haryana",
+            phone: "+91 7645678901",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Mahendragarh Maternity Center",
+            rating: "4.1",
+            speciality: "Newborn Care",
+            address: "Mahendragarh, Haryana",
+            phone: "+91 7656789012",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Rewari Women's Health Center",
+            rating: "4.0",
+            speciality: "Postpartum Care",
+            address: "Rewari, Haryana",
+            phone: "+91 7667890123",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Gurugram Maternity Clinic",
+            rating: "4.0",
+            speciality: "Pre-Natal Care",
+            address: "Gurugram, Haryana",
+            phone: "+91 7678901234",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Sonepat Women's Clinic",
+            rating: "3.9",
+            speciality: "Fertility Treatment",
+            address: "Sonepat, Haryana",
+            phone: "+91 7689012345",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+          },
+          {
+            name: "Sirsa Women's Health Center",
+            rating: "3.9",
+            speciality: "Normal Birth",
+            address: "Sirsa, Haryana",
+            phone: "+91 7690123456",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          }
+        ],
+        "Himachal Pradesh": [    
+            {
+                name: "Shimla Women's Hospital",
+                rating: "4.9",
+                speciality: "General Maternity Care",
+                address: "Shimla, HP",
+                phone: "+91 7001234567",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Kullu Women's Health Center",
+                rating: "4.8",
+                speciality: "Fertility Treatment",
+                address: "Kullu, HP",
+                phone: "+91 7012345678",
+                hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+                name: "Manali Maternity Clinic",
+                rating: "4.7",
+                speciality: "High-Risk Pregnancy",
+                address: "Manali, HP",
+                phone: "+91 7023456789",
+                hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Mandi Women's Center",
+                rating: "4.6",
+                speciality: "Normal Birth",
+                address: "Mandi, HP",
+                phone: "+91 7034567890",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Solan Women's Health Clinic",
+                rating: "4.6",
+                speciality: "Newborn Care",
+                address: "Solan, HP",
+                phone: "+91 7045678901",
+                hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+                name: "Kangra Women's Clinic",
+                rating: "4.5",
+                speciality: "Postpartum Care",
+                address: "Kangra, HP",
+                phone: "+91 7056789012",
+                hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+            },
+            {
+                name: "Hamirpur Women's Health Center",
+                rating: "4.5",
+                speciality: "Pre-Natal Care",
+                address: "Hamirpur, HP",
+                phone: "+91 7067890123",
+                hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Bilaspur Women's Hospital",
+                rating: "4.4",
+                speciality: "High-Risk Pregnancy",
+                address: "Bilaspur, HP",
+                phone: "+91 7078901234",
+                hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+            },
+            {
+                name: "Kullu Women's Health Center",
+                rating: "4.4",
+                speciality: "Normal Birth",
+                address: "Kullu, HP",
+                phone: "+91 7089012345",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Manali Women's Hospital",
+                rating: "4.3",
+                speciality: "Newborn Care",
+                address: "Manali, HP",
+                phone: "+91 7090123456",
+                hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+            },
+            {
+                name: "Solan Women's Clinic",
+                rating: "4.3",
+                speciality: "Pre-Natal Care",
+                address: "Solan, HP",
+                phone: "+91 7101234567",
+                hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Shimla Maternity Center",
+                rating: "4.2",
+                speciality: "Postpartum Care",
+                address: "Shimla, HP",
+                phone: "+91 7112345678",
+                hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+            },
+            {
+                name: "Kangra Women's Clinic",
+                rating: "4.2",
+                speciality: "Fertility Treatment",
+                address: "Kangra, HP",
+                phone: "+91 7123456789",
+                hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+                name: "Hamirpur Women's Clinic",
+                rating: "4.1",
+                speciality: "High-Risk Pregnancy",
+                address: "Hamirpur, HP",
+                phone: "+91 7134567890",
+                hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Bilaspur Women's Health Center",
+                rating: "4.1",
+                speciality: "Normal Birth",
+                address: "Bilaspur, HP",
+                phone: "+91 7145678901",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Solan Maternity Health Clinic",
+                rating: "4.0",
+                speciality: "Newborn Care",
+                address: "Solan, HP",
+                phone: "+91 7156789012",
+                hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Shimla Women's Clinic",
+                rating: "4.0",
+                speciality: "Postpartum Care",
+                address: "Shimla, HP",
+                phone: "+91 7167890123",
+                hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Kullu Maternity Center",
+                rating: "3.9",
+                speciality: "Fertility Treatment",
+                address: "Kullu, HP",
+                phone: "+91 7178901234",
+                hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+            },
+            {
+                name: "Mandi Women's Health Clinic",
+                rating: "3.8",
+                speciality: "Postpartum Care",
+                address: "Mandi, HP",
+                phone: "+91 7189012345",
+                hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+            },
+            {
+                name: "Kangra Women's Health Center",
+                rating: "3.7",
+                speciality: "Normal Birth",
+                address: "Kangra, HP",
+                phone: "+91 7190123456",
+                hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            },
+            {
+                name: "Shimla Maternity Health Clinic",
+                rating: "3.7",
+                speciality: "Fertility Treatment",
+                address: "Shimla, HP",
+                phone: "+91 7201234567",
+                hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+            }
+        ],
+                "Jharkhand": [
+            {
+            name: "Ranchi Women's Hospital",
+            rating: "4.9",
+            speciality: "General Maternity Care",
+            address: "Ranchi, Jharkhand",
+            phone: "+91 7701234567",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Jamshedpur Women's Health Clinic",
+            rating: "4.8",
+            speciality: "High-Risk Pregnancy",
+            address: "Jamshedpur, Jharkhand",
+            phone: "+91 7712345678",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Dhanbad Maternity Center",
+            rating: "4.7",
+            speciality: "Normal Birth",
+            address: "Dhanbad, Jharkhand",
+            phone: "+91 7723456789",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Hazaribagh Women's Health Center",
+            rating: "4.6",
+            speciality: "Postpartum Care",
+            address: "Hazaribagh, Jharkhand",
+            phone: "+91 7734567890",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Bokaro Women's Hospital",
+            rating: "4.6",
+            speciality: "Pre-Natal Care",
+            address: "Bokaro, Jharkhand",
+            phone: "+91 7745678901",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Giridih Women's Health Clinic",
+            rating: "4.5",
+            speciality: "Fertility Treatment",
+            address: "Giridih, Jharkhand",
+            phone: "+91 7756789012",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+            },
+            {
+            name: "Chaibasa Women's Clinic",
+            rating: "4.5",
+            speciality: "Newborn Care",
+            address: "Chaibasa, Jharkhand",
+            phone: "+91 7767890123",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Deoghar Maternity Center",
+            rating: "4.4",
+            speciality: "General Maternity Care",
+            address: "Deoghar, Jharkhand",
+            phone: "+91 7778901234",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Dumka Women's Health Center",
+            rating: "4.4",
+            speciality: "Normal Birth",
+            address: "Dumka, Jharkhand",
+            phone: "+91 7789012345",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Palamu Women's Hospital",
+            rating: "4.3",
+            speciality: "High-Risk Pregnancy",
+            address: "Palamu, Jharkhand",
+            phone: "+91 7790123456",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Jamtara Women's Clinic",
+            rating: "4.3",
+            speciality: "Postpartum Care",
+            address: "Jamtara, Jharkhand",
+            phone: "+91 7801234567",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Ranchi Women's Health Center",
+            rating: "4.2",
+            speciality: "Pre-Natal Care",
+            address: "Ranchi, Jharkhand",
+            phone: "+91 7812345678",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Koderma Maternity Center",
+            rating: "4.2",
+            speciality: "Fertility Treatment",
+            address: "Koderma, Jharkhand",
+            phone: "+91 7823456789",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+            },
+            {
+            name: "Sahebganj Women's Health Clinic",
+            rating: "4.1",
+            speciality: "Normal Birth",
+            address: "Sahebganj, Jharkhand",
+            phone: "+91 7834567890",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Simdega Women's Hospital",
+            rating: "4.1",
+            speciality: "Newborn Care",
+            address: "Simdega, Jharkhand",
+            phone: "+91 7845678901",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Bokaro Women's Health Center",
+            rating: "4.0",
+            speciality: "Postpartum Care",
+            address: "Bokaro, Jharkhand",
+            phone: "+91 7856789012",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            },
+            {
+            name: "Hazaribagh Women's Clinic",
+            rating: "4.0",
+            speciality: "Pre-Natal Care",
+            address: "Hazaribagh, Jharkhand",
+            phone: "+91 7867890123",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Ranchi Women's Clinic",
+            rating: "3.9",
+            speciality: "Fertility Treatment",
+            address: "Ranchi, Jharkhand",
+            phone: "+91 7878901234",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+            },
+            {
+            name: "Giridih Women's Health Center",
+            rating: "3.9",
+            speciality: "Normal Birth",
+            address: "Giridih, Jharkhand",
+            phone: "+91 7889012345",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+            },
+            {
+            name: "Bokaro Maternity Care",
+            rating: "3.8",
+            speciality: "Newborn Care",
+            address: "Bokaro, Jharkhand",
+            phone: "+91 7890123456",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+            }
+        ],
+
+        "Karnataka": [ 
+        {
+            name: "Bengaluru Women's Hospital",
+            rating: "4.9",
+            speciality: "General Maternity Care",
+            address: "Bengaluru, KA",
+            phone: "+91 7001234567",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Mysuru Women's Health Center",
+            rating: "4.8",
+            speciality: "Fertility Treatment",
+            address: "Mysuru, KA",
+            phone: "+91 7012345678",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Hubli Maternity Clinic",
+            rating: "4.7",
+            speciality: "High-Risk Pregnancy",
+            address: "Hubli, KA",
+            phone: "+91 7023456789",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Mangalore Women's Center",
+            rating: "4.6",
+            speciality: "Normal Birth",
+            address: "Mangalore, KA",
+            phone: "+91 7034567890",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Bengaluru Women's Health Clinic",
+            rating: "4.6",
+            speciality: "Newborn Care",
+            address: "Bengaluru, KA",
+            phone: "+91 7045678901",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Belagavi Women's Clinic",
+            rating: "4.5",
+            speciality: "Postpartum Care",
+            address: "Belagavi, KA",
+            phone: "+91 7056789012",
+            hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+          },
+          {
+            name: "Shivamogga Women's Health Center",
+            rating: "4.5",
+            speciality: "Pre-Natal Care",
+            address: "Shivamogga, KA",
+            phone: "+91 7067890123",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Tumkur Women's Hospital",
+            rating: "4.4",
+            speciality: "High-Risk Pregnancy",
+            address: "Tumkur, KA",
+            phone: "+91 7078901234",
+            hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+          },
+          {
+            name: "Davanagere Women's Health Center",
+            rating: "4.4",
+            speciality: "Normal Birth",
+            address: "Davanagere, KA",
+            phone: "+91 7089012345",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Bijapur Women's Hospital",
+            rating: "4.3",
+            speciality: "Newborn Care",
+            address: "Bijapur, KA",
+            phone: "+91 7090123456",
+            hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+          },
+          {
+            name: "Udupi Women's Clinic",
+            rating: "4.3",
+            speciality: "Pre-Natal Care",
+            address: "Udupi, KA",
+            phone: "+91 7101234567",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Chitradurga Women's Center",
+            rating: "4.2",
+            speciality: "Postpartum Care",
+            address: "Chitradurga, KA",
+            phone: "+91 7112345678",
+            hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+          },
+          {
+            name: "Bidar Women's Health Center",
+            rating: "4.2",
+            speciality: "Fertility Treatment",
+            address: "Bidar, KA",
+            phone: "+91 7123456789",
+            hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+          },
+          {
+            name: "Raichur Women's Clinic",
+            rating: "4.1",
+            speciality: "High-Risk Pregnancy",
+            address: "Raichur, KA",
+            phone: "+91 7134567890",
+            hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Hassan Women's Health Clinic",
+            rating: "4.1",
+            speciality: "Normal Birth",
+            address: "Hassan, KA",
+            phone: "+91 7145678901",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Gulbarga Women's Health Center",
+            rating: "4.0",
+            speciality: "Newborn Care",
+            address: "Gulbarga, KA",
+            phone: "+91 7156789012",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Hampi Women's Clinic",
+            rating: "4.0",
+            speciality: "Postpartum Care",
+            address: "Hampi, KA",
+            phone: "+91 7167890123",
+            hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Mysuru Women's Maternity Center",
+            rating: "3.9",
+            speciality: "Fertility Treatment",
+            address: "Mysuru, KA",
+            phone: "+91 7178901234",
+            hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+          },
+          {
+            name: "Bengaluru Women's Health Clinic",
+            rating: "3.8",
+            speciality: "Postpartum Care",
+            address: "Bengaluru, KA",
+            phone: "+91 7189012345",
+            hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+          },
+          {
+            name: "Udupi Women's Health Clinic",
+            rating: "3.7",
+            speciality: "Normal Birth",
+            address: "Udupi, KA",
+            phone: "+91 7190123456",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+          },
+          {
+            name: "Davanagere Maternity Health Clinic",
+            rating: "3.7",
+            speciality: "Fertility Treatment",
+            address: "Davanagere, KA",
+            phone: "+91 7201234567",
+            hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+          }
+      ],
+        "Kerala": [
+        {
+        name: "Kochi Women's Hospital",
+        rating: "4.9",
+        speciality: "General Maternity Care",
+        address: "Kochi, Kerala",
+        phone: "+91 9701234567",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Thiruvananthapuram Women's Clinic",
+        rating: "4.8",
+        speciality: "High-Risk Pregnancy",
+        address: "Thiruvananthapuram, Kerala",
+        phone: "+91 9702345678",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Kozhikode Women's Health Center",
+        rating: "4.7",
+        speciality: "Normal Birth",
+        address: "Kozhikode, Kerala",
+        phone: "+91 9703456789",
+        hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Alappuzha Maternity Hospital",
+        rating: "4.7",
+        speciality: "Postpartum Care",
+        address: "Alappuzha, Kerala",
+        phone: "+91 9704567890",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Kottayam Women's Clinic",
+        rating: "4.6",
+        speciality: "Pre-Natal Care",
+        address: "Kottayam, Kerala",
+        phone: "+91 9705678901",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Palakkad Women's Health Center",
+        rating: "4.6",
+        speciality: "Fertility Treatment",
+        address: "Palakkad, Kerala",
+        phone: "+91 9706789012",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Trissur Maternity Care",
+        rating: "4.5",
+        speciality: "Newborn Care",
+        address: "Trissur, Kerala",
+        phone: "+91 9707890123",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Kannur Women's Hospital",
+        rating: "4.5",
+        speciality: "General Maternity Care",
+        address: "Kannur, Kerala",
+        phone: "+91 9708901234",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Malappuram Women's Health Clinic",
+        rating: "4.4",
+        speciality: "Normal Birth",
+        address: "Malappuram, Kerala",
+        phone: "+91 9709012345",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Idukki Women's Center",
+        rating: "4.4",
+        speciality: "High-Risk Pregnancy",
+        address: "Idukki, Kerala",
+        phone: "+91 9700123456",
+        hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Ernakulam Women's Health Center",
+        rating: "4.3",
+        speciality: "Postpartum Care",
+        address: "Ernakulam, Kerala",
+        phone: "+91 9701234567",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Pathanamthitta Women's Hospital",
+        rating: "4.3",
+        speciality: "Pre-Natal Care",
+        address: "Pathanamthitta, Kerala",
+        phone: "+91 9702345678",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Varkala Women's Health Center",
+        rating: "4.2",
+        speciality: "Fertility Treatment",
+        address: "Varkala, Kerala",
+        phone: "+91 9703456789",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Thodupuzha Maternity Clinic",
+        rating: "4.2",
+        speciality: "Newborn Care",
+        address: "Thodupuzha, Kerala",
+        phone: "+91 9704567890",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Kollam Women's Clinic",
+        rating: "4.1",
+        speciality: "Normal Birth",
+        address: "Kollam, Kerala",
+        phone: "+91 9705678901",
+        hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Punalur Women's Health Clinic",
+        rating: "4.1",
+        speciality: "Postpartum Care",
+        address: "Punalur, Kerala",
+        phone: "+91 9706789012",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Wayanad Women's Hospital",
+        rating: "4.0",
+        speciality: "Pre-Natal Care",
+        address: "Wayanad, Kerala",
+        phone: "+91 9707890123",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Kozhikode Women's Health Clinic",
+        rating: "4.0",
+        speciality: "Fertility Treatment",
+        address: "Kozhikode, Kerala",
+        phone: "+91 9708901234",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Vypin Maternity Care",
+        rating: "3.9",
+        speciality: "Normal Birth",
+        address: "Vypin, Kerala",
+        phone: "+91 9709012345",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Kottarakara Women's Health Clinic",
+        rating: "3.9",
+        speciality: "Newborn Care",
+        address: "Kottarakara, Kerala",
+        phone: "+91 9710123456",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        }
+    ],
+        "Madhya Pradesh": [
+        {
+          name: "Bhopal Women's Hospital",
+          rating: "4.9",
+          speciality: "General Maternity Care",
+          address: "Bhopal, MP",
+          phone: "+91 7001234567",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Indore Women's Health Center",
+          rating: "4.8",
+          speciality: "Fertility Treatment",
+          address: "Indore, MP",
+          phone: "+91 7012345678",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Gwalior Maternity Clinic",
+          rating: "4.7",
+          speciality: "High-Risk Pregnancy",
+          address: "Gwalior, MP",
+          phone: "+91 7023456789",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jabalpur Women's Center",
+          rating: "4.6",
+          speciality: "Normal Birth",
+          address: "Jabalpur, MP",
+          phone: "+91 7034567890",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Bhopal Women's Health Clinic",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Bhopal, MP",
+          phone: "+91 7045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Khandwa Women's Clinic",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Khandwa, MP",
+          phone: "+91 7056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Ujjain Women's Health Center",
+          rating: "4.5",
+          speciality: "Pre-Natal Care",
+          address: "Ujjain, MP",
+          phone: "+91 7067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Satna Women's Hospital",
+          rating: "4.4",
+          speciality: "High-Risk Pregnancy",
+          address: "Satna, MP",
+          phone: "+91 7078901234",
+          hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+        },
+        {
+          name: "Rewa Women's Health Center",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Rewa, MP",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Chhindwara Women's Hospital",
+          rating: "4.3",
+          speciality: "Newborn Care",
+          address: "Chhindwara, MP",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+        },
+        {
+          name: "Burhanpur Women's Clinic",
+          rating: "4.3",
+          speciality: "Pre-Natal Care",
+          address: "Burhanpur, MP",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Dewas Women's Center",
+          rating: "4.2",
+          speciality: "Postpartum Care",
+          address: "Dewas, MP",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+        },
+        {
+          name: "Bhilai Women's Health Center",
+          rating: "4.2",
+          speciality: "Fertility Treatment",
+          address: "Bhilai, MP",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Sagar Women's Clinic",
+          rating: "4.1",
+          speciality: "High-Risk Pregnancy",
+          address: "Sagar, MP",
+          phone: "+91 7134567890",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Hoshangabad Women's Health Clinic",
+          rating: "4.1",
+          speciality: "Normal Birth",
+          address: "Hoshangabad, MP",
+          phone: "+91 7145678901",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Vidisha Women's Health Center",
+          rating: "4.0",
+          speciality: "Newborn Care",
+          address: "Vidisha, MP",
+          phone: "+91 7156789012",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Shivpuri Women's Clinic",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Shivpuri, MP",
+          phone: "+91 7167890123",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Indore Women's Maternity Center",
+          rating: "3.9",
+          speciality: "Fertility Treatment",
+          address: "Indore, MP",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+        },
+        {
+          name: "Bhopal Women's Health Clinic",
+          rating: "3.8",
+          speciality: "Postpartum Care",
+          address: "Bhopal, MP",
+          phone: "+91 7189012345",
+          hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+        },
+        {
+          name: "Gwalior Women's Health Clinic",
+          rating: "3.7",
+          speciality: "Normal Birth",
+          address: "Gwalior, MP",
+          phone: "+91 7190123456",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jabalpur Maternity Health Clinic",
+          rating: "3.7",
+          speciality: "Fertility Treatment",
+          address: "Jabalpur, MP",
+          phone: "+91 7201234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+    ],
+
+        "Maharashtra": [
+        {
+          name: "Mumbai Maternity Center",
+          rating: "4.8",
+          speciality: "Normal Birth",
+          address: "Mumbai, MH",
+          phone: "+91 8012345678",
+          hours: "Mon-Fri: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Pune Women's Health Clinic",
+          rating: "4.7",
+          speciality: "Fertility Treatment",
+          address: "Pune, MH",
+          phone: "+91 8023456789",
+          hours: "Mon-Sat: 8:30 AM - 5:30 PM"
+        },
+        {
+          name: "Nagpur Birth Center",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Nagpur, MH",
+          phone: "+91 8034567890",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Thane Women's Hospital",
+          rating: "4.5",
+          speciality: "General Maternity Care",
+          address: "Thane, MH",
+          phone: "+91 8045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Nashik Women's Clinic",
+          rating: "4.5",
+          speciality: "Pre-Natal Care",
+          address: "Nashik, MH",
+          phone: "+91 8056789012",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Aurangabad Maternity Care",
+          rating: "4.4",
+          speciality: "Postpartum Care",
+          address: "Aurangabad, MH",
+          phone: "+91 8067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kolhapur Women's Hospital",
+          rating: "4.4",
+          speciality: "High-Risk Pregnancy",
+          address: "Kolhapur, MH",
+          phone: "+91 8078901234",
+          hours: "Mon-Fri: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Satara Women's Health Center",
+          rating: "4.3",
+          speciality: "Normal Birth",
+          address: "Satara, MH",
+          phone: "+91 8089012345",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Solapur Women's Clinic",
+          rating: "4.3",
+          speciality: "Fertility Treatment",
+          address: "Solapur, MH",
+          phone: "+91 8090123456",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Kalyan Women's Health Center",
+          rating: "4.2",
+          speciality: "Newborn Care",
+          address: "Kalyan, MH",
+          phone: "+91 8101234567",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Miraj Women's Health Clinic",
+          rating: "4.2",
+          speciality: "Postpartum Care",
+          address: "Miraj, MH",
+          phone: "+91 8112345678",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Ratnagiri Women's Clinic",
+          rating: "4.1",
+          speciality: "Pre-Natal Care",
+          address: "Ratnagiri, MH",
+          phone: "+91 8123456789",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Bhiwandi Women's Hospital",
+          rating: "4.1",
+          speciality: "High-Risk Pregnancy",
+          address: "Bhiwandi, MH",
+          phone: "+91 8134567890",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Latur Women's Health Center",
+          rating: "4.0",
+          speciality: "Normal Birth",
+          address: "Latur, MH",
+          phone: "+91 8145678901",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Chandrapur Maternity Clinic",
+          rating: "4.0",
+          speciality: "Fertility Treatment",
+          address: "Chandrapur, MH",
+          phone: "+91 8156789012",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Beed Women's Health Center",
+          rating: "3.9",
+          speciality: "Postpartum Care",
+          address: "Beed, MH",
+          phone: "+91 8167890123",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Buldhana Women's Clinic",
+          rating: "3.9",
+          speciality: "Newborn Care",
+          address: "Buldhana, MH",
+          phone: "+91 8178901234",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Yavatmal Maternity Center",
+          rating: "3.8",
+          speciality: "Pre-Natal Care",
+          address: "Yavatmal, MH",
+          phone: "+91 8189012345",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Akola Women's Health Clinic",
+          rating: "3.8",
+          speciality: "High-Risk Pregnancy",
+          address: "Akola, MH",
+          phone: "+91 8190123456",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Nandurbar Women's Clinic",
+          rating: "3.7",
+          speciality: "Fertility Treatment",
+          address: "Nandurbar, MH",
+          phone: "+91 8201234567",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        }
+      ],
+        "Manipur": [
+        {
+          name: "Imphal Women's Hospital",
+          rating: "4.9",
+          speciality: "General Maternity Care",
+          address: "Imphal, Manipur",
+          phone: "+91 7001234567",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Thoubal Women's Health Center",
+          rating: "4.8",
+          speciality: "Fertility Treatment",
+          address: "Thoubal, Manipur",
+          phone: "+91 7012345678",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Churachandpur Maternity Clinic",
+          rating: "4.7",
+          speciality: "High-Risk Pregnancy",
+          address: "Churachandpur, Manipur",
+          phone: "+91 7023456789",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kakching Women's Center",
+          rating: "4.6",
+          speciality: "Normal Birth",
+          address: "Kakching, Manipur",
+          phone: "+91 7034567890",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Imphal Women's Health Clinic",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Imphal, Manipur",
+          phone: "+91 7045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Bishnupur Women's Clinic",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Bishnupur, Manipur",
+          phone: "+91 7056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Noney Women's Health Center",
+          rating: "4.5",
+          speciality: "Pre-Natal Care",
+          address: "Noney, Manipur",
+          phone: "+91 7067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Senapati Women's Hospital",
+          rating: "4.4",
+          speciality: "High-Risk Pregnancy",
+          address: "Senapati, Manipur",
+          phone: "+91 7078901234",
+          hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+        },
+        {
+          name: "Tamenglong Women's Health Center",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Tamenglong, Manipur",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Ukhrul Women's Hospital",
+          rating: "4.3",
+          speciality: "Newborn Care",
+          address: "Ukhrul, Manipur",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jiribam Women's Clinic",
+          rating: "4.3",
+          speciality: "Pre-Natal Care",
+          address: "Jiribam, Manipur",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Chandel Women's Center",
+          rating: "4.2",
+          speciality: "Postpartum Care",
+          address: "Chandel, Manipur",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+        },
+        {
+          name: "Imphal East Women's Health Center",
+          rating: "4.2",
+          speciality: "Fertility Treatment",
+          address: "Imphal East, Manipur",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Kangpokpi Women's Clinic",
+          rating: "4.1",
+          speciality: "High-Risk Pregnancy",
+          address: "Kangpokpi, Manipur",
+          phone: "+91 7134567890",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Churachandpur Women's Health Clinic",
+          rating: "4.1",
+          speciality: "Normal Birth",
+          address: "Churachandpur, Manipur",
+          phone: "+91 7145678901",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kakching Maternity Health Clinic",
+          rating: "4.0",
+          speciality: "Newborn Care",
+          address: "Kakching, Manipur",
+          phone: "+91 7156789012",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Imphal Women's Maternity Center",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Imphal, Manipur",
+          phone: "+91 7167890123",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Bishnupur Women's Health Clinic",
+          rating: "3.9",
+          speciality: "Fertility Treatment",
+          address: "Bishnupur, Manipur",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+        },
+        {
+          name: "Thoubal Women's Health Clinic",
+          rating: "3.8",
+          speciality: "Postpartum Care",
+          address: "Thoubal, Manipur",
+          phone: "+91 7189012345",
+          hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+        },
+        {
+          name: "Chandel Women's Health Clinic",
+          rating: "3.7",
+          speciality: "Normal Birth",
+          address: "Chandel, Manipur",
+          phone: "+91 7190123456",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Ukhrul Women's Health Clinic",
+          rating: "3.7",
+          speciality: "Fertility Treatment",
+          address: "Ukhrul, Manipur",
+          phone: "+91 7201234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+    ],
+        "Meghalaya": [
+        {
+          name: "Shillong Women's Hospital",
+          rating: "4.8",
+          speciality: "Normal Birth",
+          address: "Shillong, ML",
+          phone: "+91 7001234567",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Tura Maternity Center",
+          rating: "4.7",
+          speciality: "Pre-Natal Care",
+          address: "Tura, ML",
+          phone: "+91 7007654321",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jowai Women's Health Clinic",
+          rating: "4.6",
+          speciality: "Fertility Treatment",
+          address: "Jowai, ML",
+          phone: "+91 7012345678",
+          hours: "Mon-Fri: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Nongstoin Maternity Center",
+          rating: "4.5",
+          speciality: "Newborn Care",
+          address: "Nongstoin, ML",
+          phone: "+91 7023456789",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Mawkyrwat Women's Hospital",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Mawkyrwat, ML",
+          phone: "+91 7034567890",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Williamnagar Women's Health Center",
+          rating: "4.4",
+          speciality: "High-Risk Pregnancy",
+          address: "Williamnagar, ML",
+          phone: "+91 7045678901",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Nongpoh Maternity Care",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Nongpoh, ML",
+          phone: "+91 7056789012",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Baghmara Women's Clinic",
+          rating: "4.3",
+          speciality: "Pre-Natal Care",
+          address: "Baghmara, ML",
+          phone: "+91 7067890123",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Pynursla Women's Health Center",
+          rating: "4.3",
+          speciality: "Fertility Treatment",
+          address: "Pynursla, ML",
+          phone: "+91 7078901234",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Ranikor Maternity Center",
+          rating: "4.2",
+          speciality: "Postpartum Care",
+          address: "Ranikor, ML",
+          phone: "+91 7089012345",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Umling Women's Clinic",
+          rating: "4.2",
+          speciality: "Newborn Care",
+          address: "Umling, ML",
+          phone: "+91 7090123456",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Khasi Hills Women's Health Center",
+          rating: "4.1",
+          speciality: "High-Risk Pregnancy",
+          address: "Khasi Hills, ML",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Sohra Women's Health Clinic",
+          rating: "4.1",
+          speciality: "Fertility Treatment",
+          address: "Sohra, ML",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Laitkynsew Women's Health Center",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Laitkynsew, ML",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Mawlai Women's Clinic",
+          rating: "4.0",
+          speciality: "Pre-Natal Care",
+          address: "Mawlai, ML",
+          phone: "+91 7134567890",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Shillong Maternity Clinic",
+          rating: "3.9",
+          speciality: "Newborn Care",
+          address: "Shillong, ML",
+          phone: "+91 7145678901",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Mawphlang Women's Health Center",
+          rating: "3.9",
+          speciality: "Fertility Treatment",
+          address: "Mawphlang, ML",
+          phone: "+91 7156789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Jaintia Hills Women's Clinic",
+          rating: "3.8",
+          speciality: "Normal Birth",
+          address: "Jaintia Hills, ML",
+          phone: "+91 7167890123",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Nongbah Women's Clinic",
+          rating: "3.8",
+          speciality: "High-Risk Pregnancy",
+          address: "Nongbah, ML",
+          phone: "+91 7178901234",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Polo Maternity Center",
+          rating: "3.7",
+          speciality: "Pre-Natal Care",
+          address: "Polo, ML",
+          phone: "+91 7189012345",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+      ],
+        "Mizoram": [
+        {
+          name: "Aizawl Women's Hospital",
+          rating: "4.9",
+          speciality: "General Maternity Care",
+          address: "Aizawl, Mizoram",
+          phone: "+91 7001234567",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Lunglei Women's Health Center",
+          rating: "4.8",
+          speciality: "Fertility Treatment",
+          address: "Lunglei, Mizoram",
+          phone: "+91 7012345678",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Mamit Maternity Clinic",
+          rating: "4.7",
+          speciality: "High-Risk Pregnancy",
+          address: "Mamit, Mizoram",
+          phone: "+91 7023456789",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Champhai Women's Center",
+          rating: "4.6",
+          speciality: "Normal Birth",
+          address: "Champhai, Mizoram",
+          phone: "+91 7034567890",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Aizawl Women's Health Clinic",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Aizawl, Mizoram",
+          phone: "+91 7045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Serchhip Women's Clinic",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Serchhip, Mizoram",
+          phone: "+91 7056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Lunglei Women's Health Center",
+          rating: "4.5",
+          speciality: "Pre-Natal Care",
+          address: "Lunglei, Mizoram",
+          phone: "+91 7067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kolasib Women's Hospital",
+          rating: "4.4",
+          speciality: "High-Risk Pregnancy",
+          address: "Kolasib, Mizoram",
+          phone: "+91 7078901234",
+          hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+        },
+        {
+          name: "Lawngtlai Women's Health Center",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Lawngtlai, Mizoram",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Aizawl Women's Health Clinic",
+          rating: "4.3",
+          speciality: "Newborn Care",
+          address: "Aizawl, Mizoram",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+        },
+        {
+          name: "Mamit Women's Clinic",
+          rating: "4.3",
+          speciality: "Pre-Natal Care",
+          address: "Mamit, Mizoram",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Lunglei Women's Clinic",
+          rating: "4.2",
+          speciality: "Postpartum Care",
+          address: "Lunglei, Mizoram",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+        },
+        {
+          name: "Serchhip Women's Health Center",
+          rating: "4.2",
+          speciality: "Fertility Treatment",
+          address: "Serchhip, Mizoram",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Champhai Women's Health Clinic",
+          rating: "4.1",
+          speciality: "High-Risk Pregnancy",
+          address: "Champhai, Mizoram",
+          phone: "+91 7134567890",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Aizawl Maternity Health Clinic",
+          rating: "4.1",
+          speciality: "Normal Birth",
+          address: "Aizawl, Mizoram",
+          phone: "+91 7145678901",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kolasib Women's Health Clinic",
+          rating: "4.0",
+          speciality: "Newborn Care",
+          address: "Kolasib, Mizoram",
+          phone: "+91 7156789012",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Lunglei Maternity Center",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Lunglei, Mizoram",
+          phone: "+91 7167890123",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Serchhip Women's Maternity Clinic",
+          rating: "3.9",
+          speciality: "Fertility Treatment",
+          address: "Serchhip, Mizoram",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+        },
+        {
+          name: "Aizawl Women's Health Center",
+          rating: "3.8",
+          speciality: "Postpartum Care",
+          address: "Aizawl, Mizoram",
+          phone: "+91 7189012345",
+          hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+        },
+        {
+          name: "Lunglei Women's Health Clinic",
+          rating: "3.7",
+          speciality: "Normal Birth",
+          address: "Lunglei, Mizoram",
+          phone: "+91 7190123456",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Champhai Women's Health Center",
+          rating: "3.7",
+          speciality: "Fertility Treatment",
+          address: "Champhai, Mizoram",
+          phone: "+91 7201234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+    ],
+        "Nagaland": [
+        {
+          name: "Kohima Women's Hospital",
+          rating: "4.9",
+          speciality: "Normal Birth",
+          address: "Kohima, NL",
+          phone: "+91 7001234567",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Dimapur Women's Health Clinic",
+          rating: "4.8",
+          speciality: "Pre-Natal Care",
+          address: "Dimapur, NL",
+          phone: "+91 7007654321",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Wokha Women's Clinic",
+          rating: "4.7",
+          speciality: "Fertility Treatment",
+          address: "Wokha, NL",
+          phone: "+91 7012345678",
+          hours: "Mon-Fri: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Zunheboto Maternity Center",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Zunheboto, NL",
+          phone: "+91 7023456789",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Mon Women's Health Center",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Mon, NL",
+          phone: "+91 7034567890",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Phek Women's Health Clinic",
+          rating: "4.5",
+          speciality: "High-Risk Pregnancy",
+          address: "Phek, NL",
+          phone: "+91 7045678901",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Kiphire Women's Hospital",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Kiphire, NL",
+          phone: "+91 7056789012",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Tuensang Maternity Care",
+          rating: "4.4",
+          speciality: "Pre-Natal Care",
+          address: "Tuensang, NL",
+          phone: "+91 7067890123",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Noklak Women's Health Center",
+          rating: "4.3",
+          speciality: "Fertility Treatment",
+          address: "Noklak, NL",
+          phone: "+91 7078901234",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Longleng Women's Health Clinic",
+          rating: "4.3",
+          speciality: "Postpartum Care",
+          address: "Longleng, NL",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Kohima Maternity Center",
+          rating: "4.2",
+          speciality: "Newborn Care",
+          address: "Kohima, NL",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Chümoukedima Women's Clinic",
+          rating: "4.2",
+          speciality: "High-Risk Pregnancy",
+          address: "Chümoukedima, NL",
+          phone: "+91 7101234567",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Zunheboto Women's Clinic",
+          rating: "4.1",
+          speciality: "Pre-Natal Care",
+          address: "Zunheboto, NL",
+          phone: "+91 7112345678",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Mokokchung Women's Health Center",
+          rating: "4.1",
+          speciality: "Fertility Treatment",
+          address: "Mokokchung, NL",
+          phone: "+91 7123456789",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Kiphire Women's Health Center",
+          rating: "4.0",
+          speciality: "Normal Birth",
+          address: "Kiphire, NL",
+          phone: "+91 7134567890",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Phek Maternity Center",
+          rating: "4.0",
+          speciality: "High-Risk Pregnancy",
+          address: "Phek, NL",
+          phone: "+91 7145678901",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Dimapur Women's Hospital",
+          rating: "3.9",
+          speciality: "Postpartum Care",
+          address: "Dimapur, NL",
+          phone: "+91 7156789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Wokha Women's Clinic",
+          rating: "3.9",
+          speciality: "Pre-Natal Care",
+          address: "Wokha, NL",
+          phone: "+91 7167890123",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Longleng Maternity Center",
+          rating: "3.8",
+          speciality: "Newborn Care",
+          address: "Longleng, NL",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Mokokchung Women's Health Center",
+          rating: "3.8",
+          speciality: "High-Risk Pregnancy",
+          address: "Mokokchung, NL",
+          phone: "+91 7189012345",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        }
+      ],
+        "Odisha": [
+        {
+          name: "Bhubaneswar Women's Hospital",
+          rating: "4.9",
+          speciality: "General Maternity Care",
+          address: "Bhubaneswar, Odisha",
+          phone: "+91 7001234567",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Cuttack Women's Health Center",
+          rating: "4.8",
+          speciality: "Fertility Treatment",
+          address: "Cuttack, Odisha",
+          phone: "+91 7012345678",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Rourkela Maternity Clinic",
+          rating: "4.7",
+          speciality: "High-Risk Pregnancy",
+          address: "Rourkela, Odisha",
+          phone: "+91 7023456789",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Sambalpur Women's Center",
+          rating: "4.6",
+          speciality: "Normal Birth",
+          address: "Sambalpur, Odisha",
+          phone: "+91 7034567890",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Berhampur Women's Health Clinic",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Berhampur, Odisha",
+          phone: "+91 7045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Puri Women's Clinic",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Puri, Odisha",
+          phone: "+91 7056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Balasore Women's Health Center",
+          rating: "4.5",
+          speciality: "Pre-Natal Care",
+          address: "Balasore, Odisha",
+          phone: "+91 7067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kendrapara Women's Hospital",
+          rating: "4.4",
+          speciality: "High-Risk Pregnancy",
+          address: "Kendrapara, Odisha",
+          phone: "+91 7078901234",
+          hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+        },
+        {
+          name: "Bhubaneswar Women's Health Center",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Bhubaneswar, Odisha",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Rourkela Women's Hospital",
+          rating: "4.3",
+          speciality: "Newborn Care",
+          address: "Rourkela, Odisha",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+        },
+        {
+          name: "Sambalpur Women's Clinic",
+          rating: "4.3",
+          speciality: "Pre-Natal Care",
+          address: "Sambalpur, Odisha",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Berhampur Maternity Center",
+          rating: "4.2",
+          speciality: "Postpartum Care",
+          address: "Berhampur, Odisha",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+        },
+        {
+          name: "Puri Women's Health Center",
+          rating: "4.2",
+          speciality: "Fertility Treatment",
+          address: "Puri, Odisha",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Balasore Women's Clinic",
+          rating: "4.1",
+          speciality: "High-Risk Pregnancy",
+          address: "Balasore, Odisha",
+          phone: "+91 7134567890",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kendrapara Women's Health Center",
+          rating: "4.1",
+          speciality: "Normal Birth",
+          address: "Kendrapara, Odisha",
+          phone: "+91 7145678901",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Cuttack Women's Clinic",
+          rating: "4.0",
+          speciality: "Newborn Care",
+          address: "Cuttack, Odisha",
+          phone: "+91 7156789012",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Rourkela Women's Health Clinic",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Rourkela, Odisha",
+          phone: "+91 7167890123",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Bhubaneswar Maternity Health Center",
+          rating: "3.9",
+          speciality: "Fertility Treatment",
+          address: "Bhubaneswar, Odisha",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+        },
+        {
+          name: "Sambalpur Women's Health Clinic",
+          rating: "3.8",
+          speciality: "Postpartum Care",
+          address: "Sambalpur, Odisha",
+          phone: "+91 7189012345",
+          hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+        },
+        {
+          name: "Berhampur Women's Maternity Center",
+          rating: "3.7",
+          speciality: "Normal Birth",
+          address: "Berhampur, Odisha",
+          phone: "+91 7190123456",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kendrapara Women's Clinic",
+          rating: "3.7",
+          speciality: "Fertility Treatment",
+          address: "Kendrapara, Odisha",
+          phone: "+91 7201234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+    ],
+        "Punjab": [
+        {
+          name: "Amritsar Women's Hospital",
+          rating: "4.9",
+          speciality: "Normal Birth",
+          address: "Amritsar, PB",
+          phone: "+91 7001234567",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Ludhiana Maternity Clinic",
+          rating: "4.8",
+          speciality: "Pre-Natal Care",
+          address: "Ludhiana, PB",
+          phone: "+91 7012345678",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Patiala Women's Health Center",
+          rating: "4.7",
+          speciality: "Fertility Treatment",
+          address: "Patiala, PB",
+          phone: "+91 7023456789",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jalandhar Maternity Care",
+          rating: "4.6",
+          speciality: "High-Risk Pregnancy",
+          address: "Jalandhar, PB",
+          phone: "+91 7034567890",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Bathinda Women's Hospital",
+          rating: "4.5",
+          speciality: "Newborn Care",
+          address: "Bathinda, PB",
+          phone: "+91 7045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Fatehgarh Sahib Women's Health Clinic",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Fatehgarh Sahib, PB",
+          phone: "+91 7056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Mohali Women's Hospital",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Mohali, PB",
+          phone: "+91 7067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Amritsar Maternity Center",
+          rating: "4.4",
+          speciality: "Pre-Natal Care",
+          address: "Amritsar, PB",
+          phone: "+91 7078901234",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Patiala Women's Health Clinic",
+          rating: "4.3",
+          speciality: "Fertility Treatment",
+          address: "Patiala, PB",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Ludhiana Women's Health Clinic",
+          rating: "4.3",
+          speciality: "Postpartum Care",
+          address: "Ludhiana, PB",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Bathinda Women's Clinic",
+          rating: "4.2",
+          speciality: "Newborn Care",
+          address: "Bathinda, PB",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jalandhar Women's Health Center",
+          rating: "4.2",
+          speciality: "High-Risk Pregnancy",
+          address: "Jalandhar, PB",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Mohali Maternity Center",
+          rating: "4.1",
+          speciality: "Pre-Natal Care",
+          address: "Mohali, PB",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Fatehgarh Sahib Maternity Care",
+          rating: "4.1",
+          speciality: "Fertility Treatment",
+          address: "Fatehgarh Sahib, PB",
+          phone: "+91 7134567890",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Amritsar Women's Health Center",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Amritsar, PB",
+          phone: "+91 7145678901",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Patiala Maternity Center",
+          rating: "4.0",
+          speciality: "Newborn Care",
+          address: "Patiala, PB",
+          phone: "+91 7156789012",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Jalandhar Maternity Hospital",
+          rating: "3.9",
+          speciality: "Normal Birth",
+          address: "Jalandhar, PB",
+          phone: "+91 7167890123",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Ludhiana Maternity Center",
+          rating: "3.9",
+          speciality: "High-Risk Pregnancy",
+          address: "Ludhiana, PB",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Bathinda Maternity Hospital",
+          rating: "3.8",
+          speciality: "Pre-Natal Care",
+          address: "Bathinda, PB",
+          phone: "+91 7189012345",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Mohali Women's Health Clinic",
+          rating: "3.8",
+          speciality: "Fertility Treatment",
+          address: "Mohali, PB",
+          phone: "+91 7190123456",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+      ],
+        "Rajasthan": [
+        {
+          name: "Jaipur Women's Hospital",
+          rating: "4.9",
+          speciality: "General Maternity Care",
+          address: "Jaipur, Rajasthan",
+          phone: "+91 7001234567",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Udaipur Women's Health Center",
+          rating: "4.8",
+          speciality: "Fertility Treatment",
+          address: "Udaipur, Rajasthan",
+          phone: "+91 7012345678",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Jodhpur Maternity Clinic",
+          rating: "4.7",
+          speciality: "High-Risk Pregnancy",
+          address: "Jodhpur, Rajasthan",
+          phone: "+91 7023456789",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Bikaner Women's Health Center",
+          rating: "4.6",
+          speciality: "Normal Birth",
+          address: "Bikaner, Rajasthan",
+          phone: "+91 7034567890",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kota Women's Clinic",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Kota, Rajasthan",
+          phone: "+91 7045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Ajmer Women's Center",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Ajmer, Rajasthan",
+          phone: "+91 7056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Alwar Women's Health Center",
+          rating: "4.5",
+          speciality: "Pre-Natal Care",
+          address: "Alwar, Rajasthan",
+          phone: "+91 7067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jodhpur Women's Hospital",
+          rating: "4.4",
+          speciality: "High-Risk Pregnancy",
+          address: "Jodhpur, Rajasthan",
+          phone: "+91 7078901234",
+          hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+        },
+        {
+          name: "Jaipur Women's Health Center",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Jaipur, Rajasthan",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Udaipur Women's Hospital",
+          rating: "4.3",
+          speciality: "Newborn Care",
+          address: "Udaipur, Rajasthan",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+        },
+        {
+          name: "Bikaner Women's Clinic",
+          rating: "4.3",
+          speciality: "Pre-Natal Care",
+          address: "Bikaner, Rajasthan",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kota Women's Health Clinic",
+          rating: "4.2",
+          speciality: "Postpartum Care",
+          address: "Kota, Rajasthan",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+        },
+        {
+          name: "Ajmer Maternity Health Clinic",
+          rating: "4.2",
+          speciality: "Fertility Treatment",
+          address: "Ajmer, Rajasthan",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Alwar Women's Maternity Center",
+          rating: "4.1",
+          speciality: "High-Risk Pregnancy",
+          address: "Alwar, Rajasthan",
+          phone: "+91 7134567890",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Bikaner Women's Health Clinic",
+          rating: "4.1",
+          speciality: "Normal Birth",
+          address: "Bikaner, Rajasthan",
+          phone: "+91 7145678901",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jodhpur Women's Health Center",
+          rating: "4.0",
+          speciality: "Newborn Care",
+          address: "Jodhpur, Rajasthan",
+          phone: "+91 7156789012",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jaipur Maternity Health Clinic",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Jaipur, Rajasthan",
+          phone: "+91 7167890123",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Kota Women's Maternity Health Center",
+          rating: "3.9",
+          speciality: "Fertility Treatment",
+          address: "Kota, Rajasthan",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+        },
+        {
+          name: "Ajmer Women's Clinic",
+          rating: "3.8",
+          speciality: "Postpartum Care",
+          address: "Ajmer, Rajasthan",
+          phone: "+91 7189012345",
+          hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+        },
+        {
+          name: "Alwar Women's Health Clinic",
+          rating: "3.7",
+          speciality: "Normal Birth",
+          address: "Alwar, Rajasthan",
+          phone: "+91 7190123456",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jodhpur Maternity Center",
+          rating: "3.7",
+          speciality: "Fertility Treatment",
+          address: "Jodhpur, Rajasthan",
+          phone: "+91 7201234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+    ],
+        "Sikkim": [
+        {
+          name: "Gangtok Women's Hospital",
+          rating: "4.9",
+          speciality: "Normal Birth",
+          address: "Gangtok, SK",
+          phone: "+91 7001234567",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Namchi Maternity Care",
+          rating: "4.8",
+          speciality: "Pre-Natal Care",
+          address: "Namchi, SK",
+          phone: "+91 7012345678",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Mangan Women's Health Clinic",
+          rating: "4.7",
+          speciality: "Fertility Treatment",
+          address: "Mangan, SK",
+          phone: "+91 7023456789",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Rangpo Women's Hospital",
+          rating: "4.6",
+          speciality: "High-Risk Pregnancy",
+          address: "Rangpo, SK",
+          phone: "+91 7034567890",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Pakyong Women's Health Center",
+          rating: "4.5",
+          speciality: "Newborn Care",
+          address: "Pakyong, SK",
+          phone: "+91 7045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Jorethang Maternity Center",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Jorethang, SK",
+          phone: "+91 7056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Ravong Maternity Hospital",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Ravong, SK",
+          phone: "+91 7067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Gyalshing Women's Health Clinic",
+          rating: "4.4",
+          speciality: "Pre-Natal Care",
+          address: "Gyalshing, SK",
+          phone: "+91 7078901234",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Singtam Women's Hospital",
+          rating: "4.3",
+          speciality: "Fertility Treatment",
+          address: "Singtam, SK",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Rangpo Maternity Clinic",
+          rating: "4.3",
+          speciality: "Postpartum Care",
+          address: "Rangpo, SK",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Mangan Women's Health Center",
+          rating: "4.2",
+          speciality: "Newborn Care",
+          address: "Mangan, SK",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Tadong Women's Health Center",
+          rating: "4.2",
+          speciality: "High-Risk Pregnancy",
+          address: "Tadong, SK",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Pakyong Maternity Hospital",
+          rating: "4.1",
+          speciality: "Pre-Natal Care",
+          address: "Pakyong, SK",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Tashiding Maternity Center",
+          rating: "4.1",
+          speciality: "Fertility Treatment",
+          address: "Tashiding, SK",
+          phone: "+91 7134567890",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Ravong Women's Health Clinic",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Ravong, SK",
+          phone: "+91 7145678901",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Melli Maternity Care",
+          rating: "4.0",
+          speciality: "Newborn Care",
+          address: "Melli, SK",
+          phone: "+91 7156789012",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Gyalshing Maternity Hospital",
+          rating: "3.9",
+          speciality: "High-Risk Pregnancy",
+          address: "Gyalshing, SK",
+          phone: "+91 7167890123",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Singtam Women's Health Center",
+          rating: "3.9",
+          speciality: "Pre-Natal Care",
+          address: "Singtam, SK",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jorethang Women's Hospital",
+          rating: "3.8",
+          speciality: "Fertility Treatment",
+          address: "Jorethang, SK",
+          phone: "+91 7189012345",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        }
+      ],
+        "Tamil Nadu": [
+        {
+          name: "Chennai Women's Hospital",
+          rating: "4.9",
+          speciality: "General Maternity Care",
+          address: "Chennai, Tamil Nadu",
+          phone: "+91 7001234567",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Coimbatore Women's Health Center",
+          rating: "4.8",
+          speciality: "Fertility Treatment",
+          address: "Coimbatore, Tamil Nadu",
+          phone: "+91 7012345678",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Madurai Maternity Clinic",
+          rating: "4.7",
+          speciality: "High-Risk Pregnancy",
+          address: "Madurai, Tamil Nadu",
+          phone: "+91 7023456789",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Trichy Women's Health Center",
+          rating: "4.6",
+          speciality: "Normal Birth",
+          address: "Trichy, Tamil Nadu",
+          phone: "+91 7034567890",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Tirunelveli Women's Clinic",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Tirunelveli, Tamil Nadu",
+          phone: "+91 7045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Salem Women's Center",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Salem, Tamil Nadu",
+          phone: "+91 7056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Vellore Women's Health Center",
+          rating: "4.5",
+          speciality: "Pre-Natal Care",
+          address: "Vellore, Tamil Nadu",
+          phone: "+91 7067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Chennai Women's Health Center",
+          rating: "4.4",
+          speciality: "High-Risk Pregnancy",
+          address: "Chennai, Tamil Nadu",
+          phone: "+91 7078901234",
+          hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+        },
+        {
+          name: "Coimbatore Women's Hospital",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Coimbatore, Tamil Nadu",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Madurai Women's Hospital",
+          rating: "4.3",
+          speciality: "Newborn Care",
+          address: "Madurai, Tamil Nadu",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+        },
+        {
+          name: "Trichy Women's Clinic",
+          rating: "4.3",
+          speciality: "Pre-Natal Care",
+          address: "Trichy, Tamil Nadu",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Tirunelveli Maternity Health Clinic",
+          rating: "4.2",
+          speciality: "Postpartum Care",
+          address: "Tirunelveli, Tamil Nadu",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+        },
+        {
+          name: "Salem Women's Health Clinic",
+          rating: "4.2",
+          speciality: "Fertility Treatment",
+          address: "Salem, Tamil Nadu",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Vellore Women's Maternity Center",
+          rating: "4.1",
+          speciality: "High-Risk Pregnancy",
+          address: "Vellore, Tamil Nadu",
+          phone: "+91 7134567890",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Chennai Women's Clinic",
+          rating: "4.1",
+          speciality: "Normal Birth",
+          address: "Chennai, Tamil Nadu",
+          phone: "+91 7145678901",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Coimbatore Maternity Health Center",
+          rating: "4.0",
+          speciality: "Newborn Care",
+          address: "Coimbatore, Tamil Nadu",
+          phone: "+91 7156789012",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Madurai Women's Health Clinic",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Madurai, Tamil Nadu",
+          phone: "+91 7167890123",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Trichy Women's Maternity Center",
+          rating: "3.9",
+          speciality: "Fertility Treatment",
+          address: "Trichy, Tamil Nadu",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+        },
+        {
+          name: "Tirunelveli Women's Health Clinic",
+          rating: "3.8",
+          speciality: "Postpartum Care",
+          address: "Tirunelveli, Tamil Nadu",
+          phone: "+91 7189012345",
+          hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+        },
+        {
+          name: "Salem Maternity Health Center",
+          rating: "3.7",
+          speciality: "Normal Birth",
+          address: "Salem, Tamil Nadu",
+          phone: "+91 7190123456",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Vellore Women's Clinic",
+          rating: "3.7",
+          speciality: "Fertility Treatment",
+          address: "Vellore, Tamil Nadu",
+          phone: "+91 7201234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+    ],
+        "Telangana":  [
+        {
+          name: "Hyderabad Women's Hospital",
+          rating: "4.9",
+          speciality: "Normal Birth",
+          address: "Hyderabad, TS",
+          phone: "+91 8001234567",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Secunderabad Maternity Clinic",
+          rating: "4.8",
+          speciality: "Pre-Natal Care",
+          address: "Secunderabad, TS",
+          phone: "+91 8012345678",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Warangal Women's Health Center",
+          rating: "4.7",
+          speciality: "Fertility Treatment",
+          address: "Warangal, TS",
+          phone: "+91 8023456789",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Khammam Women's Hospital",
+          rating: "4.6",
+          speciality: "Postpartum Care",
+          address: "Khammam, TS",
+          phone: "+91 8034567890",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Nizamabad Maternity Care",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Nizamabad, TS",
+          phone: "+91 8045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Karimnagar Women's Health Clinic",
+          rating: "4.5",
+          speciality: "High-Risk Pregnancy",
+          address: "Karimnagar, TS",
+          phone: "+91 8056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Rangareddy Maternity Center",
+          rating: "4.5",
+          speciality: "Pre-Natal Care",
+          address: "Rangareddy, TS",
+          phone: "+91 8067890123",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Medchal Women's Health Center",
+          rating: "4.4",
+          speciality: "Fertility Treatment",
+          address: "Medchal, TS",
+          phone: "+91 8078901234",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Suryapet Women's Hospital",
+          rating: "4.4",
+          speciality: "Postpartum Care",
+          address: "Suryapet, TS",
+          phone: "+91 8089012345",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Jagtial Women's Clinic",
+          rating: "4.3",
+          speciality: "High-Risk Pregnancy",
+          address: "Jagtial, TS",
+          phone: "+91 8090123456",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Adilabad Maternity Center",
+          rating: "4.3",
+          speciality: "Normal Birth",
+          address: "Adilabad, TS",
+          phone: "+91 8101234567",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Peddapalli Women's Health Clinic",
+          rating: "4.2",
+          speciality: "Pre-Natal Care",
+          address: "Peddapalli, TS",
+          phone: "+91 8112345678",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Sangareddy Maternity Care",
+          rating: "4.2",
+          speciality: "Newborn Care",
+          address: "Sangareddy, TS",
+          phone: "+91 8123456789",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Medak Women's Hospital",
+          rating: "4.1",
+          speciality: "Fertility Treatment",
+          address: "Medak, TS",
+          phone: "+91 8134567890",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Nirmal Maternity Clinic",
+          rating: "4.1",
+          speciality: "Postpartum Care",
+          address: "Nirmal, TS",
+          phone: "+91 8145678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Bhongir Women's Health Center",
+          rating: "4.0",
+          speciality: "High-Risk Pregnancy",
+          address: "Bhongir, TS",
+          phone: "+91 8156789012",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Siddipet Women's Hospital",
+          rating: "4.0",
+          speciality: "Normal Birth",
+          address: "Siddipet, TS",
+          phone: "+91 8167890123",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Mahabubnagar Women's Health Clinic",
+          rating: "3.9",
+          speciality: "Pre-Natal Care",
+          address: "Mahabubnagar, TS",
+          phone: "+91 8178901234",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Ramagundam Maternity Care",
+          rating: "3.9",
+          speciality: "Fertility Treatment",
+          address: "Ramagundam, TS",
+          phone: "+91 8189012345",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        }
+      ],
+        "Tripura": [
+        {
+          name: "Agartala Women's Hospital",
+          rating: "4.9",
+          speciality: "General Maternity Care",
+          address: "Agartala, Tripura",
+          phone: "+91 7001234567",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Udaipur Women's Health Center",
+          rating: "4.8",
+          speciality: "Fertility Treatment",
+          address: "Udaipur, Tripura",
+          phone: "+91 7012345678",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Dharmanagar Maternity Clinic",
+          rating: "4.7",
+          speciality: "High-Risk Pregnancy",
+          address: "Dharmanagar, Tripura",
+          phone: "+91 7023456789",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Ambassa Women's Health Center",
+          rating: "4.6",
+          speciality: "Normal Birth",
+          address: "Ambassa, Tripura",
+          phone: "+91 7034567890",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Agartala Women's Clinic",
+          rating: "4.6",
+          speciality: "Newborn Care",
+          address: "Agartala, Tripura",
+          phone: "+91 7045678901",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Udaipur Women's Clinic",
+          rating: "4.5",
+          speciality: "Postpartum Care",
+          address: "Udaipur, Tripura",
+          phone: "+91 7056789012",
+          hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+          name: "Dharmanagar Women's Health Clinic",
+          rating: "4.5",
+          speciality: "Pre-Natal Care",
+          address: "Dharmanagar, Tripura",
+          phone: "+91 7067890123",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Ambassa Women's Hospital",
+          rating: "4.4",
+          speciality: "High-Risk Pregnancy",
+          address: "Ambassa, Tripura",
+          phone: "+91 7078901234",
+          hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+        },
+        {
+          name: "Agartala Women's Health Center",
+          rating: "4.4",
+          speciality: "Normal Birth",
+          address: "Agartala, Tripura",
+          phone: "+91 7089012345",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Udaipur Women's Maternity Center",
+          rating: "4.3",
+          speciality: "Newborn Care",
+          address: "Udaipur, Tripura",
+          phone: "+91 7090123456",
+          hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+        },
+        {
+          name: "Dharmanagar Women's Maternity Center",
+          rating: "4.3",
+          speciality: "Pre-Natal Care",
+          address: "Dharmanagar, Tripura",
+          phone: "+91 7101234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Ambassa Women's Clinic",
+          rating: "4.2",
+          speciality: "Postpartum Care",
+          address: "Ambassa, Tripura",
+          phone: "+91 7112345678",
+          hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+        },
+        {
+          name: "Agartala Maternity Health Center",
+          rating: "4.2",
+          speciality: "Fertility Treatment",
+          address: "Agartala, Tripura",
+          phone: "+91 7123456789",
+          hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+          name: "Udaipur Women's Clinic",
+          rating: "4.1",
+          speciality: "High-Risk Pregnancy",
+          address: "Udaipur, Tripura",
+          phone: "+91 7134567890",
+          hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Dharmanagar Women's Health Center",
+          rating: "4.1",
+          speciality: "Normal Birth",
+          address: "Dharmanagar, Tripura",
+          phone: "+91 7145678901",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Ambassa Women's Clinic",
+          rating: "4.0",
+          speciality: "Newborn Care",
+          address: "Ambassa, Tripura",
+          phone: "+91 7156789012",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Agartala Women's Maternity Center",
+          rating: "4.0",
+          speciality: "Postpartum Care",
+          address: "Agartala, Tripura",
+          phone: "+91 7167890123",
+          hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Udaipur Women's Health Clinic",
+          rating: "3.9",
+          speciality: "Fertility Treatment",
+          address: "Udaipur, Tripura",
+          phone: "+91 7178901234",
+          hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+        },
+        {
+          name: "Dharmanagar Women's Clinic",
+          rating: "3.8",
+          speciality: "Postpartum Care",
+          address: "Dharmanagar, Tripura",
+          phone: "+91 7189012345",
+          hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+        },
+        {
+          name: "Ambassa Women's Maternity Health Clinic",
+          rating: "3.7",
+          speciality: "Normal Birth",
+          address: "Ambassa, Tripura",
+          phone: "+91 7190123456",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+          name: "Agartala Women's Health Clinic",
+          rating: "3.7",
+          speciality: "Fertility Treatment",
+          address: "Agartala, Tripura",
+          phone: "+91 7201234567",
+          hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+    ],
+
+    "Uttarakhand":  [
+        {
+        name: "Dehradun Women's Hospital",
+        rating: "4.9",
+        speciality: "Normal Birth",
+        address: "Dehradun, UK",
+        phone: "+91 8001234567",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Nainital Maternity Center",
+        rating: "4.8",
+        speciality: "Pre-Natal Care",
+        address: "Nainital, UK",
+        phone: "+91 8012345678",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Haridwar Women's Health Clinic",
+        rating: "4.7",
+        speciality: "Fertility Treatment",
+        address: "Haridwar, UK",
+        phone: "+91 8023456789",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Rishikesh Maternity Care",
+        rating: "4.7",
+        speciality: "Postpartum Care",
+        address: "Rishikesh, UK",
+        phone: "+91 8034567890",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Kotdwar Women's Hospital",
+        rating: "4.6",
+        speciality: "Newborn Care",
+        address: "Kotdwar, UK",
+        phone: "+91 8045678901",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Pantnagar Maternity Clinic",
+        rating: "4.6",
+        speciality: "High-Risk Pregnancy",
+        address: "Pantnagar, UK",
+        phone: "+91 8056789012",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Udham Singh Nagar Women's Health Center",
+        rating: "4.5",
+        speciality: "Pre-Natal Care",
+        address: "Udham Singh Nagar, UK",
+        phone: "+91 8067890123",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Almora Women's Hospital",
+        rating: "4.5",
+        speciality: "Postpartum Care",
+        address: "Almora, UK",
+        phone: "+91 8078901234",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Pithoragarh Maternity Clinic",
+        rating: "4.4",
+        speciality: "Newborn Care",
+        address: "Pithoragarh, UK",
+        phone: "+91 8089012345",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Tehri Women's Health Center",
+        rating: "4.4",
+        speciality: "Normal Birth",
+        address: "Tehri, UK",
+        phone: "+91 8090123456",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Champawat Maternity Clinic",
+        rating: "4.3",
+        speciality: "Fertility Treatment",
+        address: "Champawat, UK",
+        phone: "+91 8101234567",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Rudrapur Women's Health Clinic",
+        rating: "4.3",
+        speciality: "High-Risk Pregnancy",
+        address: "Rudrapur, UK",
+        phone: "+91 8112345678",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Bageshwar Maternity Center",
+        rating: "4.2",
+        speciality: "Pre-Natal Care",
+        address: "Bageshwar, UK",
+        phone: "+91 8123456789",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Haldwani Women's Hospital",
+        rating: "4.2",
+        speciality: "Postpartum Care",
+        address: "Haldwani, UK",
+        phone: "+91 8134567890",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Ranikhet Maternity Clinic",
+        rating: "4.1",
+        speciality: "Normal Birth",
+        address: "Ranikhet, UK",
+        phone: "+91 8145678901",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Nagina Women's Health Center",
+        rating: "4.1",
+        speciality: "Newborn Care",
+        address: "Nagina, UK",
+        phone: "+91 8156789012",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Vikasnagar Women's Hospital",
+        rating: "4.0",
+        speciality: "High-Risk Pregnancy",
+        address: "Vikasnagar, UK",
+        phone: "+91 8167890123",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Srinagar Maternity Center",
+        rating: "4.0",
+        speciality: "Pre-Natal Care",
+        address: "Srinagar, UK",
+        phone: "+91 8178901234",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Bhararisain Women's Health Clinic",
+        rating: "3.9",
+        speciality: "Postpartum Care",
+        address: "Bhararisain, UK",
+        phone: "+91 8189012345",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        }
+    ],
+        "Uttar Pradesh":  [
+        {
+        name: "Lucknow Women's Hospital",
+        rating: "4.9",
+        speciality: "General Maternity Care",
+        address: "Lucknow, UP",
+        phone: "+91 7001234567",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Kanpur Women's Health Center",
+        rating: "4.8",
+        speciality: "Fertility Treatment",
+        address: "Kanpur, UP",
+        phone: "+91 7012345678",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Varanasi Maternity Clinic",
+        rating: "4.7",
+        speciality: "High-Risk Pregnancy",
+        address: "Varanasi, UP",
+        phone: "+91 7023456789",
+        hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Agra Women's Health Center",
+        rating: "4.6",
+        speciality: "Normal Birth",
+        address: "Agra, UP",
+        phone: "+91 7034567890",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Allahabad Women's Clinic",
+        rating: "4.6",
+        speciality: "Newborn Care",
+        address: "Allahabad, UP",
+        phone: "+91 7045678901",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Meerut Women's Clinic",
+        rating: "4.5",
+        speciality: "Postpartum Care",
+        address: "Meerut, UP",
+        phone: "+91 7056789012",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Aligarh Women's Health Center",
+        rating: "4.5",
+        speciality: "Pre-Natal Care",
+        address: "Aligarh, UP",
+        phone: "+91 7067890123",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Gorakhpur Women's Hospital",
+        rating: "4.4",
+        speciality: "High-Risk Pregnancy",
+        address: "Gorakhpur, UP",
+        phone: "+91 7078901234",
+        hours: "Mon-Fri: 8:30 AM - 5:00 PM"
+        },
+        {
+        name: "Lucknow Women's Health Center",
+        rating: "4.4",
+        speciality: "Normal Birth",
+        address: "Lucknow, UP",
+        phone: "+91 7089012345",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Kanpur Women's Hospital",
+        rating: "4.3",
+        speciality: "Newborn Care",
+        address: "Kanpur, UP",
+        phone: "+91 7090123456",
+        hours: "Mon-Sun: 8:00 AM - 6:00 PM"
+        },
+        {
+        name: "Varanasi Women's Clinic",
+        rating: "4.3",
+        speciality: "Pre-Natal Care",
+        address: "Varanasi, UP",
+        phone: "+91 7101234567",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Agra Women's Maternity Center",
+        rating: "4.2",
+        speciality: "Postpartum Care",
+        address: "Agra, UP",
+        phone: "+91 7112345678",
+        hours: "Mon-Sat: 9:00 AM - 5:30 PM"
+        },
+        {
+        name: "Allahabad Women's Clinic",
+        rating: "4.2",
+        speciality: "Fertility Treatment",
+        address: "Allahabad, UP",
+        phone: "+91 7123456789",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Meerut Women's Clinic",
+        rating: "4.1",
+        speciality: "High-Risk Pregnancy",
+        address: "Meerut, UP",
+        phone: "+91 7134567890",
+        hours: "Mon-Fri: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Aligarh Women's Clinic",
+        rating: "4.1",
+        speciality: "Normal Birth",
+        address: "Aligarh, UP",
+        phone: "+91 7145678901",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Gorakhpur Women's Health Center",
+        rating: "4.0",
+        speciality: "Newborn Care",
+        address: "Gorakhpur, UP",
+        phone: "+91 7156789012",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Lucknow Maternity Health Clinic",
+        rating: "4.0",
+        speciality: "Postpartum Care",
+        address: "Lucknow, UP",
+        phone: "+91 7167890123",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Kanpur Women's Clinic",
+        rating: "3.9",
+        speciality: "Fertility Treatment",
+        address: "Kanpur, UP",
+        phone: "+91 7178901234",
+        hours: "Mon-Sun: 8:00 AM - 7:00 PM"
+        },
+        {
+        name: "Varanasi Women's Maternity Clinic",
+        rating: "3.8",
+        speciality: "Postpartum Care",
+        address: "Varanasi, UP",
+        phone: "+91 7189012345",
+        hours: "Mon-Sat: 8:00 AM - 5:00 PM"
+        },
+        {
+        name: "Agra Women's Health Clinic",
+        rating: "3.7",
+        speciality: "Normal Birth",
+        address: "Agra, UP",
+        phone: "+91 7190123456",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Allahabad Women's Maternity Health Clinic",
+        rating: "3.7",
+        speciality: "Fertility Treatment",
+        address: "Allahabad, UP",
+        phone: "+91 7201234567",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        }
+    ],
+        "West Bengal":  [
+        {
+        name: "Kolkata Women's Hospital",
+        rating: "4.9",
+        speciality: "Normal Birth",
+        address: "Kolkata, WB",
+        phone: "+91 9001234567",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Howrah Maternity Care",
+        rating: "4.8",
+        speciality: "Fertility Treatment",
+        address: "Howrah, WB",
+        phone: "+91 9012345678",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Durgapur Women's Health Center",
+        rating: "4.7",
+        speciality: "Postpartum Care",
+        address: "Durgapur, WB",
+        phone: "+91 9023456789",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Asansol Women's Hospital",
+        rating: "4.7",
+        speciality: "Pre-Natal Care",
+        address: "Asansol, WB",
+        phone: "+91 9034567890",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Siliguri Maternity Clinic",
+        rating: "4.6",
+        speciality: "High-Risk Pregnancy",
+        address: "Siliguri, WB",
+        phone: "+91 9045678901",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Kolkata Maternity Clinic",
+        rating: "4.6",
+        speciality: "Newborn Care",
+        address: "Kolkata, WB",
+        phone: "+91 9056789012",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Kolkata Women's Health Clinic",
+        rating: "4.5",
+        speciality: "Normal Birth",
+        address: "Kolkata, WB",
+        phone: "+91 9067890123",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Bankura Women's Health Center",
+        rating: "4.5",
+        speciality: "Fertility Treatment",
+        address: "Bankura, WB",
+        phone: "+91 9078901234",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Malda Women's Hospital",
+        rating: "4.4",
+        speciality: "Pre-Natal Care",
+        address: "Malda, WB",
+        phone: "+91 9089012345",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Burdwan Maternity Center",
+        rating: "4.4",
+        speciality: "Postpartum Care",
+        address: "Burdwan, WB",
+        phone: "+91 9090123456",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Kalyani Women's Health Clinic",
+        rating: "4.3",
+        speciality: "Newborn Care",
+        address: "Kalyani, WB",
+        phone: "+91 9101234567",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Nadia Maternity Hospital",
+        rating: "4.3",
+        speciality: "High-Risk Pregnancy",
+        address: "Nadia, WB",
+        phone: "+91 9112345678",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Berhampore Maternity Clinic",
+        rating: "4.2",
+        speciality: "Normal Birth",
+        address: "Berhampore, WB",
+        phone: "+91 9123456789",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Hooghly Women's Health Center",
+        rating: "4.2",
+        speciality: "Postpartum Care",
+        address: "Hooghly, WB",
+        phone: "+91 9134567890",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Tamluk Maternity Care",
+        rating: "4.1",
+        speciality: "Fertility Treatment",
+        address: "Tamluk, WB",
+        phone: "+91 9145678901",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Purulia Women's Hospital",
+        rating: "4.1",
+        speciality: "Pre-Natal Care",
+        address: "Purulia, WB",
+        phone: "+91 9156789012",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Bally Women's Health Clinic",
+        rating: "4.0",
+        speciality: "Normal Birth",
+        address: "Bally, WB",
+        phone: "+91 9167890123",
+        hours: "Mon-Sun: 9:00 AM - 6:00 PM"
+        },
+        {
+        name: "Cooch Behar Women's Hospital",
+        rating: "4.0",
+        speciality: "Newborn Care",
+        address: "Cooch Behar, WB",
+        phone: "+91 9178901234",
+        hours: "Mon-Sat: 9:00 AM - 5:00 PM"
+        },
+        {
+        name: "Dinhata Maternity Center",
+        rating: "3.9",
+        speciality: "Postpartum Care",
+        address: "Dinhata, WB",
+        phone: "+91 9189012345",
+        hours: "Mon-Sun: 9:00 AM - 7:00 PM"
+        },
+        {
+        name: "Krishnanagar Women's Health Center",
+        rating: "3.9",
+        speciality: "High-Risk Pregnancy",
+        address: "Krishnanagar, WB",
+        phone: "+91 9190123456",
+        hours: "Mon-Sat: 9:00 AM - 6:00 PM"
+        }
+    ]
+      };
+      
+      
+
+    // Function to show search suggestions
+function showSuggestions() {
+    const input = document.getElementById('stateInput').value.toLowerCase();
+    const suggestionsContainer = document.getElementById('suggestions');
+    suggestionsContainer.innerHTML = ''; // Clear previous suggestions
+  
+    if (input) {
+      const filteredStates = Object.keys(maternityCenters).filter(state =>
+        state.toLowerCase().startsWith(input)
+      );
+  
+      filteredStates.forEach(state => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.textContent = state;
+        suggestionItem.onclick = () => selectState(state);
+        suggestionsContainer.appendChild(suggestionItem);
+      });
+    }
+  }
+  
+  // Function to handle state selection from suggestions
+  function selectState(state) {
+    document.getElementById('stateInput').value = state;
+    searchMaternityCenters();
+    document.getElementById('suggestions').innerHTML = ''; // Clear suggestions
+  }
+  
+  // Function to search for maternity centers by state (case-insensitive)
+  function searchMaternityCenters() {
+    const stateInput = document.getElementById("stateInput").value.trim().toLowerCase();
+    const maternityCentersList = document.getElementById("maternityList");
+    maternityCentersList.innerHTML = ''; // Clear previous results
+  
+    if (stateInput) {
+      const filteredStates = Object.keys(maternityCenters).filter(state =>
+        state.toLowerCase().includes(stateInput)
+      );
+  
+      if (filteredStates.length > 0) {
+        filteredStates.forEach(state => {
+          maternityCenters[state].forEach(center => {
+            const div = document.createElement("div");
+            div.classList.add("maternity-center");
+  
+            div.innerHTML = `
+              <h3>${center.name}</h3>
+              <div class=rating>Rating: ${center.rating} ⭐</div>
+              <div class=speciality>Speciality: ${center.speciality}</div>
+              <div class=address>Address: ${center.address}</div>
+              <div class=phone>Phone: <a href="tel:${center.phone}">${center.phone}</a></div>
+              <div class=hours>Hours: ${center.hours}</div>
+            `;
+  
+            maternityCentersList.appendChild(div);
+          });
+        });
+      } else {
+        const noResults = document.createElement("div");
+        noResults.textContent = "No maternity centers found for this state.";
+        maternityCentersList.appendChild(noResults);
+      }
+    } else {
+      Object.keys(maternityCenters).forEach(state => {
+        maternityCenters[state].forEach(center => {
+          const div = document.createElement("div");
+          div.classList.add("maternity-center");
+  
+          div.innerHTML = `
+            <h3>${center.name}</h3>
+            <div class=rating>Rating: ${center.rating} ⭐</div>
+            <div class=speciality>Speciality: ${center.speciality}</div>
+            <div class=address>Address: ${center.address}</div>
+            <div class=phone>Phone: <a href="tel:${center.phone}">${center.phone}</a></div>
+            <div class=hours>Hours: ${center.hours}</div>
+          `;
+  
+          maternityCentersList.appendChild(div);
+        });
+      });
+    }
+  }
+  </script>
+
+</body>
+</html>

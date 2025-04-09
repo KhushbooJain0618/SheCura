@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Her Health Answers</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #f0f8ff, #e0f7fa, #d0f0c0);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            color: #333;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(70, 130, 180, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .home-button {
+            background: white;
+            color: #4682b4;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .home-button:hover {
+            background: #d0e0f0;
+        }
+
+
+        .container {
+            background: #20b2aa;
+            padding: 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 22px;
+            color: white;
+            margin: 30px auto;
+            width: 50%;
+            text-align: center;
+        }
+        .search-section {
+            display: none;
+            margin-top: 30px;
+        }
+        .search-box-container {
+            position: relative;
+            display: inline-block;
+            width: 50%;
+        }
+        .search-box {
+            padding: 15px;
+            width: 100%;
+            font-size: 18px;
+            border: 2px solid #20b2aa;
+            border-radius: 10px;
+            outline: none;
+        }
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 22px;
+            color: #20b2aa;
+        }
+        .suggestions {
+            position: absolute;
+            background: white;
+            border-radius: 10px;
+            width: 100%;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            text-align: left;
+            z-index: 1000;
+        }
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+        .suggestion-item:hover {
+            background: #d0f0c0;
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+        .info-box, .symptoms-box, .treatment-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">SheCura</div>
+        <button class="home-button" onclick="window.location.href='index.html'">Home</button>
+    </div>
+    <div class="container" onclick="showSearchBox()">
+        Her Health Answers - Click to Search Disease Information
+    </div>
+    <div id="searchSection" class="search-section">
+        <h2>Search for Disease Information</h2>
+        <div class="search-box-container">
+            <input type="text" id="diseaseInput" class="search-box" placeholder="Enter disease name..." onkeyup="showSuggestions()" onkeypress="handleKeyPress(event)">
+            <span class="search-icon" onclick="searchDisease()">🔍</span>
+            <div id="suggestions" class="suggestions"></div>
+        </div>
+    </div>
+    <div id="resultContainer" class="result-container"></div>
+   
+    <script>
+        const diseases = {
+            "pcos": {
+                "info": "Polycystic Ovary Syndrome (PCOS) is a hormonal disorder affecting reproductive-aged women. It causes irregular periods, excess androgen levels, and ovarian cysts.",
+                "symptoms": [
+                    "Irregular or missed periods",
+                    "Excessive hair growth (hirsutism)",
+                    "Weight gain, especially around the abdomen",
+                    "Acne and oily skin",
+                    "Thinning hair or hair loss"
+                ],
+                "treatment": [
+                    "Lifestyle changes such as diet and exercise",
+                    "Birth control pills for menstrual regulation",
+                    "Anti-androgen medications",
+                    "Metformin for insulin resistance",
+                    "Ovulation-inducing medications"
+                ]
+            },
+            "endometriosis": {
+        "info": "A painful disorder where tissue similar to the uterine lining grows outside the uterus, causing pain and fertility issues.",
+        "symptoms": [
+            "Pelvic pain, especially during menstruation",
+            "Painful intercourse",
+            "Heavy menstrual bleeding",
+            "Bloating and digestive issues",
+            "Fatigue"
+        ],
+        "treatment": [
+            "Pain relievers like NSAIDs",
+            "Hormone therapy to regulate cycles",
+            "Birth control pills to reduce symptoms",
+            "Laparoscopic surgery to remove tissue growths",
+            "Fertility treatments if conception is difficult"
+        ]
+    },
+    "cervical cancer": {
+        "info": "A type of cancer that occurs in the cervix, often caused by the human papillomavirus (HPV).",
+        "symptoms": [
+            "Abnormal vaginal bleeding",
+            "Pelvic pain",
+            "Pain during intercourse",
+            "Unusual vaginal discharge",
+            "Fatigue and weight loss"
+        ],
+        "treatment": [
+            "Surgery to remove cancerous tissue",
+            "Radiation therapy",
+            "Chemotherapy",
+            "Targeted drug therapy",
+            "HPV vaccination for prevention"
+        ]
+    },
+    "ovarian cysts": {
+        "info": "Fluid-filled sacs that form on the ovaries, which can be harmless or cause complications.",
+        "symptoms": [
+            "Pelvic pain or pressure",
+            "Bloating or abdominal swelling",
+            "Pain during intercourse",
+            "Frequent urination",
+            "Irregular menstrual cycles"
+        ],
+        "treatment": [
+            "Observation and monitoring",
+            "Birth control pills to prevent new cysts",
+            "Pain relievers",
+            "Surgical removal if the cyst is large",
+            "Laparoscopy for minimally invasive treatment"
+        ]
+    },
+    "uterine fibroids": {
+        "info": "Noncancerous growths of the uterus that can cause discomfort and affect fertility.",
+        "symptoms": [
+            "Heavy menstrual bleeding",
+            "Pelvic pain or pressure",
+            "Frequent urination",
+            "Constipation",
+            "Lower back pain"
+        ],
+        "treatment": [
+            "Medications to regulate hormones",
+            "Non-surgical procedures like uterine artery embolization",
+            "Surgical removal (myomectomy)",
+            "Hysterectomy for severe cases",
+            "Lifestyle changes like diet and exercise"
+        ]
+    },
+    "vaginitis": {
+        "info": "Inflammation of the vagina caused by infections, irritants, or hormonal changes.",
+        "symptoms": [
+            "Vaginal itching or irritation",
+            "Abnormal discharge",
+            "Pain during urination",
+            "Unpleasant odor",
+            "Redness or swelling in the vaginal area"
+        ],
+        "treatment": [
+            "Antibiotics for bacterial infections",
+            "Antifungal medications for yeast infections",
+            "Avoiding irritants like scented soaps",
+            "Probiotics to maintain vaginal health",
+            "Maintaining proper hygiene"
+        ]
+    },
+    "menopause": {
+        "info": "The natural decline in reproductive hormones, marking the end of menstrual cycles.",
+        "symptoms": [
+            "Hot flashes",
+            "Mood swings",
+            "Night sweats",
+            "Sleep disturbances",
+            "Vaginal dryness"
+        ],
+        "treatment": [
+            "Hormone replacement therapy",
+            "Lifestyle changes like diet and exercise",
+            "Medications to manage symptoms",
+            "Calcium and vitamin D supplements",
+            "Stress reduction techniques"
+        ]
+    },
+    "pelvic inflammatory disease": {
+        "info": "An infection of the female reproductive organs, often caused by sexually transmitted bacteria.",
+        "symptoms": [
+            "Lower abdominal pain",
+            "Pain during intercourse",
+            "Fever and chills",
+            "Unusual vaginal discharge",
+            "Painful urination"
+        ],
+        "treatment": [
+            "Antibiotics",
+            "Pain relievers",
+            "Avoiding unprotected sex",
+            "Hospitalization for severe cases",
+            "Surgery in extreme cases"
+        ]
+    },
+    "bacterial vaginosis": {
+        "info": "An imbalance of bacteria in the vagina.",
+        "symptoms": [
+            "Fishy odor",
+            "Abnormal discharge",
+            "Vaginal itching",
+            "Burning sensation",
+            "Pain during urination"
+        ],
+        "treatment": [
+            "Antibiotics",
+            "Probiotics",
+            "Avoiding scented products",
+            "Maintaining good hygiene",
+            "Reducing douching"
+        ]
+    },
+    "yeast infection": {
+        "info": "A fungal infection in the vagina caused by an overgrowth of Candida yeast, leading to discomfort and irritation.",
+        "symptoms": [
+            "Severe itching in the vaginal area",
+            "Thick, white, cottage cheese-like discharge",
+            "Burning sensation during urination or intercourse",
+            "Redness and swelling of the vagina and vulva",
+            "Soreness and discomfort"
+        ],
+        "treatment": [
+            "Over-the-counter antifungal creams or suppositories",
+            "Prescription oral antifungal medications",
+            "Probiotics to restore vaginal flora balance",
+            "Avoiding excessive moisture in the vaginal area",
+            "Wearing loose, breathable cotton underwear"
+        ]
+    },
+    "premenstrual syndrome": {
+        "info": "A set of physical and emotional symptoms occurring before menstruation, often linked to hormonal fluctuations.",
+        "symptoms": [
+            "Mood swings and irritability",
+            "Bloating and abdominal discomfort",
+            "Headaches and migraines",
+            "Breast tenderness",
+            "Fatigue and sleep disturbances"
+        ],
+        "treatment": [
+            "Lifestyle changes, including exercise and a balanced diet",
+            "Reducing caffeine and alcohol intake",
+            "Over-the-counter pain relievers like ibuprofen",
+            "Hormonal birth control to regulate cycles",
+            "Stress management techniques like yoga and meditation"
+        ]
+    },
+    "preeclampsia": {
+        "info": "A pregnancy complication characterized by high blood pressure and signs of organ damage, often affecting the liver and kidneys.",
+        "symptoms": [
+            "High blood pressure",
+            "Swelling in the hands, face, and feet",
+            "Severe headaches",
+            "Blurred vision or vision changes",
+            "Shortness of breath"
+        ],
+        "treatment": [
+            "Regular monitoring of blood pressure and urine protein levels",
+            "Bed rest and reduced physical activity",
+            "Medications to lower blood pressure",
+            "Corticosteroids to improve fetal lung development",
+            "Early delivery if the condition becomes severe"
+        ]
+    },
+    "ectopic pregnancy": {
+        "info": "A pregnancy complication where the fertilized egg implants outside the uterus, commonly in the fallopian tube, posing severe health risks.",
+        "symptoms": [
+            "Severe abdominal or pelvic pain",
+            "Vaginal bleeding or spotting",
+            "Shoulder pain due to internal bleeding",
+            "Dizziness or fainting",
+            "Nausea and weakness"
+        ],
+        "treatment": [
+            "Methotrexate injection to stop cell growth",
+            "Laparoscopic surgery to remove the ectopic pregnancy",
+            "Emergency surgery if rupture occurs",
+            "Monitoring hCG levels post-treatment",
+            "Emotional support and counseling"
+        ]
+    },
+    "gestational diabetes": {
+        "info": "A type of diabetes that develops during pregnancy due to insulin resistance and hormonal changes, increasing the risk of complications for both mother and baby.",
+        "symptoms": [
+            "Increased thirst and frequent urination",
+            "Fatigue and weakness",
+            "Blurred vision",
+            "Unusual weight gain",
+            "Increased hunger"
+        ],
+        "treatment": [
+            "Dietary modifications with balanced carbohydrate intake",
+            "Regular exercise to control blood sugar levels",
+            "Monitoring blood glucose levels frequently",
+            "Insulin therapy if needed",
+            "Regular prenatal checkups to monitor baby's health"
+        ]
+    },
+    "mastitis": {
+        "info": "A breast tissue infection that commonly affects breastfeeding mothers, causing pain and inflammation.",
+        "symptoms": [
+            "Breast pain and tenderness",
+            "Redness and swelling of the affected breast",
+            "Fever and chills",
+            "Nipple discharge",
+            "Flu-like symptoms (fatigue, body aches)"
+        ],
+        "treatment": [
+            "Antibiotics to clear the infection",
+            "Frequent breastfeeding or pumping to drain milk",
+            "Warm compresses to reduce swelling",
+            "Over-the-counter pain relievers",
+            "Proper breastfeeding techniques to prevent recurrence"
+        ]
+    },
+    "ovarian cancer": {
+        "info": "A malignant tumor that develops in the ovaries, often detected at a late stage.",
+        "symptoms": [
+            "Persistent bloating or abdominal swelling",
+            "Unexplained weight loss",
+            "Pelvic pain or discomfort",
+            "Changes in bowel habits",
+            "Frequent need to urinate"
+        ],
+        "treatment": [
+            "Surgery to remove the tumor or affected ovary",
+            "Chemotherapy to target cancer cells",
+            "Radiation therapy in advanced cases",
+            "Targeted drug therapy",
+            "Hormone therapy to slow cancer growth"
+        ]
+    },
+    "breast cancer": {
+        "info": "A cancer that forms in breast cells.",
+        "symptoms": [
+            "Lump in breast",
+            "Nipple discharge",
+            "Changes in breast shape",
+            "Skin dimpling",
+            "Breast pain"
+        ],
+        "treatment": [
+            "Surgery",
+            "Radiation therapy",
+            "Chemotherapy",
+            "Hormone therapy",
+            "Targeted drug therapy"
+        ]
+    },
+    "hypothyroidism": {
+        "info": "A condition where the thyroid doesn't produce enough hormones.",
+        "symptoms": [
+            "Fatigue",
+            "Weight gain",
+            "Cold intolerance",
+            "Depression",
+            "Dry skin and hair"
+        ],
+        "treatment": [
+            "Hormone replacement therapy",
+            "Dietary adjustments with iodine-rich foods",
+            "Regular thyroid function tests",
+            "Lifestyle changes like exercise",
+            "Medication adherence for long-term management"
+        ]
+    },
+    "anemia": {
+        "info": "A condition where you lack enough healthy red blood cells.",
+        "symptoms": [
+            "Fatigue",
+            "Pale skin",
+            "Shortness of breath",
+            "Dizziness",
+            "Cold hands and feet"
+        ],
+        "treatment": [
+            "Iron supplements",
+            "Diet changes with iron-rich foods",
+            "Vitamin B12 or folate supplements",
+            "Blood transfusion in severe cases",
+            "Managing underlying causes like chronic diseases"
+        ]
+    },
+    "osteoporosis": {
+        "info": "A condition where bones become weak and brittle.",
+        "symptoms": [
+            "Back pain",
+            "Loss of height",
+            "Frequent bone fractures",
+            "Stooped posture",
+            "Weak grip strength"
+        ],
+        "treatment": [
+            "Calcium and vitamin D supplements",
+            "Weight-bearing exercises",
+            "Medications to strengthen bones",
+            "Lifestyle modifications to prevent falls",
+            "Bone density monitoring"
+        ]
+    },
+    "urinary tract infection": {
+        "info": "An infection in the urinary system.",
+        "symptoms": [
+            "Burning urination",
+            "Frequent urination"
+        ],
+        "treatment": [
+            "Antibiotics"
+        ]
+    },
+    "interstitial cystitis": {
+        "info": "A chronic bladder condition.",
+        "symptoms": [
+            "Pelvic pain",
+            "Frequent urination"
+        ],
+        "treatment": [
+            "Lifestyle changes",
+            "Medication"
+        ]
+    },
+    "hormonal imbalance": {
+        "info": "Irregular levels of hormones affecting the body.",
+        "symptoms": [
+            "Mood swings",
+            "Weight changes"
+        ],
+        "treatment": [
+            "Hormone therapy",
+            "Diet changes"
+        ]
+    },
+    "miscarriage": {
+        "info": "The loss of a pregnancy before 20 weeks.",
+        "symptoms": [
+            "Cramping",
+            "Bleeding"
+        ],
+        "treatment": [
+            "Medical support",
+            "Emotional support"
+        ]
+    },
+    "stillbirth": {
+        "info": "The loss of a baby after 20 weeks of pregnancy.",
+        "symptoms": [
+            "No fetal movement",
+            "Bleeding"
+        ],
+        "treatment": [
+            "Medical procedures",
+            "Counseling"
+        ]
+    },
+    "postpartum depression": {
+        "info": "Depression occurring after childbirth.",
+        "symptoms": [
+            "Sadness",
+            "Loss of interest in baby"
+        ],
+        "treatment": [
+            "Therapy",
+            "Medication"
+        ]
+    },
+    "infertility": {
+        "info": "Inability to conceive after a year of trying.",
+        "symptoms": [
+            "Irregular periods",
+            "Hormonal issues"
+        ],
+        "treatment": [
+            "Hormone therapy",
+            "IVF"
+        ]
+    },
+    "hemorrhoids": {
+        "info": "Swollen veins in the rectum and anus.",
+        "symptoms": [
+            "Pain",
+            "Bleeding"
+        ],
+        "treatment": [
+            "Diet changes",
+            "Surgery"
+        ]
+    },
+    "gallstones": {
+        "info": "Hardened deposits in the gallbladder.",
+        "symptoms": [
+            "Abdominal pain",
+            "Nausea"
+        ],
+        "treatment": [
+            "Dietary changes",
+            "Surgery"
+        ]
+    },
+    "dysmenorrhea": {
+        "info": "Dysmenorrhea refers to painful menstrual cramps that occur before or during menstruation. It can be primary (without underlying disease) or secondary (due to conditions like endometriosis or fibroids).",
+        "symptoms": [
+            "Severe lower abdominal pain",
+            "Back pain and leg cramps",
+            "Nausea and vomiting",
+            "Diarrhea or constipation",
+            "Fatigue and dizziness"
+        ],
+        "treatment": [
+            "Pain relievers (NSAIDs like ibuprofen)",
+            "Heat therapy (hot water bottle on abdomen)",
+            "Hormonal birth control to regulate periods",
+            "Exercise and stress management",
+            "Dietary changes like reducing caffeine and processed foods"
+        ]
+    },
+    "fibroids": {
+        "info": "Fibroids (Uterine Fibroids) are non-cancerous growths in the uterus that can cause heavy periods, pain, and fertility issues.",
+        "symptoms": [
+            "Heavy or prolonged menstrual bleeding",
+            "Pelvic pain or pressure",
+            "Frequent urination",
+            "Pain during intercourse",
+            "Difficulty conceiving"
+        ],
+        "treatment": [
+            "Medications to shrink fibroids",
+            "Hormonal birth control to manage symptoms",
+            "Non-invasive procedures like uterine artery embolization",
+            "Surgical removal (myomectomy or hysterectomy)",
+            "Lifestyle changes such as weight management and diet adjustments"
+        ]
+    },
+    "juvenile mennorrhagia": {
+        "info": "Juvenile Menorrhagia is excessive menstrual bleeding in adolescents, often due to hormonal imbalances or underlying conditions.",
+        "symptoms": [
+            "Extremely heavy menstrual flow",
+            "Periods lasting more than 7 days",
+            "Severe cramping",
+            "Fatigue due to blood loss",
+            "Dizziness and anemia"
+        ],
+        "treatment": [
+            "Hormonal therapy (birth control pills)",
+            "Iron supplements for anemia",
+            "Nonsteroidal anti-inflammatory drugs (NSAIDs)",
+            "Lifestyle adjustments and stress reduction",
+            "Medical evaluation to rule out clotting disorders"
+        ]
+    },
+    "kallmann syndrome": {
+        "info": "Kallmann Syndrome is a rare genetic condition causing delayed or absent puberty due to a lack of reproductive hormones.",
+        "symptoms": [
+            "Absent or irregular periods",
+            "Delayed puberty",
+            "Infertility",
+            "Loss of sense of smell",
+            "Osteoporosis due to low estrogen levels"
+        ],
+        "treatment": [
+            "Hormone replacement therapy (estrogen and progesterone)",
+            "Fertility treatments for conception",
+            "Calcium and vitamin D for bone health",
+            "Regular medical monitoring",
+            "Supportive therapy for psychological well-being"
+        ]
+    },
+    "luteal phase defect (LPD)": {
+        "info": "Luteal Phase Defect (LPD) is a condition where the second half of the menstrual cycle is too short, leading to fertility problems and early miscarriages.",
+        "symptoms": [
+            "Short menstrual cycles",
+            "Difficulty conceiving",
+            "Spotting before periods",
+            "Low progesterone levels",
+            "Frequent early pregnancy loss"
+        ],
+        "treatment": [
+            "Progesterone supplements",
+            "Lifestyle changes to reduce stress",
+            "Ovulation-stimulating medications",
+            "Diet adjustments for hormonal balance",
+            "Monitoring by a fertility specialist"
+        ]
+    },
+    "nonclassical congential adrenal": {
+        "info": "Nonclassical Congenital Adrenal Hyperplasia (NCAH) is a hormonal disorder that can cause irregular periods, excessive hair growth, and fertility problems.",
+        "symptoms": [
+            "Irregular or absent periods",
+            "Excess body and facial hair (hirsutism)",
+            "Acne and oily skin",
+            "Infertility or difficulty conceiving",
+            "Early puberty in some cases"
+        ],
+        "treatment": [
+            "Hormonal therapy (glucocorticoids or birth control pills)",
+            "Anti-androgen medications",
+            "Fertility treatments if needed",
+            "Healthy diet and exercise",
+            "Regular endocrinologist check-ups"
+        ]
+    },
+    "quadruple maker test": {
+        "info": "Quadruple Marker Test is a prenatal screening test to assess the risk of birth defects and chromosomal abnormalities in pregnancy.",
+        "symptoms": [
+            "No direct symptoms as it is a diagnostic test",
+            "Used to detect conditions like Down syndrome, neural tube defects, and trisomy 18",
+            "Performed between 15-20 weeks of pregnancy"
+        ],
+        "treatment": [
+            "Not a treatment but helps in early detection",
+            "Further diagnostic tests like amniocentesis if high risk is detected",
+            "Prenatal care adjustments based on results",
+            "Counseling and support for high-risk pregnancies",
+            "Regular monitoring by an obstetrician"
+        ]
+    },
+    "recurrent pregnancy loss (RPL)": {
+        "info": "Recurrent Pregnancy Loss (RPL) is the occurrence of two or more consecutive miscarriages due to hormonal, genetic, or immune system factors.",
+        "symptoms": [
+            "Multiple miscarriages",
+            "Irregular periods",
+            "Hormonal imbalances",
+            "Pelvic pain in some cases",
+            "Difficulty maintaining pregnancy"
+        ],
+        "treatment": [
+            "Hormonal therapy to support pregnancy",
+            "Genetic testing and counseling",
+            "Medications to manage autoimmune conditions",
+            "Lifestyle modifications (healthy weight, stress management)",
+            "Advanced reproductive technologies like IVF with embryo screening"
+        ]
+    },
+    "toxemia": {
+        "info": "Toxemia (Preeclampsia) is a pregnancy complication characterized by high blood pressure and organ damage, which can be life-threatening if untreated.",
+        "symptoms": [
+            "High blood pressure",
+            "Swelling in hands and feet",
+            "Severe headaches",
+            "Vision changes",
+            "Protein in the urine"
+        ],
+        "treatment": [
+            "Blood pressure medications",
+            "Close monitoring by a doctor",
+            "Bed rest in severe cases",
+            "Early delivery if condition worsens",
+            "Magnesium sulfate to prevent seizures"
+        ]
+    },
+    "wilson's disease": {
+        "info": "Wilson’s Disease is a rare genetic disorder that affects copper metabolism and can cause menstrual irregularities and infertility in women.",
+        "symptoms": [
+            "Irregular or absent periods",
+            "Fatigue and weakness",
+            "Liver disease symptoms",
+            "Neurological issues like tremors",
+            "Psychiatric symptoms like mood swings"
+        ],
+        "treatment": [
+            "Lifelong chelation therapy to remove excess copper",
+            "Zinc therapy to prevent copper absorption",
+            "Liver monitoring and care",
+            "Nutritional changes to limit copper intake",
+            "Fertility treatments if needed"
+        ]
+    },
+    "x-chromosome deletion syndrome": {
+        "info": "X-Chromosome Deletion Syndrome refers to genetic disorders where a missing or defective X chromosome affects female reproductive health.",
+        "symptoms": [
+            "Delayed puberty",
+            "Irregular or absent menstruation",
+            "Short stature",
+            "Infertility",
+            "Heart or kidney abnormalities in some cases"
+        ],
+        "treatment": [
+            "Hormone replacement therapy",
+            "Fertility treatments",
+            "Growth hormone therapy for short stature",
+            "Regular medical check-ups",
+            "Psychological support and counseling"
+        ]
+    },
+    "zika virus infection": {
+        "info": "Zika Virus Infection during pregnancy can cause severe birth defects, including microcephaly and developmental issues in babies.",
+        "symptoms": [
+            "Mild fever",
+            "Rash and joint pain",
+            "Conjunctivitis (red eyes)",
+            "Headache",
+            "Infected pregnant women may have no symptoms but the virus affects the fetus"
+        ],
+        "treatment": [
+            "No specific antiviral treatment",
+            "Rest, hydration, and pain relief",
+            "Avoiding mosquito bites during pregnancy",
+            "Regular ultrasounds to monitor fetal development",
+            "Supportive care for affected newborns"
+        ]
+    }
+  
+
+        };
+        
+        function showSearchBox() {
+            document.getElementById("searchSection").style.display = "block";
+        }
+        
+        function showSuggestions() {
+            let input = document.getElementById("diseaseInput").value.toLowerCase();
+            let suggestionsBox = document.getElementById("suggestions");
+            suggestionsBox.innerHTML = "";
+        
+            if (input.length === 0) {
+                suggestionsBox.style.display = "none";
+                return;
+            }
+        
+            let matches = Object.keys(diseases).filter(d => d.startsWith(input));
+        
+            if (matches.length > 0) {
+                suggestionsBox.style.display = "block";
+        
+                matches.forEach(disease => {
+                    let div = document.createElement("div");
+                    div.classList.add("suggestion-item");
+                    div.innerText = disease;
+        
+                    // Fix: Use function instead of arrow function
+                    div.onclick = function () {
+                        document.getElementById("diseaseInput").value = disease;
+                        suggestionsBox.style.display = "none"; // Hide suggestions after clicking
+                        searchDisease(); // Call search function
+                    };
+        
+                    suggestionsBox.appendChild(div);
+                });
+            } else {
+                suggestionsBox.style.display = "none";
+            }
+        }
+        
+        function searchDisease() {
+            let input = document.getElementById("diseaseInput").value.toLowerCase();
+            let resultContainer = document.getElementById("resultContainer");
+        
+            if (diseases[input]) {
+                let disease = diseases[input];
+        
+                resultContainer.innerHTML = `
+                    <div class='info-box'><strong>${input.toUpperCase()}</strong>: ${disease.info}</div>
+                    <div class='symptoms-box'><strong>Symptoms:</strong><ul>${disease.symptoms.map(s => `<li>${s}</li>`).join('')}</ul></div>
+                    <div class='treatment-box'><strong>Treatment:</strong><ul>${disease.treatment.map(t => `<li>${t}</li>`).join('')}</ul></div>
+                `;
+        
+                resultContainer.style.display = "block";
+            } else {
+                resultContainer.innerHTML = "<p style='color: red;'>No information found.</p>";
+            }
+        }
+        
+    </script>
+</body>
+</html>

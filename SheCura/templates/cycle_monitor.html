@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycle Monitor - SheCura</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <span class="logo">SheCura</span>
+        <a href="{{ url_for('dashboard') }}" class="nav-link">Home</a>
+    </nav>
+
+    <!-- Days Left Display -->
+    <div id="daysLeftDisplay" class="days-left-notification">
+        <!-- This will be dynamically updated with the number of days left -->
+    </div>
+
+    <div class="container">
+        <!-- Left Section: Menstrual Cycle Form -->
+        <div class="left-section">
+            <h2>Menstrual Cycle Monitor</h2>
+            {% if last_menstruation %}
+                <p><strong>Last Menstruation Date:</strong> {{ last_menstruation.strftime('%Y-%m-%d') }}</p>
+                <p><strong>Next Expected Date:</strong> {{ next_due_date.strftime('%Y-%m-%d') }}</p>
+                <script>
+                    const nextDate = new Date("{{ next_due_date.strftime('%Y-%m-%d') }}");
+                    const today = new Date();
+                    const diffTime = nextDate - today;
+                    const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    alert("Your next menstruation is in " + daysLeft + " days.");
+                    // Update the days left notification
+                    document.getElementById('daysLeftDisplay').innerText = `Your next menstruation is in ${daysLeft} days.`;
+
+                    // Show the notification
+                    const alertDiv = document.createElement('div');
+                    alertDiv.classList.add('alert');
+                    alertDiv.innerHTML = `Your next menstruation is in <strong>${daysLeft}</strong> days.`;
+                    document.body.appendChild(alertDiv);
+                    setTimeout(() => alertDiv.remove(), 5000); // Remove the alert after 5 seconds
+                </script>
+            {% else %}
+                <p>No cycle data recorded yet. Please enter your last menstruation date.</p>
+            {% endif %}
+            <form method="POST">
+                <label for="last_menstruation">Enter Last Menstruation Date:</label>
+                <input type="date" id="last_menstruation" name="last_menstruation" required>
+                <button type="submit">Save</button>
+            </form>
+
+            <!-- Added Precautions and Foods Section -->
+    <div class="precautions-foods">
+        <h3>Precautions to Take During Menstruation</h3>
+        <ul>
+            <li>Avoid heavy physical activity to reduce fatigue.</li>
+            <li>Use heat pads to soothe abdominal pain.</li>
+            <li>Maintain good hygiene and change sanitary products regularly.</li>
+            <li>Get enough rest to prevent excessive stress on your body.</li>
+            <li>Avoid caffeine and limit salt intake to prevent bloating.</li>
+        </ul>
+
+        <h3>Foods to Eat for Comfort and Pain Relief</h3>
+        <ul>
+            <li>Dark chocolate – helps with cramps due to its magnesium content.</li>
+            <li>Ginger tea – reduces inflammation and eases nausea.</li>
+            <li>Leafy greens – rich in iron to help with blood loss.</li>
+            <li>Bananas – high in potassium to reduce bloating and cramps.</li>
+            <li>Salmon – rich in omega-3s which help reduce inflammation.</li>
+        </ul>
+    </div>
+        </div>
+
+        <!-- Right Section: Pie Chart and Music Section -->
+        <div class="right-section">
+            <h3>Cycle Overview</h3>
+            <canvas id="cycleChart"></canvas>
+
+            <!-- Enhanced Music Section -->
+            <div class="music-section">
+                <h3>Relaxing Meditation Music</h3>
+                <audio id="relaxingMusic" controls>
+                    <source src="{{ url_for('static', filename='relaxing-music.mp3') }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <button class="music-btn" onclick="toggleMusic()">Play/Pause</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById("cycleChart").getContext("2d");
+            new Chart(ctx, {
+                type: "pie",
+                data: {
+                    labels: ["Menstruation", "Ovulation", "Normal Days"],
+                    datasets: [{
+                        data: [5, 5, 18],
+                        backgroundColor: ["#8B0000", "#ffeb3b", "#4caf50"],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: "bottom" } }
+                }
+            });
+        });
+
+        function toggleMusic() {
+            const music = document.getElementById("relaxingMusic");
+            music.paused ? music.play() : music.pause();
+        }
+    </script>
+
+    <style>
+
+        /* New Styling for Days Left Notification */
+        .days-left-notification {
+            background-color: #ffeb3b;
+            color: #8B0000;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+            margin: 10px 0;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Alert Box Styling */
+        .alert {
+            background-color: #ffcccb;
+            color: #8B0000;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Alert fade-out effect */
+        .alert {
+            animation: fadeOut 5s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff5f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #8B0000; /* Deep red */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .logo {
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 40px;
+        }
+
+        .left-section, .right-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 45%;
+        }
+
+                /* Precautions and Foods Section Styling */
+        .precautions-foods {
+            margin-top: 30px;
+            background: #ffccd5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .precautions-foods h3 {
+            font-size: 1.2em;
+            color: #8B0000;
+            font-weight: bold;
+        }
+
+        .precautions-foods ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .precautions-foods li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+
+        button {
+            background-color: #8B0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover { background-color: #a30000; }
+
+        .music-section {
+            margin-top: 60px;
+            background: linear-gradient(135deg, #ffe4e1, #ffccd5);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .music-btn {
+            background-color: #d32f2f;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .music-btn:hover { background-color: #b71c1c; }
+
+        canvas { max-width: 300px; 
+            max-height: 300px; 
+            margin: 0 auto;
+        }
+    </style>
+</body>
+</html>
